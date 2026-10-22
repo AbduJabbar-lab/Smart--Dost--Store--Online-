@@ -9,6 +9,67 @@
   <meta name="description" content="Shop useful everyday products, accessories, books and stationery at Smart Dost Store Online.">
   <title>Smart Dost Store Online | Shop Smart</title>
 
+/* Product catalogue */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid #e0e7ee;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 5px 18px rgba(16,45,70,.07);
+}
+
+.product-card img {
+  width: 100%;
+  height: 155px;
+  object-fit: cover;
+  display: block;
+  background: #e8f4f7;
+}
+
+.product-info { padding: 13px; }
+
+.product-info h3 {
+  color: #102d46;
+  font-size: 15px;
+  line-height: 1.35;
+  min-height: 40px;
+  margin: 0 0 7px;
+}
+
+.product-price {
+  color: #176b87;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.product-info .btn {
+  width: 100%;
+  padding: 10px 6px;
+  font-size: 13px;
+}
+
+.price-note {
+  color: #667788;
+  font-size: 12px;
+  margin: 8px 0 20px;
+}
+
+@media (max-width: 760px) {
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .product-card img { height: 135px; }
+}
+
+@media (max-width: 360px) {
+  .product-info { padding: 9px; }
+  .product-card img { height: 115px; }
+}
+
   <style>
     :root {
       --navy: #102d46;
@@ -572,6 +633,32 @@
         font-size: 29px;
       }
 
+
+<section id="products">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Our Products</h2>
+        <p>Choose your product and tap Order Now.</p>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <input id="productSearch" type="search"
+             placeholder="Search products..."
+             aria-label="Search products">
+    </div>
+
+    <div id="productGrid" class="product-grid"></div>
+    <p id="productEmpty" class="empty-message">No products found.</p>
+
+    <p class="price-note">
+      Sample prices only. Actual price, stock, model and delivery charges
+      must be confirmed before payment.
+    </p>
+  </div>
+</section>
+
       .order-layout { grid-template-columns: 1fr; }
 
       .trust-grid { grid-template-columns: 1fr; }
@@ -589,6 +676,163 @@
     }
   </style>
 </head>
+
+const storeProducts = [
+  {n:"Mobile Cover - Infinix",c:"Mobile Accessories",p:350,i:"photo-1601593346740-925612772716"},
+  {n:"Mobile Cover - Tecno",c:"Mobile Accessories",p:350,i:"photo-1601593346740-925612772716"},
+  {n:"Mobile Cover - Oppo",c:"Mobile Accessories",p:400,i:"photo-1601593346740-925612772716"},
+  {n:"Mobile Cover - Vivo",c:"Mobile Accessories",p:400,i:"photo-1601593346740-925612772716"},
+  {n:"Mobile Cover - Samsung",c:"Mobile Accessories",p:450,i:"photo-1601593346740-925612772716"},
+  {n:"Mobile Cover - Redmi",c:"Mobile Accessories",p:350,i:"photo-1601593346740-925612772716"},
+  {n:"Mobile Cover - Realme",c:"Mobile Accessories",p:350,i:"photo-1601593346740-925612772716"},
+  {n:"Mobile Cover - iPhone",c:"Mobile Accessories",p:500,i:"photo-1601593346740-925612772716"},
+  {n:"Tempered Glass - Standard",c:"Mobile Accessories",p:200,i:"photo-1512499617640-c74ae3a79d37"},
+  {n:"Tempered Glass - Premium",c:"Mobile Accessories",p:350,i:"photo-1512499617640-c74ae3a79d37"},
+  {n:"Privacy Screen Protector",c:"Mobile Accessories",p:700,i:"photo-1512499617640-c74ae3a79d37"},
+  {n:"Camera Lens Protector",c:"Mobile Accessories",p:250,i:"photo-1512499617640-c74ae3a79d37"},
+  {n:"USB-C Charger",c:"Mobile Accessories",p:800,i:"photo-1583394838336-acd977736f90"},
+  {n:"Fast Charger",c:"Mobile Accessories",p:1500,i:"photo-1583394838336-acd977736f90"},
+  {n:"Micro USB Cable",c:"Mobile Accessories",p:200,i:"photo-1558618666-fcd25c85cd64"},
+  {n:"USB-C Cable",c:"Mobile Accessories",p:300,i:"photo-1558618666-fcd25c85cd64"},
+  {n:"Lightning Cable",c:"Mobile Accessories",p:500,i:"photo-1558618666-fcd25c85cd64"},
+  {n:"Braided Charging Cable",c:"Mobile Accessories",p:450,i:"photo-1558618666-fcd25c85cd64"},
+  {n:"Wireless Earbuds",c:"Mobile Accessories",p:1800,i:"photo-1590658268037-6bf12165a8df"},
+  {n:"Bluetooth Earbuds Premium",c:"Mobile Accessories",p:3500,i:"photo-1590658268037-6bf12165a8df"},
+  {n:"Wired Earphones",c:"Mobile Accessories",p:350,i:"photo-1590658268037-6bf12165a8df"},
+  {n:"Bluetooth Headphones",c:"Mobile Accessories",p:2500,i:"photo-1505740420928-5e560c06d30e"},
+  {n:"Over-Ear Headphones",c:"Mobile Accessories",p:4000,i:"photo-1505740420928-5e560c06d30e"},
+  {n:"Kids Headphones",c:"Mobile Accessories",p:1200,i:"photo-1505740420928-5e560c06d30e"},
+  {n:"Phone Holder",c:"Mobile Accessories",p:500,i:"photo-1512499617640-c74ae3a79d37"},
+  {n:"Mobile Stand",c:"Mobile Accessories",p:300,i:"photo-1512499617640-c74ae3a79d37"},
+  {n:"Power Bank",c:"Mobile Accessories",p:2500,i:"photo-1609091839311-d5365f9ff1c5"},
+  {n:"USB Adapter",c:"Mobile Accessories",p:250,i:"photo-1583394838336-acd977736f90"},
+
+  {n:"School Copy - Small",c:"Books & Stationery",p:60,i:"photo-1531346878377-a5be20888e57"},
+  {n:"School Copy - Large",c:"Books & Stationery",p:150,i:"photo-1531346878377-a5be20888e57"},
+  {n:"Register / Notebook",c:"Books & Stationery",p:250,i:"photo-1531346878377-a5be20888e57"},
+  {n:"Ballpoint Pens Pack",c:"Books & Stationery",p:200,i:"photo-1455390582262-044cdea277a9"},
+  {n:"Pencils and Erasers",c:"Books & Stationery",p:100,i:"photo-1455390582262-044cdea277a9"},
+  {n:"STB Class 1 Books",c:"Books & Stationery",p:500,i:"photo-1544947950-fa07a98d237f"},
+  {n:"STB Class 2 Books",c:"Books & Stationery",p:600,i:"photo-1544947950-fa07a98d237f"},
+  {n:"STB Class 3 Books",c:"Books & Stationery",p:700,i:"photo-1544947950-fa07a98d237f"},
+  {n:"STB Class 4 Books",c:"Books & Stationery",p:800,i:"photo-1544947950-fa07a98d237f"},
+  {n:"STB Class 5 Books",c:"Books & Stationery",p:900,i:"photo-1544947950-fa07a98d237f"},
+  {n:"STB Class 6 Books",c:"Books & Stationery",p:1000,i:"photo-1544947950-fa07a98d237f"},
+  {n:"STB Class 7 Books",c:"Books & Stationery",p:1000,i:"photo-1544947950-fa07a98d237f"},
+  {n:"STB Class 8 Books",c:"Books & Stationery",p:1200,i:"photo-1544947950-fa07a98d237f"},
+  {n:"STB Class 9 Books",c:"Books & Stationery",p:1500,i:"photo-1544947950-fa07a98d237f"},
+  {n:"STB Class 10 Books",c:"Books & Stationery",p:1500,i:"photo-1544947950-fa07a98d237f"},
+
+  {n:"Men's T-Shirt",c:"Clothing",p:800,i:"photo-1521572163474-6864f9cf17ab"},
+  {n:"Men's Casual Shirt",c:"Clothing",p:1500,i:"photo-1596755094514-f87e34085b2c"},
+  {n:"Kids T-Shirt",c:"Clothing",p:500,i:"photo-1521572163474-6864f9cf17ab"},
+  {n:"Casual Trousers",c:"Clothing",p:1800,i:"photo-1473966968600-fa801b869a1a"},
+  {n:"Women's Scarf",c:"Clothing",p:700,i:"photo-1601924994987-69e26d50dc26"},
+
+  {n:"Classic Analog Watch",c:"Watches",p:1200,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Minimalist Watch",c:"Watches",p:1500,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Leather Strap Watch",c:"Watches",p:2200,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Metal Strap Watch",c:"Watches",p:2500,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Black Dial Watch",c:"Watches",p:1800,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Silver Dial Watch",c:"Watches",p:2000,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Gold-Tone Watch",c:"Watches",p:2800,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Brown Strap Watch",c:"Watches",p:1700,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Sports Watch",c:"Watches",p:1600,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Digital Sports Watch",c:"Watches",p:1400,i:"photo-1524805444758-089113d48a6d"},
+  {n:"LED Digital Watch",c:"Watches",p:1300,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Kids Digital Watch",c:"Watches",p:800,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Kids Cartoon Watch",c:"Watches",p:700,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Women's Elegant Watch",c:"Watches",p:2200,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Women's Slim Watch",c:"Watches",p:2500,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Rose-Gold Watch",c:"Watches",p:2800,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Mesh Strap Watch",c:"Watches",p:3000,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Square Dial Watch",c:"Watches",p:1800,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Round Dial Watch",c:"Watches",p:1600,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Chronograph Style Watch",c:"Watches",p:3500,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Fashion Watch",c:"Watches",p:1900,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Casual Everyday Watch",c:"Watches",p:1100,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Office Wear Watch",c:"Watches",p:2400,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Classic White Dial Watch",c:"Watches",p:1700,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Classic Blue Dial Watch",c:"Watches",p:2000,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Classic Green Dial Watch",c:"Watches",p:2300,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Black Sports Digital Watch",c:"Watches",p:1500,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Water-Resistant Style Watch",c:"Watches",p:3000,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Silicone Strap Watch",c:"Watches",p:1200,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Stainless-Steel Style Watch",c:"Watches",p:3200,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Vintage Style Watch",c:"Watches",p:2600,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Fashion Square Watch",c:"Watches",p:2100,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Couple Style Watch",c:"Watches",p:4000,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Premium Look Watch",c:"Watches",p:4500,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Everyday Metal Watch",c:"Watches",p:2800,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Simple Leather Watch",c:"Watches",p:1400,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Fashion Number Dial Watch",c:"Watches",p:1900,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Digital Alarm Watch",c:"Watches",p:1300,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Sporty Silicone Watch",c:"Watches",p:1700,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Smartwatch Style Basic",c:"Watches",p:3500,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Smartwatch Style Premium",c:"Watches",p:4900,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Fitness Style Watch",c:"Watches",p:3000,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Blue Strap Watch",c:"Watches",p:1600,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Red Strap Watch",c:"Watches",p:1400,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Elegant Gold Dial Watch",c:"Watches",p:3200,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Silver Mesh Fashion Watch",c:"Watches",p:2700,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Black Minimal Watch",c:"Watches",p:2000,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Brown Classic Watch",c:"Watches",p:2300,i:"photo-1524805444758-089113d48a6d"},
+  {n:"Modern Square Smartwatch Style",c:"Watches",p:4200,i:"photo-1524805444758-089113d48a6d"}
+];
+
+const productGrid = document.getElementById("productGrid");
+const productSearch = document.getElementById("productSearch");
+const productEmpty = document.getElementById("productEmpty");
+
+function renderStoreProducts(query = "") {
+  const filtered = storeProducts.filter(product =>
+    (product.n + " " + product.c).toLowerCase().includes(query.toLowerCase())
+  );
+
+  productGrid.innerHTML = filtered.map(product => `
+    <article class="product-card">
+      <img
+        src="https://images.unsplash.com/${product.i}?auto=format&fit=crop&w=600&q=75"
+        alt="${product.n}"
+        loading="lazy"
+        onerror="this.onerror=null;this.src='https://placehold.co/600x400/e9f8f7/102d46?text=Product+Photo';">
+      <div class="product-info">
+        <h3>${product.n}</h3>
+        <div class="product-price">Rs. ${product.p.toLocaleString("en-PK")}</div>
+        <button class="btn order-product"
+          data-name="${product.n}"
+          data-category="${product.c}"
+          data-price="${product.p}">
+          Order Now
+        </button>
+      </div>
+    </article>
+  `).join("");
+
+  productEmpty.style.display = filtered.length ? "none" : "block";
+}
+
+renderStoreProducts();
+
+productSearch.addEventListener("input", () => {
+  renderStoreProducts(productSearch.value.trim());
+});
+
+productGrid.addEventListener("click", event => {
+  const button = event.target.closest(".order-product");
+  if (!button) return;
+
+  const categorySelect = document.getElementById("product");
+  const detailsInput = document.getElementById("details");
+  const orderSection = document.getElementById("order");
+
+  categorySelect.value = button.dataset.category;
+  detailsInput.value =
+    button.dataset.name + " - Sample price Rs. " + button.dataset.price;
+
+  orderSection.scrollIntoView({behavior: "smooth"});
+  setTimeout(() => detailsInput.focus(), 500);
+});
 
 <body>
   <div class="topbar">
