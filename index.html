@@ -1,808 +1,488 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#102d46">
-  <meta name="description" content="Shop useful everyday products, accessories, books and stationery at Smart Dost Store Online.">
-  <title>Smart Dost Store Online | Shop Smart</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102d46">
+<meta name="description" content="Smart Dost Store Online - mobile accessories, watches, books, clothing and everyday products.">
+<title>Smart Dost Store Online</title>
 
-/* Product catalogue */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+<style>
+:root {
+  --navy:#102d46;
+  --blue:#176b87;
+  --teal:#e9f8f7;
+  --gold:#f3bd4e;
+  --text:#243447;
+  --muted:#667788;
+  --border:#e2e8ef;
 }
-
-.product-card {
-  background: #fff;
-  border: 1px solid #e0e7ee;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 5px 18px rgba(16,45,70,.07);
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:#f7f9fc;
+  line-height:1.6;
 }
-
-.product-card img {
-  width: 100%;
-  height: 155px;
-  object-fit: cover;
-  display: block;
-  background: #e8f4f7;
+a { text-decoration:none; color:inherit; }
+button,input,select,textarea { font:inherit; }
+button { cursor:pointer; }
+.container { width:min(1120px,92%); margin:auto; }
+.topbar {
+  background:#0b2033; color:white; text-align:center;
+  padding:8px; font-size:13px;
 }
-
-.product-info { padding: 13px; }
-
-.product-info h3 {
-  color: #102d46;
-  font-size: 15px;
-  line-height: 1.35;
-  min-height: 40px;
-  margin: 0 0 7px;
+header {
+  position:sticky; top:0; z-index:10;
+  background:white; box-shadow:0 3px 15px #00000010;
 }
-
-.product-price {
-  color: #176b87;
-  font-weight: 800;
-  margin-bottom: 10px;
+.navbar {
+  min-height:70px; display:flex; justify-content:space-between;
+  align-items:center; gap:15px; padding:12px 0;
 }
-
-.product-info .btn {
-  width: 100%;
-  padding: 10px 6px;
-  font-size: 13px;
+.brand { color:var(--navy); font-weight:800; font-size:20px; }
+nav { display:flex; gap:15px; align-items:center; flex-wrap:wrap; font-size:14px; }
+.btn {
+  display:inline-block; border:0; border-radius:10px;
+  background:var(--blue); color:white; padding:11px 16px;
+  font-weight:bold;
 }
-
-.price-note {
-  color: #667788;
-  font-size: 12px;
-  margin: 8px 0 20px;
+.btn:hover { background:var(--navy); }
+.hero {
+  padding:55px 0; color:white;
+  background:linear-gradient(125deg,#102d46,#176b87);
 }
-
-@media (max-width: 760px) {
-  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .product-card img { height: 135px; }
+.hero-inner {
+  display:grid; grid-template-columns:1.3fr .7fr;
+  align-items:center; gap:25px;
 }
-
-@media (max-width: 360px) {
-  .product-info { padding: 9px; }
-  .product-card img { height: 115px; }
+.hero h1 { font-size:clamp(32px,5vw,50px); line-height:1.15; margin:15px 0; }
+.hero p { color:#e4f1f8; }
+.hero-art {
+  text-align:center; padding:30px 15px; border-radius:20px;
+  background:#ffffff15; font-size:70px;
 }
-
-  <style>
-    :root {
-      --navy: #102d46;
-      --blue: #176b87;
-      --teal: #e9f8f7;
-      --gold: #f3bd4e;
-      --text: #243447;
-      --muted: #667788;
-      --white: #ffffff;
-      --border: #e2e8ef;
-      --shadow: 0 8px 28px rgba(16, 45, 70, .09);
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background: #f7f9fc;
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    button, input, select, textarea {
-      font: inherit;
-    }
-
-    button, .btn {
-      cursor: pointer;
-    }
-
-    .container {
-      width: min(1120px, 92%);
-      margin: auto;
-    }
-
-    .topbar {
-      background: #0b2033;
-      color: #eaf4fa;
-      text-align: center;
-      padding: 8px 12px;
-      font-size: 13px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: var(--white);
-      box-shadow: 0 3px 15px rgba(0,0,0,.06);
-    }
-
-    .navbar {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 12px 0;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .logo {
-      width: 46px;
-      height: 46px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      background: var(--navy);
-      color: var(--gold);
-      font-size: 25px;
-      font-weight: 800;
-    }
-
-    .brand-name {
-      color: var(--navy);
-      font-size: 18px;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .brand-sub {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    nav a:hover { color: var(--blue); }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      border: 0;
-      border-radius: 10px;
-      background: var(--blue);
-      color: white;
-      padding: 12px 18px;
-      font-weight: 700;
-      transition: .2s;
-    }
-
-    .btn:hover {
-      background: var(--navy);
-      transform: translateY(-1px);
-    }
-
-    .btn-gold {
-      background: var(--gold);
-      color: #172b3a;
-    }
-
-    .btn-gold:hover {
-      background: #ffd271;
-      color: #172b3a;
-    }
-
-    .hero {
-      background: linear-gradient(125deg, #102d46, #176b87);
-      color: white;
-      padding: 64px 0;
-      overflow: hidden;
-    }
-
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1.4fr .8fr;
-      align-items: center;
-      gap: 28px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 30px;
-      background: rgba(255,255,255,.13);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .3px;
-    }
-
-    h1 {
-      margin: 18px 0 14px;
-      font-size: clamp(32px, 5vw, 51px);
-      line-height: 1.12;
-    }
-
-    .hero p {
-      max-width: 550px;
-      color: #e4f1f8;
-      margin: 0 0 24px;
-    }
-
-    .hero-art {
-      min-height: 245px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 30px;
-      background: rgba(255,255,255,.09);
-      padding: 25px;
-    }
-
-    .hero-art .big-icon { font-size: 90px; }
-
-    .hero-art strong {
-      display: block;
-      font-size: 21px;
-    }
-
-    .hero-art span {
-      color: #d7eaf4;
-      font-size: 14px;
-    }
-
-    .benefits {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: -24px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .benefit {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: white;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: 17px;
-      border-radius: 15px;
-    }
-
-    .benefit-icon { font-size: 27px; }
-
-    .benefit strong {
-      display: block;
-      font-size: 14px;
-    }
-
-    .benefit small {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    section { padding: 58px 0; }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      color: var(--navy);
-      font-size: clamp(24px, 3vw, 32px);
-      line-height: 1.25;
-    }
-
-    .section-head p {
-      margin: 7px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .search-wrap {
-      width: min(100%, 340px);
-      margin-bottom: 22px;
-    }
-
-    .search-wrap input {
-      width: 100%;
-      padding: 13px 15px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: white;
-      outline: none;
-    }
-
-    .search-wrap input:focus,
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(23,107,135,.12);
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .category-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 4px 18px rgba(16,45,70,.04);
-      transition: .2s;
-    }
-
-    .category-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
-    }
-
-    
+.hero-art strong { display:block; font-size:20px; }
+section { padding:45px 0; }
+.section-head { margin-bottom:20px; }
+.section-head h2 { color:var(--navy); margin:0; font-size:29px; }
+.section-head p { color:var(--muted); margin:5px 0; }
+.search-wrap { margin:15px 0 22px; }
+.search-wrap input {
+  width:100%; padding:13px; border:1px solid var(--border);
+  border-radius:10px; background:white;
+}
+.category-grid {
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px;
+}
+.category-card {
+  background:white; padding:17px; border:1px solid var(--border);
+  border-radius:15px; box-shadow:0 4px 15px #102d4608;
+}
 .category-icon {
-  width: 100%;
-  height: 145px;
-  display: grid;
-  place-items: center;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #d8f3ff, #d9fbe5, #fff0cc);
-  font-size: 65px;
-  margin-bottom: 16px;
-  border: 1px solid #dceaf0;
-  box-shadow: inset 0 0 25px rgba(255,255,255,.55);
+  display:grid; place-items:center; height:90px; font-size:45px;
+  background:linear-gradient(135deg,#d8f3ff,#d9fbe5,#fff0cc);
+  border-radius:12px; margin-bottom:12px;
 }
+.category-card h3 { margin:0 0 5px; color:var(--navy); font-size:17px; }
+.category-card p { font-size:13px; color:var(--muted); }
+.text-btn {
+  border:0; background:none; padding:0; color:var(--blue);
+  font-weight:bold; text-align:left;
+}
+.product-section { background:#f0f6fa; }
+.product-grid {
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px;
+}
+.product-card {
+  background:white; border:1px solid var(--border);
+  border-radius:14px; overflow:hidden;
+}
+.product-card img {
+  display:block; width:100%; height:155px; object-fit:cover;
+  background:#e9f8f7;
+}
+.product-info { padding:12px; }
+.product-info h3 { font-size:15px; line-height:1.35; min-height:40px; margin:0 0 8px; }
+.product-price { color:var(--blue); font-weight:bold; margin-bottom:10px; }
+.product-info .btn { width:100%; padding:9px 5px; font-size:13px; }
+.price-note { font-size:12px; color:var(--muted); }
+.empty-message { display:none; color:var(--muted); }
+.order-section { background:var(--teal); }
+.order-layout {
+  display:grid; grid-template-columns:.8fr 1.2fr; gap:25px; align-items:start;
+}
+.order-info h2 { color:var(--navy); font-size:30px; }
+.order-form {
+  background:white; border:1px solid #d9e9e8;
+  border-radius:18px; padding:22px;
+}
+.order-form h3 { margin:0; color:var(--navy); font-size:23px; }
+.form-intro { font-size:13px; color:var(--muted); }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.field { display:flex; flex-direction:column; gap:5px; min-width:0; }
+.field.full { grid-column:1/-1; }
+.field label { font-size:13px; font-weight:bold; }
+.field input,.field select,.field textarea {
+  width:100%; min-width:0; padding:11px;
+  border:1px solid #d7e0e8; border-radius:9px;
+}
+.field textarea { min-height:80px; }
+.submit-btn { width:100%; margin-top:17px; }
+.safe-note { font-size:11px; text-align:center; color:var(--muted); }
+.trust-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
+.trust-card {
+  padding:20px; border:1px solid var(--border);
+  border-radius:14px; background:white;
+}
+.notice { background:#fff8e7; padding:15px; border-radius:10px; font-size:13px; margin-top:20px; }
+footer { background:#0b2033; color:white; padding:28px 0; }
+footer p,footer a { color:#c6d5e0; font-size:13px; }
+.footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.footer-links { display:flex; flex-direction:column; gap:6px; }
+.copyright { border-top:1px solid #ffffff25; padding-top:12px; font-size:12px; text-align:center; }
 
+@media(max-width:760px) {
+  .navbar { align-items:flex-start; flex-direction:column; }
+  nav { gap:12px; }
+  .hero-inner,.order-layout { grid-template-columns:1fr; }
+  .hero { padding:35px 0; }
+  .hero-art { padding:15px; font-size:48px; }
+  .category-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .product-card img { height:135px; }
+  .trust-grid,.footer-grid { grid-template-columns:1fr; }
+}
+@media(max-width:380px) {
+  .category-grid { gap:9px; }
+  .category-card { padding:11px; }
+  .form-grid { grid-template-columns:1fr; }
+  .field.full { grid-column:auto; }
+  .product-info { padding:9px; }
+}
+</style>
+</head>
 
-    .category-card h3 {
-      margin: 0 0 7px;
-      color: var(--navy);
-      font-size: 18px;
-    }
+<body>
+<div class="topbar">Welcome to Smart Dost Store Online — Shop smart, live better!</div>
 
-    .category-card p {
-      margin: 0 0 17px;
-      color: var(--muted);
-      font-size: 13px;
-    }
+<header>
+  <div class="container navbar">
+    <a class="brand" href="#home">🛍️ Smart Dost Store</a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#categories">Categories</a>
+      <a href="#products">Products</a>
+      <a href="#order">Place an Order</a>
+    </nav>
+  </div>
+</header>
 
-    .text-btn {
-      color: var(--blue);
-      font-size: 14px;
-      font-weight: 800;
-      border: 0;
-      padding: 0;
-      background: transparent;
-    }
-
-    .text-btn:hover { text-decoration: underline; }
-
-    .empty-message {
-      display: none;
-      padding: 20px 0;
-      color: var(--muted);
-    }
-
-    .order-section {
-      background: var(--teal);
-    }
-
-    .order-layout {
-      display: grid;
-      grid-template-columns: .8fr 1.2fr;
-      gap: 28px;
-      align-items: start;
-    }
-
-    .order-info {
-      padding: 12px 0;
-    }
-
-    .order-info h2 {
-      color: var(--navy);
-      font-size: 30px;
-      line-height: 1.2;
-      margin: 0 0 15px;
-    }
-
-    .order-info p { color: #4e6677; }
-
-    .steps {
-      list-style: none;
-      padding: 0;
-      margin: 22px 0;
-    }
-
-    .steps li {
-      margin: 13px 0;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-
-    .check {
-      color: #137b62;
-      font-weight: 900;
-    }
-
-    .order-form {
-      background: white;
-      border: 1px solid #d9e9e8;
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: var(--shadow);
-    }
-
-    .order-form h3 {
-      margin: 0 0 5px;
-      color: var(--navy);
-      font-size: 23px;
-    }
-
-    .form-intro {
-      color: var(--muted);
-      font-size: 13px;
-      margin: 0 0 20px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      min-width: 0;
-    }
-
-    .field.full { grid-column: 1 / -1; }
-
-    .field label {
-      font-size: 13px;
-      font-weight: 700;
-      color: #33495b;
-    }
-
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      min-width: 0;
-      padding: 12px;
-      border: 1px solid #d7e0e8;
-      border-radius: 10px;
-      background: #fff;
-      outline: none;
-    }
-
-    .field textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    .submit-btn {
-      width: 100%;
-      margin-top: 18px;
-      padding: 14px;
-      font-size: 16px;
-    }
-
-    .safe-note {
-      margin: 13px 0 0;
-      color: var(--muted);
-      font-size: 11px;
-      text-align: center;
-    }
-
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .trust-card {
-      padding: 22px;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      background: white;
-    }
-
-    .trust-card span { font-size: 28px; }
-
-    .trust-card h3 {
-      margin: 9px 0 5px;
-      color: var(--navy);
-      font-size: 17px;
-    }
-
-    .trust-card p {
-      color: var(--muted);
-      font-size: 13px;
-      margin: 0;
-    }
-
-    .notice {
-      margin-top: 24px;
-      padding: 15px;
-      border-radius: 12px;
-      background: #fff8e7;
-      border: 1px solid #f1dfb4;
-      color: #674c15;
-      font-size: 13px;
-    }
-
-    footer {
-      padding: 35px 0 18px;
-      background: #0b2033;
-      color: #e8f1f7;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 25px;
-      padding-bottom: 25px;
-    }
-
-    footer h3 { margin: 0 0 10px; }
-
-    footer p, footer a {
-      color: #c6d5e0;
-      font-size: 13px;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .copyright {
-      border-top: 1px solid rgba(255,255,255,.15);
-      padding-top: 15px;
-      color: #a9bfce;
-      font-size: 12px;
-      text-align: center;
-    }
-
-    @media (max-width: 760px) {
-      .navbar {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      nav {
-        width: 100%;
-        gap: 17px;
-        flex-wrap: wrap;
-        font-size: 13px;
-      }
-
-      .hero { padding: 43px 0; }
-
-      .hero-inner { grid-template-columns: 1fr; }
-
-      .hero-art {
-        min-height: 155px;
-        padding: 15px;
-      }
-
-      .hero-art .big-icon { font-size: 58px; }
-
-      .benefits {
-        grid-template-columns: 1fr;
-        margin-top: 18px;
-      }
-
-      section { padding: 43px 0; }
-
-      .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-      .category-card { padding: 16px; }
-
-      .category-card h3 { font-size: 16px; }
-
-      .category-icon {
-        width: 54px;
-        height: 54px;
-        font-size: 29px;
-      }
-
-
-<section id="products">
-  <div class="container">
-    <div class="section-head">
-      <div>
-        <h2>Our Products</h2>
-        <p>Choose your product and tap Order Now.</p>
-      </div>
+<main>
+<section class="hero" id="home">
+  <div class="container hero-inner">
+    <div>
+      <p>YOUR EVERYDAY SHOPPING PARTNER</p>
+      <h1>Good Products.<br>Smart Choices.</h1>
+      <p>Mobile accessories, watches, school books, clothing, bags and useful home products — browse and send an order request.</p>
+      <a class="btn" href="#categories" style="background:#f3bd4e;color:#102d46">Explore Categories →</a>
     </div>
-
-    <div class="search-wrap">
-      <input id="productSearch" type="search"
-             placeholder="Search products..."
-             aria-label="Search products">
-    </div>
-
-    <div id="productGrid" class="product-grid"></div>
-    <p id="productEmpty" class="empty-message">No products found.</p>
-
-    <p class="price-note">
-      Sample prices only. Actual price, stock, model and delivery charges
-      must be confirmed before payment.
-    </p>
+    <div class="hero-art">🛍️<strong>Shopping Made Simple</strong><small>Browse • Choose • Order</small></div>
   </div>
 </section>
 
-      .order-layout { grid-template-columns: 1fr; }
+<section id="categories">
+<div class="container">
+  <div class="section-head">
+    <h2>Shop by Category</h2>
+    <p>Choose a category to see its products.</p>
+  </div>
+  <div class="search-wrap">
+    <input id="categorySearch" type="search" placeholder="Search categories..." aria-label="Search categories">
+  </div>
+  <div class="category-grid" id="categoryGrid">
+    <article class="category-card" data-search="mobile accessories covers chargers glass earbuds headphones cables">
+      <div class="category-icon">📱</div><h3>Mobile Accessories</h3>
+      <p>Covers, screen protectors, chargers, earbuds, headphones and cables.</p>
+      <button class="text-btn choose-category" data-category="Mobile Accessories">View products →</button>
+    </article>
+    <article class="category-card" data-search="watches watch wrist smart digital analog">
+      <div class="category-icon">⌚</div><h3>Watches</h3>
+      <p>50 different watch styles, with sample prices up to Rs. 5,000.</p>
+      <button class="text-btn choose-category" data-category="Watches">View products →</button>
+    </article>
+    <article class="category-card" data-search="home essentials household kitchen">
+      <div class="category-icon">🏠</div><h3>Home Essentials</h3>
+      <p>Useful products for everyday home needs.</p>
+      <button class="text-btn choose-category" data-category="Home Essentials">View products →</button>
+    </article>
+    <article class="category-card" data-search="bags accessories school backpack travel purse">
+      <div class="category-icon">🎒</div><h3>Bags &amp; Accessories</h3>
+      <p>School bags, travel bags and everyday accessories.</p>
+      <button class="text-btn choose-category" data-category="Bags & Accessories">View products →</button>
+    </article>
+    <article class="category-card" data-search="clothing clothes fashion shirts trousers">
+      <div class="category-icon">👕</div><h3>Clothing</h3>
+      <p>Clothes and fashion items.</p>
+      <button class="text-btn choose-category" data-category="Clothing">View products →</button>
+    </article>
+    <article class="category-card" data-search="books stationery school sindh textbook board stb copies notebooks">
+      <div class="category-icon">📚</div><h3>Books &amp; Stationery</h3>
+      <p>STB class books, copies, notebooks and stationery.</p>
+      <button class="text-btn choose-category" data-category="Books & Stationery">View products →</button>
+    </article>
+    <article class="category-card" data-search="other products general">
+      <div class="category-icon">✨</div><h3>Other Products</h3>
+      <p>Other useful items.</p>
+      <button class="text-btn choose-category" data-category="Other Products">View products →</button>
+    </article>
+  </div>
+  <p id="emptyMessage" class="empty-message">No matching categories found.</p>
+</div>
+</section>
 
-      .trust-grid { grid-template-columns: 1fr; }
+<section id="products" class="product-section">
+<div class="container">
+  <div class="section-head">
+    <h2 id="productHeading">All Products</h2>
+    <p>Choose a product and tap Order Now.</p>
+  </div>
+  <div class="search-wrap">
+    <input id="productSearch" type="search" placeholder="Search products..." aria-label="Search products">
+  </div>
+  <div id="productGrid" class="product-grid"></div>
+  <p id="productEmpty" class="empty-message">No products found in this category.</p>
+  <p class="price-note">Important: prices and photos are examples only, not confirmed stock or final selling prices. Confirm the model, actual price and delivery charges before paying.</p>
+</div>
+</section>
 
-      .footer-grid { grid-template-columns: 1fr; }
-    }
+<section id="order" class="order-section">
+<div class="container order-layout">
+  <div class="order-info">
+    <h2>Place Your Order</h2>
+    <p>Fill in your contact and delivery details. We will confirm the requested product, final price and availability.</p>
+    <p><strong>Important:</strong> Wait for confirmation before making payment. Never share your PIN or OTP.</p>
+  </div>
 
-    @media (max-width: 420px) {
-      .category-grid { gap: 11px; }
-      .category-card { padding: 13px; }
-      .form-grid { grid-template-columns: 1fr; }
-      .field.full { grid-column: auto; }
-      .order-form { padding: 18px; }
-      .section-head { align-items: flex-start; flex-direction: column; }
-    }
-  </style>
-</head>
+  <form class="order-form" action="https://formspree.io/f/xaeqrpkq" method="POST">
+    <h3>Order Request Form</h3>
+    <p class="form-intro">Fields marked * are required.</p>
+    <input type="hidden" name="_subject" value="New order - Smart Dost Store Online">
+
+    <div class="form-grid">
+      <div class="field">
+        <label for="customerName">Full Name *</label>
+        <input id="customerName" type="text" name="Customer Name" placeholder="Enter your name" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="phone">Phone Number *</label>
+        <input id="phone" type="tel" name="Phone Number" placeholder="03XXXXXXXXX" autocomplete="tel" required>
+      </div>
+      <div class="field full">
+        <label for="product">Product Category *</label>
+        <select id="product" name="Product" required>
+          <option value="">Choose a category</option>
+          <option>Mobile Accessories</option>
+          <option>Watches</option>
+          <option>Home Essentials</option>
+          <option>Bags &amp; Accessories</option>
+          <option>Clothing</option>
+          <option>Books &amp; Stationery</option>
+          <option>Other Products</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label for="details">Product Details *</label>
+        <input id="details" type="text" name="Product Details" placeholder="Product name, model, size or colour" required>
+      </div>
+      <div class="field">
+        <label for="quantity">Quantity *</label>
+        <input id="quantity" type="number" name="Quantity" min="1" max="100" value="1" required>
+      </div>
+      <div class="field">
+        <label for="payment">Preferred Payment Method</label>
+        <select id="payment" name="Payment Method">
+          <option value="Discuss before payment">Discuss before payment</option>
+          <option value="JazzCash">JazzCash (confirm first)</option>
+          <option value="Easypaisa">Easypaisa (confirm first)</option>
+          <option value="Cash on Delivery if available">Cash on Delivery (if available)</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label for="address">Delivery Address *</label>
+        <textarea id="address" name="Delivery Address" placeholder="City, area and delivery address" autocomplete="street-address" required></textarea>
+      </div>
+      <div class="field full">
+        <label for="message">Additional Message</label>
+        <textarea id="message" name="Additional Message" placeholder="Any other details?"></textarea>
+      </div>
+    </div>
+    <button class="btn submit-btn" type="submit">Submit Order Request →</button>
+    <p class="safe-note">This is an order request, not a confirmed purchase. Never enter your banking PIN, password or OTP.</p>
+  </form>
+</div>
+</section>
+
+<section id="why-us">
+<div class="container">
+  <div class="section-head"><h2>Why Shop With Us?</h2><p>Simple online order requests.</p></div>
+  <div class="trust-grid">
+    <article class="trust-card"><h3>📱 Easy Ordering</h3><p>Browse products on your mobile and submit a request.</p></article>
+    <article class="trust-card"><h3>💬 Clear Confirmation</h3><p>Confirm the final price and delivery details before paying.</p></article>
+    <article class="trust-card"><h3>📦 Availability Check</h3><p>Product availability must be checked before confirmation.</p></article>
+  </div>
+  <div class="notice"><strong>Please note:</strong> Product names, photos and prices are examples. Confirm real stock, price and delivery details before paying.</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <div class="footer-grid">
+    <div><h3>🛍️ Smart Dost Store Online</h3><p>Your everyday shopping partner.</p></div>
+    <div class="footer-links"><strong>Quick Links</strong><a href="#home">Home</a><a href="#categories">Categories</a><a href="#products">Products</a><a href="#order">Place an Order</a></div>
+  </div>
+  <div class="copyright">© <span id="year"></span> Smart Dost Store Online. All rights reserved.</div>
+</div>
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
 
 const storeProducts = [
-  {n:"Mobile Cover - Infinix",c:"Mobile Accessories",p:350,i:"photo-1601593346740-925612772716"},
-  {n:"Mobile Cover - Tecno",c:"Mobile Accessories",p:350,i:"photo-1601593346740-925612772716"},
-  {n:"Mobile Cover - Oppo",c:"Mobile Accessories",p:400,i:"photo-1601593346740-925612772716"},
-  {n:"Mobile Cover - Vivo",c:"Mobile Accessories",p:400,i:"photo-1601593346740-925612772716"},
-  {n:"Mobile Cover - Samsung",c:"Mobile Accessories",p:450,i:"photo-1601593346740-925612772716"},
-  {n:"Mobile Cover - Redmi",c:"Mobile Accessories",p:350,i:"photo-1601593346740-925612772716"},
-  {n:"Mobile Cover - Realme",c:"Mobile Accessories",p:350,i:"photo-1601593346740-925612772716"},
-  {n:"Mobile Cover - iPhone",c:"Mobile Accessories",p:500,i:"photo-1601593346740-925612772716"},
-  {n:"Tempered Glass - Standard",c:"Mobile Accessories",p:200,i:"photo-1512499617640-c74ae3a79d37"},
-  {n:"Tempered Glass - Premium",c:"Mobile Accessories",p:350,i:"photo-1512499617640-c74ae3a79d37"},
-  {n:"Privacy Screen Protector",c:"Mobile Accessories",p:700,i:"photo-1512499617640-c74ae3a79d37"},
-  {n:"Camera Lens Protector",c:"Mobile Accessories",p:250,i:"photo-1512499617640-c74ae3a79d37"},
-  {n:"USB-C Charger",c:"Mobile Accessories",p:800,i:"photo-1583394838336-acd977736f90"},
-  {n:"Fast Charger",c:"Mobile Accessories",p:1500,i:"photo-1583394838336-acd977736f90"},
-  {n:"Micro USB Cable",c:"Mobile Accessories",p:200,i:"photo-1558618666-fcd25c85cd64"},
-  {n:"USB-C Cable",c:"Mobile Accessories",p:300,i:"photo-1558618666-fcd25c85cd64"},
-  {n:"Lightning Cable",c:"Mobile Accessories",p:500,i:"photo-1558618666-fcd25c85cd64"},
-  {n:"Braided Charging Cable",c:"Mobile Accessories",p:450,i:"photo-1558618666-fcd25c85cd64"},
-  {n:"Wireless Earbuds",c:"Mobile Accessories",p:1800,i:"photo-1590658268037-6bf12165a8df"},
-  {n:"Bluetooth Earbuds Premium",c:"Mobile Accessories",p:3500,i:"photo-1590658268037-6bf12165a8df"},
-  {n:"Wired Earphones",c:"Mobile Accessories",p:350,i:"photo-1590658268037-6bf12165a8df"},
-  {n:"Bluetooth Headphones",c:"Mobile Accessories",p:2500,i:"photo-1505740420928-5e560c06d30e"},
-  {n:"Over-Ear Headphones",c:"Mobile Accessories",p:4000,i:"photo-1505740420928-5e560c06d30e"},
-  {n:"Kids Headphones",c:"Mobile Accessories",p:1200,i:"photo-1505740420928-5e560c06d30e"},
-  {n:"Phone Holder",c:"Mobile Accessories",p:500,i:"photo-1512499617640-c74ae3a79d37"},
-  {n:"Mobile Stand",c:"Mobile Accessories",p:300,i:"photo-1512499617640-c74ae3a79d37"},
-  {n:"Power Bank",c:"Mobile Accessories",p:2500,i:"photo-1609091839311-d5365f9ff1c5"},
-  {n:"USB Adapter",c:"Mobile Accessories",p:250,i:"photo-1583394838336-acd977736f90"},
+  {n:"Mobile Cover - Infinix",c:"Mobile Accessories",p:350,i:"1601593346740-925612772716"},
+  {n:"Mobile Cover - Tecno",c:"Mobile Accessories",p:350,i:"1601593346740-925612772716"},
+  {n:"Mobile Cover - Oppo",c:"Mobile Accessories",p:400,i:"1601593346740-925612772716"},
+  {n:"Mobile Cover - Vivo",c:"Mobile Accessories",p:400,i:"1601593346740-925612772716"},
+  {n:"Mobile Cover - Samsung",c:"Mobile Accessories",p:450,i:"1601593346740-925612772716"},
+  {n:"Mobile Cover - Redmi",c:"Mobile Accessories",p:350,i:"1601593346740-925612772716"},
+  {n:"Mobile Cover - Realme",c:"Mobile Accessories",p:350,i:"1601593346740-925612772716"},
+  {n:"Mobile Cover - iPhone",c:"Mobile Accessories",p:500,i:"1601593346740-925612772716"},
+  {n:"Tempered Glass - Standard",c:"Mobile Accessories",p:200,i:"1512499617640-c74ae3a79d37"},
+  {n:"Tempered Glass - Premium",c:"Mobile Accessories",p:350,i:"1512499617640-c74ae3a79d37"},
+  {n:"Privacy Screen Protector",c:"Mobile Accessories",p:700,i:"1512499617640-c74ae3a79d37"},
+  {n:"Camera Lens Protector",c:"Mobile Accessories",p:250,i:"1512499617640-c74ae3a79d37"},
+  {n:"USB-C Charger",c:"Mobile Accessories",p:800,i:"1583394838336-acd977736f90"},
+  {n:"Fast Charger",c:"Mobile Accessories",p:1500,i:"1583394838336-acd977736f90"},
+  {n:"Micro USB Cable",c:"Mobile Accessories",p:200,i:"1558618666-fcd25c85cd64"},
+  {n:"USB-C Cable",c:"Mobile Accessories",p:300,i:"1558618666-fcd25c85cd64"},
+  {n:"Lightning Cable",c:"Mobile Accessories",p:500,i:"1558618666-fcd25c85cd64"},
+  {n:"Braided Charging Cable",c:"Mobile Accessories",p:450,i:"1558618666-fcd25c85cd64"},
+  {n:"Wireless Earbuds",c:"Mobile Accessories",p:1800,i:"1590658268037-6bf12165a8df"},
+  {n:"Bluetooth Earbuds Premium",c:"Mobile Accessories",p:3500,i:"1590658268037-6bf12165a8df"},
+  {n:"Wired Earphones",c:"Mobile Accessories",p:350,i:"1590658268037-6bf12165a8df"},
+  {n:"Bluetooth Headphones",c:"Mobile Accessories",p:2500,i:"1505740420928-5e560c06d30e"},
+  {n:"Over-Ear Headphones",c:"Mobile Accessories",p:4000,i:"1505740420928-5e560c06d30e"},
+  {n:"Kids Headphones",c:"Mobile Accessories",p:1200,i:"1505740420928-5e560c06d30e"},
+  {n:"Phone Holder",c:"Mobile Accessories",p:500,i:"1512499617640-c74ae3a79d37"},
+  {n:"Mobile Stand",c:"Mobile Accessories",p:300,i:"1512499617640-c74ae3a79d37"},
+  {n:"Power Bank",c:"Mobile Accessories",p:2500,i:"1609091839311-d5365f9ff1c5"},
+  {n:"USB Adapter",c:"Mobile Accessories",p:250,i:"1583394838336-acd977736f90"},
 
-  {n:"School Copy - Small",c:"Books & Stationery",p:60,i:"photo-1531346878377-a5be20888e57"},
-  {n:"School Copy - Large",c:"Books & Stationery",p:150,i:"photo-1531346878377-a5be20888e57"},
-  {n:"Register / Notebook",c:"Books & Stationery",p:250,i:"photo-1531346878377-a5be20888e57"},
-  {n:"Ballpoint Pens Pack",c:"Books & Stationery",p:200,i:"photo-1455390582262-044cdea277a9"},
-  {n:"Pencils and Erasers",c:"Books & Stationery",p:100,i:"photo-1455390582262-044cdea277a9"},
-  {n:"STB Class 1 Books",c:"Books & Stationery",p:500,i:"photo-1544947950-fa07a98d237f"},
-  {n:"STB Class 2 Books",c:"Books & Stationery",p:600,i:"photo-1544947950-fa07a98d237f"},
-  {n:"STB Class 3 Books",c:"Books & Stationery",p:700,i:"photo-1544947950-fa07a98d237f"},
-  {n:"STB Class 4 Books",c:"Books & Stationery",p:800,i:"photo-1544947950-fa07a98d237f"},
-  {n:"STB Class 5 Books",c:"Books & Stationery",p:900,i:"photo-1544947950-fa07a98d237f"},
-  {n:"STB Class 6 Books",c:"Books & Stationery",p:1000,i:"photo-1544947950-fa07a98d237f"},
-  {n:"STB Class 7 Books",c:"Books & Stationery",p:1000,i:"photo-1544947950-fa07a98d237f"},
-  {n:"STB Class 8 Books",c:"Books & Stationery",p:1200,i:"photo-1544947950-fa07a98d237f"},
-  {n:"STB Class 9 Books",c:"Books & Stationery",p:1500,i:"photo-1544947950-fa07a98d237f"},
-  {n:"STB Class 10 Books",c:"Books & Stationery",p:1500,i:"photo-1544947950-fa07a98d237f"},
+  {n:"School Copy - Small",c:"Books & Stationery",p:60,i:"1531346878377-a5be20888e57"},
+  {n:"School Copy - Large",c:"Books & Stationery",p:150,i:"1531346878377-a5be20888e57"},
+  {n:"Register / Notebook",c:"Books & Stationery",p:250,i:"1531346878377-a5be20888e57"},
+  {n:"Ballpoint Pens Pack",c:"Books & Stationery",p:200,i:"1455390582262-044cdea277a9"},
+  {n:"Pencils and Erasers",c:"Books & Stationery",p:100,i:"1455390582262-044cdea277a9"},
+  {n:"STB Class 1 Books",c:"Books & Stationery",p:500,i:"1544947950-fa07a98d237f"},
+  {n:"STB Class 2 Books",c:"Books & Stationery",p:600,i:"1544947950-fa07a98d237f"},
+  {n:"STB Class 3 Books",c:"Books & Stationery",p:700,i:"1544947950-fa07a98d237f"},
+  {n:"STB Class 4 Books",c:"Books & Stationery",p:800,i:"1544947950-fa07a98d237f"},
+  {n:"STB Class 5 Books",c:"Books & Stationery",p:900,i:"1544947950-fa07a98d237f"},
+  {n:"STB Class 6 Books",c:"Books & Stationery",p:1000,i:"1544947950-fa07a98d237f"},
+  {n:"STB Class 7 Books",c:"Books & Stationery",p:1000,i:"1544947950-fa07a98d237f"},
+  {n:"STB Class 8 Books",c:"Books & Stationery",p:1200,i:"1544947950-fa07a98d237f"},
+  {n:"STB Class 9 Books",c:"Books & Stationery",p:1500,i:"1544947950-fa07a98d237f"},
+  {n:"STB Class 10 Books",c:"Books & Stationery",p:1500,i:"1544947950-fa07a98d237f"},
 
-  {n:"Men's T-Shirt",c:"Clothing",p:800,i:"photo-1521572163474-6864f9cf17ab"},
-  {n:"Men's Casual Shirt",c:"Clothing",p:1500,i:"photo-1596755094514-f87e34085b2c"},
-  {n:"Kids T-Shirt",c:"Clothing",p:500,i:"photo-1521572163474-6864f9cf17ab"},
-  {n:"Casual Trousers",c:"Clothing",p:1800,i:"photo-1473966968600-fa801b869a1a"},
-  {n:"Women's Scarf",c:"Clothing",p:700,i:"photo-1601924994987-69e26d50dc26"},
+  {n:"Men's T-Shirt",c:"Clothing",p:800,i:"1521572163474-6864f9cf17ab"},
+  {n:"Men's Casual Shirt",c:"Clothing",p:1500,i:"1596755094514-f87e34085b2c"},
+  {n:"Kids T-Shirt",c:"Clothing",p:500,i:"1521572163474-6864f9cf17ab"},
+  {n:"Casual Trousers",c:"Clothing",p:1800,i:"1473966968600-fa801b869a1a"},
+  {n:"Women's Scarf",c:"Clothing",p:700,i:"1601924994987-69e26d50dc26"},
 
-  {n:"Classic Analog Watch",c:"Watches",p:1200,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Minimalist Watch",c:"Watches",p:1500,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Leather Strap Watch",c:"Watches",p:2200,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Metal Strap Watch",c:"Watches",p:2500,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Black Dial Watch",c:"Watches",p:1800,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Silver Dial Watch",c:"Watches",p:2000,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Gold-Tone Watch",c:"Watches",p:2800,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Brown Strap Watch",c:"Watches",p:1700,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Sports Watch",c:"Watches",p:1600,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Digital Sports Watch",c:"Watches",p:1400,i:"photo-1524805444758-089113d48a6d"},
-  {n:"LED Digital Watch",c:"Watches",p:1300,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Kids Digital Watch",c:"Watches",p:800,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Kids Cartoon Watch",c:"Watches",p:700,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Women's Elegant Watch",c:"Watches",p:2200,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Women's Slim Watch",c:"Watches",p:2500,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Rose-Gold Watch",c:"Watches",p:2800,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Mesh Strap Watch",c:"Watches",p:3000,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Square Dial Watch",c:"Watches",p:1800,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Round Dial Watch",c:"Watches",p:1600,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Chronograph Style Watch",c:"Watches",p:3500,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Fashion Watch",c:"Watches",p:1900,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Casual Everyday Watch",c:"Watches",p:1100,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Office Wear Watch",c:"Watches",p:2400,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Classic White Dial Watch",c:"Watches",p:1700,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Classic Blue Dial Watch",c:"Watches",p:2000,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Classic Green Dial Watch",c:"Watches",p:2300,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Black Sports Digital Watch",c:"Watches",p:1500,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Water-Resistant Style Watch",c:"Watches",p:3000,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Silicone Strap Watch",c:"Watches",p:1200,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Stainless-Steel Style Watch",c:"Watches",p:3200,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Vintage Style Watch",c:"Watches",p:2600,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Fashion Square Watch",c:"Watches",p:2100,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Couple Style Watch",c:"Watches",p:4000,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Premium Look Watch",c:"Watches",p:4500,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Everyday Metal Watch",c:"Watches",p:2800,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Simple Leather Watch",c:"Watches",p:1400,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Fashion Number Dial Watch",c:"Watches",p:1900,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Digital Alarm Watch",c:"Watches",p:1300,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Sporty Silicone Watch",c:"Watches",p:1700,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Smartwatch Style Basic",c:"Watches",p:3500,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Smartwatch Style Premium",c:"Watches",p:4900,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Fitness Style Watch",c:"Watches",p:3000,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Blue Strap Watch",c:"Watches",p:1600,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Red Strap Watch",c:"Watches",p:1400,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Elegant Gold Dial Watch",c:"Watches",p:3200,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Silver Mesh Fashion Watch",c:"Watches",p:2700,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Black Minimal Watch",c:"Watches",p:2000,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Brown Classic Watch",c:"Watches",p:2300,i:"photo-1524805444758-089113d48a6d"},
-  {n:"Modern Square Smartwatch Style",c:"Watches",p:4200,i:"photo-1524805444758-089113d48a6d"}
+  {n:"School Backpack",c:"Bags & Accessories",p:1800,i:"1553062407-98eeb64c6a62"},
+  {n:"Travel Bag",c:"Bags & Accessories",p:2500,i:"1565026057447-bc90a3dceb87"},
+  {n:"Small Handbag",c:"Bags & Accessories",p:1600,i:"1584917865442-de89df76afd3"},
+  {n:"Wallet",c:"Bags & Accessories",p:700,i:"1627123424574-724758594e93"},
+  {n:"School Pencil Pouch",c:"Bags & Accessories",p:250,i:"1544816155-12df9643f363"},
+
+  {n:"Lunch Box",c:"Home Essentials",p:500,i:"1498837167922-ddd27525d352"},
+  {n:"Water Bottle",c:"Home Essentials",p:350,i:"1602143407151-7111542de6e8"},
+  {n:"Storage Box",c:"Home Essentials",p:650,i:"1583847268964-b28dc8f51f92"},
+  {n:"Kitchen Organizer",c:"Home Essentials",p:900,i:"1556911220-e15b29be8c8f"},
+  {n:"Cleaning Brush",c:"Home Essentials",p:200,i:"1585421514738-01798e348b17"},
+
+  {n:"General Household Item",c:"Other Products",p:500,i:"1600566753086-00f18fb6b3ea"},
+  {n:"Gift Item",c:"Other Products",p:700,i:"1513201099705-a9746e1e201d"},
+  {n:"Daily Use Accessory",c:"Other Products",p:300,i:"1523275335684-37898b6baf30"}
 ];
+
+const watchNames = [
+"Classic Analog Watch","Minimalist Watch","Leather Strap Watch","Metal Strap Watch",
+"Black Dial Watch","Silver Dial Watch","Gold-Tone Watch","Brown Strap Watch",
+"Sports Watch","Digital Sports Watch","LED Digital Watch","Kids Digital Watch",
+"Kids Cartoon Watch","Women's Elegant Watch","Women's Slim Watch","Rose-Gold Watch",
+"Mesh Strap Watch","Square Dial Watch","Round Dial Watch","Chronograph Style Watch",
+"Fashion Watch","Casual Everyday Watch","Office Wear Watch","Classic White Dial Watch",
+"Classic Blue Dial Watch","Classic Green Dial Watch","Black Sports Digital Watch",
+"Water-Resistant Style Watch","Silicone Strap Watch","Stainless-Steel Style Watch",
+"Vintage Style Watch","Fashion Square Watch","Couple Style Watch","Premium Look Watch",
+"Everyday Metal Watch","Simple Leather Watch","Fashion Number Dial Watch","Digital Alarm Watch",
+"Sporty Silicone Watch","Smartwatch Style Basic","Smartwatch Style Premium",
+"Fitness Style Watch","Blue Strap Watch","Red Strap Watch","Elegant Gold Dial Watch",
+"Silver Mesh Fashion Watch","Black Minimal Watch","Brown Classic Watch",
+"Modern Square Smartwatch Style","Everyday Classic Watch"
+];
+const watchPrices = [
+1200,1500,2200,2500,1800,2000,2800,1700,1600,1400,
+1300,800,700,2200,2500,2800,3000,1800,1600,3500,
+1900,1100,2400,1700,2000,2300,1500,3000,1200,3200,
+2600,2100,4000,4500,2800,1400,1900,1300,1700,3500,
+4900,3000,1600,1400,3200,2700,2000,2300,4200,1800
+];
+watchNames.forEach((name,index) => {
+  storeProducts.push({
+    n:name,
+    c:"Watches",
+    p:watchPrices[index],
+    i:"1524805444758-089113d48a6d"
+  });
+});
 
 const productGrid = document.getElementById("productGrid");
 const productSearch = document.getElementById("productSearch");
 const productEmpty = document.getElementById("productEmpty");
+const productHeading = document.getElementById("productHeading");
+const categorySelect = document.getElementById("product");
+const detailsInput = document.getElementById("details");
+let selectedProductCategory = "";
 
-function renderStoreProducts(query = "") {
-  const filtered = storeProducts.filter(product =>
-    (product.n + " " + product.c).toLowerCase().includes(query.toLowerCase())
-  );
+function renderStoreProducts() {
+  const query = productSearch.value.trim().toLowerCase();
+  const filtered = storeProducts.filter(item => {
+    const categoryMatch = !selectedProductCategory || item.c === selectedProductCategory;
+    const searchMatch = (item.n + " " + item.c).toLowerCase().includes(query);
+    return categoryMatch && searchMatch;
+  });
 
-  productGrid.innerHTML = filtered.map(product => `
+  productGrid.innerHTML = filtered.map(item => `
     <article class="product-card">
       <img
-        src="https://images.unsplash.com/${product.i}?auto=format&fit=crop&w=600&q=75"
-        alt="${product.n}"
+        src="https://images.unsplash.com/${item.i}?auto=format&fit=crop&w=600&q=75"
+        alt="${item.n}"
         loading="lazy"
-        onerror="this.onerror=null;this.src='https://placehold.co/600x400/e9f8f7/102d46?text=Product+Photo';">
+        onerror="this.onerror=null;this.src='https://placehold.co/600x400/e9f8f7/102d46?text=Product+Photo'">
       <div class="product-info">
-        <h3>${product.n}</h3>
-        <div class="product-price">Rs. ${product.p.toLocaleString("en-PK")}</div>
-        <button class="btn order-product"
-          data-name="${product.n}"
-          data-category="${product.c}"
-          data-price="${product.p}">
+        <h3>${item.n}</h3>
+        <div class="product-price">Sample price: Rs. ${item.p.toLocaleString("en-PK")}</div>
+        <button type="button" class="btn order-product"
+          data-name="${item.n}" data-category="${item.c}" data-price="${item.p}">
           Order Now
         </button>
       </div>
@@ -810,353 +490,48 @@ function renderStoreProducts(query = "") {
   `).join("");
 
   productEmpty.style.display = filtered.length ? "none" : "block";
+  productHeading.textContent = selectedProductCategory || "All Products";
+}
+
+function showCategory(category) {
+  selectedProductCategory = category;
+  productSearch.value = "";
+  renderStoreProducts();
+  document.getElementById("products").scrollIntoView({behavior:"smooth"});
 }
 
 renderStoreProducts();
 
-productSearch.addEventListener("input", () => {
-  renderStoreProducts(productSearch.value.trim());
+productSearch.addEventListener("input", renderStoreProducts);
+
+document.querySelectorAll(".choose-category").forEach(button => {
+  button.addEventListener("click", () => {
+    showCategory(button.dataset.category);
+  });
 });
 
 productGrid.addEventListener("click", event => {
   const button = event.target.closest(".order-product");
   if (!button) return;
 
-  const categorySelect = document.getElementById("product");
-  const detailsInput = document.getElementById("details");
-  const orderSection = document.getElementById("order");
-
   categorySelect.value = button.dataset.category;
-  detailsInput.value =
-    button.dataset.name + " - Sample price Rs. " + button.dataset.price;
-
-  orderSection.scrollIntoView({behavior: "smooth"});
+  detailsInput.value = button.dataset.name +
+    " - Sample price Rs. " + button.dataset.price;
+  document.getElementById("order").scrollIntoView({behavior:"smooth"});
   setTimeout(() => detailsInput.focus(), 500);
 });
 
-<body>
-  <div class="topbar">
-    Welcome to Smart Dost Store Online — Shop smart, live better!
-  </div>
-
-  <header>
-    <div class="container navbar">
-      <a class="brand" href="#home" aria-label="Smart Dost Store home">
-        <div class="logo">S</div>
-        <div>
-          <div class="brand-name">Smart Dost Store</div>
-          <div class="brand-sub">ONLINE SHOPPING STORE</div>
-        </div>
-      </a>
-
-      <nav aria-label="Main navigation">
-        <a href="#home">Home</a>
-        <a href="#categories">Categories</a>
-        <a href="#why-us">Why Us</a>
-        <a class="btn" href="#order">Place an Order</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero" id="home">
-      <div class="container hero-inner">
-        <div>
-          <span class="eyebrow">YOUR EVERYDAY SHOPPING PARTNER</span>
-          <h1>Good Products.<br>Smart Choices.</h1>
-          <p>
-            Explore useful everyday items, accessories, books and more.
-            Choose what you need and send us your order request online.
-          </p>
-          <a class="btn btn-gold" href="#categories">Explore Categories →</a>
-        </div>
-
-        <div class="hero-art">
-          <div>
-            <div class="big-icon">🛍️</div>
-            <strong>Shopping Made Simple</strong>
-            <span>Browse • Choose • Order</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="container benefits">
-      <div class="benefit">
-        <span class="benefit-icon">📱</span>
-        <div>
-          <strong>Easy Online Orders</strong>
-          <small>Order from your mobile</small>
-        </div>
-      </div>
-      <div class="benefit">
-        <span class="benefit-icon">🤝</span>
-        <div>
-          <strong>Order Confirmation</strong>
-          <small>Details confirmed with you</small>
-        </div>
-      </div>
-      <div class="benefit">
-        <span class="benefit-icon">🔒</span>
-        <div>
-          <strong>Safer Shopping</strong>
-          <small>Never share your OTP or PIN</small>
-        </div>
-      </div>
-    </div>
-
-    <section id="categories">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Shop by Category</h2>
-            <p>Choose a category to start your order.</p>
-          </div>
-        </div>
-
-        <div class="search-wrap">
-          <input id="categorySearch" type="search"
-                 placeholder="🔎 Search categories..."
-                 aria-label="Search categories">
-        </div>
-
-        <div class="category-grid" id="categoryGrid">
-          <article class="category-card" data-search="mobile accessories charger cover cable">
-            <div class="category-icon">📱</div>
-            <h3>Mobile Accessories</h3>
-            <p>Explore useful mobile accessories and add-ons.</p>
-            <button class="text-btn choose-category" data-category="Mobile Accessories">Order in this category →</button>
-          </article>
-
-          <article class="category-card" data-search="home essentials household kitchen">
-            <div class="category-icon">🏠</div>
-            <h3>Home Essentials</h3>
-            <p>Useful items for your everyday home needs.</p>
-            <button class="text-btn choose-category" data-category="Home Essentials">Order in this category →</button>
-          </article>
-
-          <article class="category-card" data-search="bags accessories school travel">
-            <div class="category-icon">🎒</div>
-            <h3>Bags &amp; Accessories</h3>
-            <p>Browse bags and everyday accessories.</p>
-            <button class="text-btn choose-category" data-category="Bags & Accessories">Order in this category →</button>
-          </article>
-
-          <article class="category-card" data-search="clothing clothes fashion">
-            <div class="category-icon">👕</div>
-            <h3>Clothing</h3>
-            <p>Ask us about available clothing items.</p>
-            <button class="text-btn choose-category" data-category="Clothing">Order in this category →</button>
-          </article>
-
-          <article class="category-card" data-search="books stationery school pens notebooks">
-            <div class="category-icon">📚</div>
-            <h3>Books &amp; Stationery</h3>
-            <p>Books, notebooks and stationery essentials.</p>
-            <button class="text-btn choose-category" data-category="Books & Stationery">Order in this category →</button>
-          </article>
-
-          <article class="category-card" data-search="other products general items">
-            <div class="category-icon">✨</div>
-            <h3>Other Products</h3>
-            <p>Looking for something else? Tell us here.</p>
-            <button class="text-btn choose-category" data-category="Other Products">Order in this category →</button>
-          </article>
-        </div>
-
-        <p class="empty-message" id="emptyMessage">No matching categories found. Try another search.</p>
-      </div>
-    </section>
-
-    <section id="order" class="order-section">
-      <div class="container order-layout">
-        <div class="order-info">
-          <span class="eyebrow" style="background:#d4eeeb;color:#145e65;">SIMPLE ORDER PROCESS</span>
-          <h2>Place Your Order</h2>
-          <p>
-            Fill in the form with your details and the product you want.
-            We will review your request and confirm availability, price
-            and delivery details with you.
-          </p>
-
-          <ul class="steps">
-            <li><span class="check">✓</span><span>Select a category and describe the product.</span></li>
-            <li><span class="check">✓</span><span>Submit your contact and delivery details.</span></li>
-            <li><span class="check">✓</span><span>Wait for confirmation before making payment.</span></li>
-          </ul>
-
-          <p><strong>Price:</strong> Confirmed before order completion.</p>
-          <p><strong>Delivery:</strong> Availability and charges confirmed individually.</p>
-        </div>
-
-        <form class="order-form"
-              action="https://formspree.io/f/xaeqrpkq"
-              method="POST">
-          <h3>Order Request Form</h3>
-          <p class="form-intro">Fields marked * are required.</p>
-
-          <input type="hidden" name="_subject" value="New order - Smart Dost Store Online">
-
-          <div class="form-grid">
-            <div class="field">
-              <label for="customerName">Full Name *</label>
-              <input id="customerName" type="text" name="Customer Name"
-                     placeholder="Enter your name" autocomplete="name" required>
-            </div>
-
-            <div class="field">
-              <label for="phone">Phone Number *</label>
-              <input id="phone" type="tel" name="Phone Number"
-                     placeholder="03XXXXXXXXX" autocomplete="tel" required>
-            </div>
-
-            <div class="field full">
-              <label for="product">Product Category *</label>
-              <select id="product" name="Product" required>
-                <option value="">Choose a category</option>
-                <option>Mobile Accessories</option>
-                <option>Home Essentials</option>
-                <option>Bags &amp; Accessories</option>
-                <option>Clothing</option>
-                <option>Books &amp; Stationery</option>
-                <option>Other Products</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="details">Product Details *</label>
-              <input id="details" type="text" name="Product Details"
-                     placeholder="Product name, size, colour or model" required>
-            </div>
-
-            <div class="field">
-              <label for="quantity">Quantity *</label>
-              <input id="quantity" type="number" name="Quantity"
-                     min="1" max="100" value="1" required>
-            </div>
-
-            <div class="field">
-              <label for="payment">Preferred Payment Method</label>
-              <select id="payment" name="Payment Method">
-                <option value="Discuss before payment">Discuss before payment</option>
-                <option value="JazzCash">JazzCash (confirm first)</option>
-                <option value="Easypaisa">Easypaisa (confirm first)</option>
-                <option value="Cash on Delivery if available">Cash on Delivery (if available)</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="address">Delivery Address *</label>
-              <textarea id="address" name="Delivery Address"
-                        placeholder="Enter your city, area and delivery address"
-                        autocomplete="street-address" required></textarea>
-            </div>
-
-            <div class="field full">
-              <label for="message">Additional Message (Optional)</label>
-              <textarea id="message" name="Additional Message"
-                        placeholder="Any other product details or questions?"></textarea>
-            </div>
-          </div>
-
-          <button class="btn submit-btn" type="submit">Submit Order Request →</button>
-          <p class="safe-note">
-            Submitting this form is an order request, not a confirmed purchase.
-            Never enter your banking PIN, password or OTP.
-          </p>
-        </form>
-      </div>
-    </section>
-
-    <section id="why-us">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Why Shop With Us?</h2>
-            <p>A simple way to request the products you need.</p>
-          </div>
-        </div>
-
-        <div class="trust-grid">
-          <article class="trust-card">
-            <span>🛒</span>
-            <h3>Easy Ordering</h3>
-            <p>Send your product request using a simple mobile-friendly form.</p>
-          </article>
-          <article class="trust-card">
-            <span>💬</span>
-            <h3>Clear Confirmation</h3>
-            <p>Confirm the product, final price and delivery details before paying.</p>
-          </article>
-          <article class="trust-card">
-            <span>📦</span>
-            <h3>Availability Check</h3>
-            <p>Product availability and delivery options are checked before confirmation.</p>
-          </article>
-        </div>
-
-        <div class="notice">
-          <strong>Please note:</strong> Product photos, prices, stock and delivery
-          options must be confirmed before an order is finalized. Do not send
-          money until you have verified the seller and the payment details.
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <h3>🛍️ Smart Dost Store Online</h3>
-          <p>Your everyday shopping partner. Browse categories and send an order request online.</p>
-        </div>
-        <div class="footer-links">
-          <strong>Quick Links</strong>
-          <a href="#home">Home</a>
-          <a href="#categories">Shop Categories</a>
-          <a href="#order">Place an Order</a>
-          <a href="#why-us">Why Us</a>
-        </div>
-      </div>
-      <div class="copyright">
-        © <span id="year"></span> Smart Dost Store Online. All rights reserved.
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const categorySelect = document.getElementById("product");
-    const categoryCards = document.querySelectorAll(".category-card");
-
-    document.querySelectorAll(".choose-category").forEach(function(button) {
-      button.addEventListener("click", function() {
-        categorySelect.value = button.dataset.category;
-        document.getElementById("order").scrollIntoView({ behavior: "smooth" });
-        setTimeout(function() {
-          document.getElementById("details").focus();
-        }, 500);
-      });
-    });
-
-    const searchInput = document.getElementById("categorySearch");
-    const emptyMessage = document.getElementById("emptyMessage");
-
-    searchInput.addEventListener("input", function() {
-      const query = searchInput.value.trim().toLowerCase();
-      let visibleCount = 0;
-
-      categoryCards.forEach(function(card) {
-        const searchableText = (card.innerText + " " + card.dataset.search).toLowerCase();
-        const match = searchableText.includes(query);
-        card.style.display = match ? "" : "none";
-        if (match) visibleCount++;
-      });
-
-      emptyMessage.style.display = visibleCount === 0 ? "block" : "none";
-    });
-  </script>
+document.getElementById("categorySearch").addEventListener("input", function() {
+  const query = this.value.trim().toLowerCase();
+  let visible = 0;
+  document.querySelectorAll(".category-card").forEach(card => {
+    const text = (card.innerText + " " + card.dataset.search).toLowerCase();
+    const match = text.includes(query);
+    card.style.display = match ? "" : "none";
+    if (match) visible++;
+  });
+  document.getElementById("emptyMessage").style.display = visible ? "none" : "block";
+});
+</script>
 </body>
 </html>
