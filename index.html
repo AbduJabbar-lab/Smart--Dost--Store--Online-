@@ -1,128 +1,914 @@
 
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#123b5d">
-<meta name="description" content="Smart Dost Store Online - Shop useful products.">
-<title>Smart Dost Store Online</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fa;color:#172b3a;line-height:1.6}
-header,footer{background:#123b5d;color:white;text-align:center;padding:20px}
-header h1{margin:0}
-nav a{color:white;margin:8px;text-decoration:none}
-.hero{background:#176b87;color:white;text-align:center;padding:45px 15px}
-.hero h2{font-size:36px;margin:0}
-button,.btn{background:#f3bd4a;color:#123b5d;border:0;padding:12px 18px;border-radius:8px;font-weight:bold;cursor:pointer;text-decoration:none}
-section{max-width:950px;margin:30px auto;padding:15px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px}
-.card,.formbox{background:white;border:1px solid #dce5eb;border-radius:12px;padding:18px}
-.card{text-align:center}
-.emoji{font-size:45px}
-.price{color:#176b87;font-weight:bold}
-form{display:grid;gap:10px}
-label{font-weight:bold}
-input,select,textarea{width:100%;padding:12px;border:1px solid #bdcbd5;border-radius:7px;font:inherit}
-textarea{min-height:85px}
-.submit{background:#176b87;color:white;width:100%;font-size:16px}
-.small{font-size:13px;color:#607383}
-@media(max-width:500px){.hero h2{font-size:29px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102d46">
+  <meta name="description" content="Shop useful everyday products, accessories, books and stationery at Smart Dost Store Online.">
+  <title>Smart Dost Store Online | Shop Smart</title>
+
+  <style>
+    :root {
+      --navy: #102d46;
+      --blue: #176b87;
+      --teal: #e9f8f7;
+      --gold: #f3bd4e;
+      --text: #243447;
+      --muted: #667788;
+      --white: #ffffff;
+      --border: #e2e8ef;
+      --shadow: 0 8px 28px rgba(16, 45, 70, .09);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #f7f9fc;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    button, .btn {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    .topbar {
+      background: #0b2033;
+      color: #eaf4fa;
+      text-align: center;
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--white);
+      box-shadow: 0 3px 15px rgba(0,0,0,.06);
+    }
+
+    .navbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--navy);
+      color: var(--gold);
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .brand-name {
+      color: var(--navy);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    nav a:hover { color: var(--blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--blue);
+      color: white;
+      padding: 12px 18px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      background: var(--navy);
+      transform: translateY(-1px);
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #172b3a;
+    }
+
+    .btn-gold:hover {
+      background: #ffd271;
+      color: #172b3a;
+    }
+
+    .hero {
+      background: linear-gradient(125deg, #102d46, #176b87);
+      color: white;
+      padding: 64px 0;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.4fr .8fr;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 30px;
+      background: rgba(255,255,255,.13);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(32px, 5vw, 51px);
+      line-height: 1.12;
+    }
+
+    .hero p {
+      max-width: 550px;
+      color: #e4f1f8;
+      margin: 0 0 24px;
+    }
+
+    .hero-art {
+      min-height: 245px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 30px;
+      background: rgba(255,255,255,.09);
+      padding: 25px;
+    }
+
+    .hero-art .big-icon { font-size: 90px; }
+
+    .hero-art strong {
+      display: block;
+      font-size: 21px;
+    }
+
+    .hero-art span {
+      color: #d7eaf4;
+      font-size: 14px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: -24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 17px;
+      border-radius: 15px;
+    }
+
+    .benefit-icon { font-size: 27px; }
+
+    .benefit strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .benefit small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    section { padding: 58px 0; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(24px, 3vw, 32px);
+      line-height: 1.25;
+    }
+
+    .section-head p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .search-wrap {
+      width: min(100%, 340px);
+      margin-bottom: 22px;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+      outline: none;
+    }
+
+    .search-wrap input:focus,
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(23,107,135,.12);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .category-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 4px 18px rgba(16,45,70,.04);
+      transition: .2s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .category-icon {
+      width: 62px;
+      height: 62px;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      background: var(--teal);
+      font-size: 34px;
+      margin-bottom: 14px;
+    }
+
+    .category-card h3 {
+      margin: 0 0 7px;
+      color: var(--navy);
+      font-size: 18px;
+    }
+
+    .category-card p {
+      margin: 0 0 17px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .text-btn {
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 800;
+      border: 0;
+      padding: 0;
+      background: transparent;
+    }
+
+    .text-btn:hover { text-decoration: underline; }
+
+    .empty-message {
+      display: none;
+      padding: 20px 0;
+      color: var(--muted);
+    }
+
+    .order-section {
+      background: var(--teal);
+    }
+
+    .order-layout {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .order-info {
+      padding: 12px 0;
+    }
+
+    .order-info h2 {
+      color: var(--navy);
+      font-size: 30px;
+      line-height: 1.2;
+      margin: 0 0 15px;
+    }
+
+    .order-info p { color: #4e6677; }
+
+    .steps {
+      list-style: none;
+      padding: 0;
+      margin: 22px 0;
+    }
+
+    .steps li {
+      margin: 13px 0;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .check {
+      color: #137b62;
+      font-weight: 900;
+    }
+
+    .order-form {
+      background: white;
+      border: 1px solid #d9e9e8;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: var(--shadow);
+    }
+
+    .order-form h3 {
+      margin: 0 0 5px;
+      color: var(--navy);
+      font-size: 23px;
+    }
+
+    .form-intro {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #33495b;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid #d7e0e8;
+      border-radius: 10px;
+      background: #fff;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 18px;
+      padding: 14px;
+      font-size: 16px;
+    }
+
+    .safe-note {
+      margin: 13px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .trust-card {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: white;
+    }
+
+    .trust-card span { font-size: 28px; }
+
+    .trust-card h3 {
+      margin: 9px 0 5px;
+      color: var(--navy);
+      font-size: 17px;
+    }
+
+    .trust-card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .notice {
+      margin-top: 24px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #fff8e7;
+      border: 1px solid #f1dfb4;
+      color: #674c15;
+      font-size: 13px;
+    }
+
+    footer {
+      padding: 35px 0 18px;
+      background: #0b2033;
+      color: #e8f1f7;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 25px;
+      padding-bottom: 25px;
+    }
+
+    footer h3 { margin: 0 0 10px; }
+
+    footer p, footer a {
+      color: #c6d5e0;
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,.15);
+      padding-top: 15px;
+      color: #a9bfce;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .navbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav {
+        width: 100%;
+        gap: 17px;
+        flex-wrap: wrap;
+        font-size: 13px;
+      }
+
+      .hero { padding: 43px 0; }
+
+      .hero-inner { grid-template-columns: 1fr; }
+
+      .hero-art {
+        min-height: 155px;
+        padding: 15px;
+      }
+
+      .hero-art .big-icon { font-size: 58px; }
+
+      .benefits {
+        grid-template-columns: 1fr;
+        margin-top: 18px;
+      }
+
+      section { padding: 43px 0; }
+
+      .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+      .category-card { padding: 16px; }
+
+      .category-card h3 { font-size: 16px; }
+
+      .category-icon {
+        width: 54px;
+        height: 54px;
+        font-size: 29px;
+      }
+
+      .order-layout { grid-template-columns: 1fr; }
+
+      .trust-grid { grid-template-columns: 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 420px) {
+      .category-grid { gap: 11px; }
+      .category-card { padding: 13px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .order-form { padding: 18px; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
 </head>
+
 <body>
-<header>
-<h1>Smart Dost Store Online</h1>
-<nav>
-<a href="#home">Home</a>
-<a href="#products">Products</a>
-<a href="#order">Place Order</a>
-</nav>
-</header>
+  <div class="topbar">
+    Welcome to Smart Dost Store Online — Shop smart, live better!
+  </div>
 
-<main>
-<div class="hero" id="home">
-<h2>Shop Smart. Save More.</h2>
-<p>Your friendly online shopping store.</p>
-<a class="btn" href="#products">Explore Products</a>
-</div>
+  <header>
+    <div class="container navbar">
+      <a class="brand" href="#home" aria-label="Smart Dost Store home">
+        <div class="logo">S</div>
+        <div>
+          <div class="brand-name">Smart Dost Store</div>
+          <div class="brand-sub">ONLINE SHOPPING STORE</div>
+        </div>
+      </a>
 
-<section id="products">
-<h2>Shop by Category</h2>
-<p>Choose a category and send us your order request.</p>
-<div class="products">
-<div class="card"><div class="emoji">🎧</div><h3>Mobile Accessories</h3><p>Useful mobile items.</p><p class="price">Price: Contact Us</p><button onclick="pick('Mobile Accessories')">Order Now</button></div>
-<div class="card"><div class="emoji">🏠</div><h3>Home Essentials</h3><p>Useful items for home.</p><p class="price">Price: Contact Us</p><button onclick="pick('Home Essentials')">Order Now</button></div>
-<div class="card"><div class="emoji">🎒</div><h3>Bags & Accessories</h3><p>Items for school and travel.</p><p class="price">Price: Contact Us</p><button onclick="pick('Bags & Accessories')">Order Now</button></div>
-<div class="card"><div class="emoji">👕</div><h3>Clothing</h3><p>Everyday clothing.</p><p class="price">Price: Contact Us</p><button onclick="pick('Clothing')">Order Now</button></div>
-<div class="card"><div class="emoji">📚</div><h3>Books & Stationery</h3><p>Books and school supplies.</p><p class="price">Price: Contact Us</p><button onclick="pick('Books & Stationery')">Order Now</button></div>
-<div class="card"><div class="emoji">🛍️</div><h3>Other Products</h3><p>Ask about other products.</p><p class="price">Price: Contact Us</p><button onclick="pick('Other Products')">Order Now</button></div>
-</div>
-</section>
+      <nav aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#why-us">Why Us</a>
+        <a class="btn" href="#order">Place an Order</a>
+      </nav>
+    </div>
+  </header>
 
-<section id="order">
-<h2>Place Your Order</h2>
-<div class="formbox">
-<form action="https://formspree.io/f/xaeqrpkq" method="POST">
-<input type="hidden" name="_subject" value="New order - Smart Dost Store Online">
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <div>
+          <span class="eyebrow">YOUR EVERYDAY SHOPPING PARTNER</span>
+          <h1>Good Products.<br>Smart Choices.</h1>
+          <p>
+            Explore useful everyday items, accessories, books and more.
+            Choose what you need and send us your order request online.
+          </p>
+          <a class="btn btn-gold" href="#categories">Explore Categories →</a>
+        </div>
 
-<label for="name">Full Name</label>
-<input id="name" name="Customer Name" required placeholder="Your full name">
+        <div class="hero-art">
+          <div>
+            <div class="big-icon">🛍️</div>
+            <strong>Shopping Made Simple</strong>
+            <span>Browse • Choose • Order</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<label for="phone">Phone Number</label>
-<input id="phone" name="Phone Number" type="tel" required placeholder="03XX XXXXXXX">
+    <div class="container benefits">
+      <div class="benefit">
+        <span class="benefit-icon">📱</span>
+        <div>
+          <strong>Easy Online Orders</strong>
+          <small>Order from your mobile</small>
+        </div>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">🤝</span>
+        <div>
+          <strong>Order Confirmation</strong>
+          <small>Details confirmed with you</small>
+        </div>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">🔒</span>
+        <div>
+          <strong>Safer Shopping</strong>
+          <small>Never share your OTP or PIN</small>
+        </div>
+      </div>
+    </div>
 
-<label for="product">Product Category</label>
-<select id="product" name="Product" required>
-<option value="">Choose a category</option>
-<option>Mobile Accessories</option>
-<option>Home Essentials</option>
-<option>Bags & Accessories</option>
-<option>Clothing</option>
-<option>Books & Stationery</option>
-<option>Other Products</option>
-</select>
+    <section id="categories">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Shop by Category</h2>
+            <p>Choose a category to start your order.</p>
+          </div>
+        </div>
 
-<label for="details">Product Name / Details</label>
-<input id="details" name="Product Details" required placeholder="Which item do you want?">
+        <div class="search-wrap">
+          <input id="categorySearch" type="search"
+                 placeholder="🔎 Search categories..."
+                 aria-label="Search categories">
+        </div>
 
-<label for="quantity">Quantity</label>
-<input id="quantity" name="Quantity" type="number" min="1" value="1" required>
+        <div class="category-grid" id="categoryGrid">
+          <article class="category-card" data-search="mobile accessories charger cover cable">
+            <div class="category-icon">📱</div>
+            <h3>Mobile Accessories</h3>
+            <p>Explore useful mobile accessories and add-ons.</p>
+            <button class="text-btn choose-category" data-category="Mobile Accessories">Order in this category →</button>
+          </article>
 
-<label for="payment">Payment Method</label>
-<select id="payment" name="Payment Method" required>
-<option value="">Choose payment method</option>
-<option>Cash on Delivery (if available)</option>
-<option>JazzCash</option>
-<option>Easypaisa</option>
-</select>
+          <article class="category-card" data-search="home essentials household kitchen">
+            <div class="category-icon">🏠</div>
+            <h3>Home Essentials</h3>
+            <p>Useful items for your everyday home needs.</p>
+            <button class="text-btn choose-category" data-category="Home Essentials">Order in this category →</button>
+          </article>
 
-<label for="address">Delivery Address</label>
-<textarea id="address" name="Delivery Address" required placeholder="Area, city and address"></textarea>
+          <article class="category-card" data-search="bags accessories school travel">
+            <div class="category-icon">🎒</div>
+            <h3>Bags &amp; Accessories</h3>
+            <p>Browse bags and everyday accessories.</p>
+            <button class="text-btn choose-category" data-category="Bags & Accessories">Order in this category →</button>
+          </article>
 
-<label for="notes">Additional Message (Optional)</label>
-<textarea id="notes" name="Additional Message" placeholder="Colour, size or other details"></textarea>
+          <article class="category-card" data-search="clothing clothes fashion">
+            <div class="category-icon">👕</div>
+            <h3>Clothing</h3>
+            <p>Ask us about available clothing items.</p>
+            <button class="text-btn choose-category" data-category="Clothing">Order in this category →</button>
+          </article>
 
-<button class="submit" type="submit">Submit Order</button>
-</form>
-<p class="small">Final price, stock, delivery fee and payment will be confirmed before the order is completed. Never share your PIN or OTP.</p>
-</div>
-</section>
-</main>
+          <article class="category-card" data-search="books stationery school pens notebooks">
+            <div class="category-icon">📚</div>
+            <h3>Books &amp; Stationery</h3>
+            <p>Books, notebooks and stationery essentials.</p>
+            <button class="text-btn choose-category" data-category="Books & Stationery">Order in this category →</button>
+          </article>
 
-<footer>
-<strong>Smart Dost Store Online</strong>
-<p>Shop Smart. Save More.</p>
-<p>© <span id="year"></span> Smart Dost Store Online</p>
-</footer>
+          <article class="category-card" data-search="other products general items">
+            <div class="category-icon">✨</div>
+            <h3>Other Products</h3>
+            <p>Looking for something else? Tell us here.</p>
+            <button class="text-btn choose-category" data-category="Other Products">Order in this category →</button>
+          </article>
+        </div>
 
-<script>
-function pick(category){
- document.getElementById('product').value=category;
- document.getElementById('order').scrollIntoView({behavior:'smooth'});
-}
-document.getElementById('year').textContent=new Date().getFullYear();
-</script>
+        <p class="empty-message" id="emptyMessage">No matching categories found. Try another search.</p>
+      </div>
+    </section>
+
+    <section id="order" class="order-section">
+      <div class="container order-layout">
+        <div class="order-info">
+          <span class="eyebrow" style="background:#d4eeeb;color:#145e65;">SIMPLE ORDER PROCESS</span>
+          <h2>Place Your Order</h2>
+          <p>
+            Fill in the form with your details and the product you want.
+            We will review your request and confirm availability, price
+            and delivery details with you.
+          </p>
+
+          <ul class="steps">
+            <li><span class="check">✓</span><span>Select a category and describe the product.</span></li>
+            <li><span class="check">✓</span><span>Submit your contact and delivery details.</span></li>
+            <li><span class="check">✓</span><span>Wait for confirmation before making payment.</span></li>
+          </ul>
+
+          <p><strong>Price:</strong> Confirmed before order completion.</p>
+          <p><strong>Delivery:</strong> Availability and charges confirmed individually.</p>
+        </div>
+
+        <form class="order-form"
+              action="https://formspree.io/f/xaeqrpkq"
+              method="POST">
+          <h3>Order Request Form</h3>
+          <p class="form-intro">Fields marked * are required.</p>
+
+          <input type="hidden" name="_subject" value="New order - Smart Dost Store Online">
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="customerName">Full Name *</label>
+              <input id="customerName" type="text" name="Customer Name"
+                     placeholder="Enter your name" autocomplete="name" required>
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone Number *</label>
+              <input id="phone" type="tel" name="Phone Number"
+                     placeholder="03XXXXXXXXX" autocomplete="tel" required>
+            </div>
+
+            <div class="field full">
+              <label for="product">Product Category *</label>
+              <select id="product" name="Product" required>
+                <option value="">Choose a category</option>
+                <option>Mobile Accessories</option>
+                <option>Home Essentials</option>
+                <option>Bags &amp; Accessories</option>
+                <option>Clothing</option>
+                <option>Books &amp; Stationery</option>
+                <option>Other Products</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="details">Product Details *</label>
+              <input id="details" type="text" name="Product Details"
+                     placeholder="Product name, size, colour or model" required>
+            </div>
+
+            <div class="field">
+              <label for="quantity">Quantity *</label>
+              <input id="quantity" type="number" name="Quantity"
+                     min="1" max="100" value="1" required>
+            </div>
+
+            <div class="field">
+              <label for="payment">Preferred Payment Method</label>
+              <select id="payment" name="Payment Method">
+                <option value="Discuss before payment">Discuss before payment</option>
+                <option value="JazzCash">JazzCash (confirm first)</option>
+                <option value="Easypaisa">Easypaisa (confirm first)</option>
+                <option value="Cash on Delivery if available">Cash on Delivery (if available)</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="address">Delivery Address *</label>
+              <textarea id="address" name="Delivery Address"
+                        placeholder="Enter your city, area and delivery address"
+                        autocomplete="street-address" required></textarea>
+            </div>
+
+            <div class="field full">
+              <label for="message">Additional Message (Optional)</label>
+              <textarea id="message" name="Additional Message"
+                        placeholder="Any other product details or questions?"></textarea>
+            </div>
+          </div>
+
+          <button class="btn submit-btn" type="submit">Submit Order Request →</button>
+          <p class="safe-note">
+            Submitting this form is an order request, not a confirmed purchase.
+            Never enter your banking PIN, password or OTP.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <section id="why-us">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Why Shop With Us?</h2>
+            <p>A simple way to request the products you need.</p>
+          </div>
+        </div>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <span>🛒</span>
+            <h3>Easy Ordering</h3>
+            <p>Send your product request using a simple mobile-friendly form.</p>
+          </article>
+          <article class="trust-card">
+            <span>💬</span>
+            <h3>Clear Confirmation</h3>
+            <p>Confirm the product, final price and delivery details before paying.</p>
+          </article>
+          <article class="trust-card">
+            <span>📦</span>
+            <h3>Availability Check</h3>
+            <p>Product availability and delivery options are checked before confirmation.</p>
+          </article>
+        </div>
+
+        <div class="notice">
+          <strong>Please note:</strong> Product photos, prices, stock and delivery
+          options must be confirmed before an order is finalized. Do not send
+          money until you have verified the seller and the payment details.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>🛍️ Smart Dost Store Online</h3>
+          <p>Your everyday shopping partner. Browse categories and send an order request online.</p>
+        </div>
+        <div class="footer-links">
+          <strong>Quick Links</strong>
+          <a href="#home">Home</a>
+          <a href="#categories">Shop Categories</a>
+          <a href="#order">Place an Order</a>
+          <a href="#why-us">Why Us</a>
+        </div>
+      </div>
+      <div class="copyright">
+        © <span id="year"></span> Smart Dost Store Online. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const categorySelect = document.getElementById("product");
+    const categoryCards = document.querySelectorAll(".category-card");
+
+    document.querySelectorAll(".choose-category").forEach(function(button) {
+      button.addEventListener("click", function() {
+        categorySelect.value = button.dataset.category;
+        document.getElementById("order").scrollIntoView({ behavior: "smooth" });
+        setTimeout(function() {
+          document.getElementById("details").focus();
+        }, 500);
+      });
+    });
+
+    const searchInput = document.getElementById("categorySearch");
+    const emptyMessage = document.getElementById("emptyMessage");
+
+    searchInput.addEventListener("input", function() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      categoryCards.forEach(function(card) {
+        const searchableText = (card.innerText + " " + card.dataset.search).toLowerCase();
+        const match = searchableText.includes(query);
+        card.style.display = match ? "" : "none";
+        if (match) visibleCount++;
+      });
+
+      emptyMessage.style.display = visibleCount === 0 ? "block" : "none";
+    });
+  </script>
 </body>
 </html>
