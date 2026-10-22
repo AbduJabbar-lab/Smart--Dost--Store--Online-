@@ -1,0 +1,128 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b5d">
+<meta name="description" content="Smart Dost Store Online - Shop useful products.">
+<title>Smart Dost Store Online</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fa;color:#172b3a;line-height:1.6}
+header,footer{background:#123b5d;color:white;text-align:center;padding:20px}
+header h1{margin:0}
+nav a{color:white;margin:8px;text-decoration:none}
+.hero{background:#176b87;color:white;text-align:center;padding:45px 15px}
+.hero h2{font-size:36px;margin:0}
+button,.btn{background:#f3bd4a;color:#123b5d;border:0;padding:12px 18px;border-radius:8px;font-weight:bold;cursor:pointer;text-decoration:none}
+section{max-width:950px;margin:30px auto;padding:15px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px}
+.card,.formbox{background:white;border:1px solid #dce5eb;border-radius:12px;padding:18px}
+.card{text-align:center}
+.emoji{font-size:45px}
+.price{color:#176b87;font-weight:bold}
+form{display:grid;gap:10px}
+label{font-weight:bold}
+input,select,textarea{width:100%;padding:12px;border:1px solid #bdcbd5;border-radius:7px;font:inherit}
+textarea{min-height:85px}
+.submit{background:#176b87;color:white;width:100%;font-size:16px}
+.small{font-size:13px;color:#607383}
+@media(max-width:500px){.hero h2{font-size:29px}}
+</style>
+</head>
+<body>
+<header>
+<h1>Smart Dost Store Online</h1>
+<nav>
+<a href="#home">Home</a>
+<a href="#products">Products</a>
+<a href="#order">Place Order</a>
+</nav>
+</header>
+
+<main>
+<div class="hero" id="home">
+<h2>Shop Smart. Save More.</h2>
+<p>Your friendly online shopping store.</p>
+<a class="btn" href="#products">Explore Products</a>
+</div>
+
+<section id="products">
+<h2>Shop by Category</h2>
+<p>Choose a category and send us your order request.</p>
+<div class="products">
+<div class="card"><div class="emoji">🎧</div><h3>Mobile Accessories</h3><p>Useful mobile items.</p><p class="price">Price: Contact Us</p><button onclick="pick('Mobile Accessories')">Order Now</button></div>
+<div class="card"><div class="emoji">🏠</div><h3>Home Essentials</h3><p>Useful items for home.</p><p class="price">Price: Contact Us</p><button onclick="pick('Home Essentials')">Order Now</button></div>
+<div class="card"><div class="emoji">🎒</div><h3>Bags & Accessories</h3><p>Items for school and travel.</p><p class="price">Price: Contact Us</p><button onclick="pick('Bags & Accessories')">Order Now</button></div>
+<div class="card"><div class="emoji">👕</div><h3>Clothing</h3><p>Everyday clothing.</p><p class="price">Price: Contact Us</p><button onclick="pick('Clothing')">Order Now</button></div>
+<div class="card"><div class="emoji">📚</div><h3>Books & Stationery</h3><p>Books and school supplies.</p><p class="price">Price: Contact Us</p><button onclick="pick('Books & Stationery')">Order Now</button></div>
+<div class="card"><div class="emoji">🛍️</div><h3>Other Products</h3><p>Ask about other products.</p><p class="price">Price: Contact Us</p><button onclick="pick('Other Products')">Order Now</button></div>
+</div>
+</section>
+
+<section id="order">
+<h2>Place Your Order</h2>
+<div class="formbox">
+<form action="https://formspree.io/f/xaeqrpkq" method="POST">
+<input type="hidden" name="_subject" value="New order - Smart Dost Store Online">
+
+<label for="name">Full Name</label>
+<input id="name" name="Customer Name" required placeholder="Your full name">
+
+<label for="phone">Phone Number</label>
+<input id="phone" name="Phone Number" type="tel" required placeholder="03XX XXXXXXX">
+
+<label for="product">Product Category</label>
+<select id="product" name="Product" required>
+<option value="">Choose a category</option>
+<option>Mobile Accessories</option>
+<option>Home Essentials</option>
+<option>Bags & Accessories</option>
+<option>Clothing</option>
+<option>Books & Stationery</option>
+<option>Other Products</option>
+</select>
+
+<label for="details">Product Name / Details</label>
+<input id="details" name="Product Details" required placeholder="Which item do you want?">
+
+<label for="quantity">Quantity</label>
+<input id="quantity" name="Quantity" type="number" min="1" value="1" required>
+
+<label for="payment">Payment Method</label>
+<select id="payment" name="Payment Method" required>
+<option value="">Choose payment method</option>
+<option>Cash on Delivery (if available)</option>
+<option>JazzCash</option>
+<option>Easypaisa</option>
+</select>
+
+<label for="address">Delivery Address</label>
+<textarea id="address" name="Delivery Address" required placeholder="Area, city and address"></textarea>
+
+<label for="notes">Additional Message (Optional)</label>
+<textarea id="notes" name="Additional Message" placeholder="Colour, size or other details"></textarea>
+
+<button class="submit" type="submit">Submit Order</button>
+</form>
+<p class="small">Final price, stock, delivery fee and payment will be confirmed before the order is completed. Never share your PIN or OTP.</p>
+</div>
+</section>
+</main>
+
+<footer>
+<strong>Smart Dost Store Online</strong>
+<p>Shop Smart. Save More.</p>
+<p>© <span id="year"></span> Smart Dost Store Online</p>
+</footer>
+
+<script>
+function pick(category){
+ document.getElementById('product').value=category;
+ document.getElementById('order').scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
