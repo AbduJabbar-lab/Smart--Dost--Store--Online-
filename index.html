@@ -269,7 +269,23 @@ footer p,footer a { color:#c6d5e0; font-size:13px; }
     <p><strong>Important:</strong> Wait for confirmation before making payment. Never share your PIN or OTP.</p>
   </div>
 
-  <form class="order-form" action="https://formspree.io/f/xaeqrpkq" method="POST">
+<form class="order-form"
+ action="https://formspree.io/f/xaeqrpkq"
+ method="POST"
+ enctype="multipart/form-data">
+
+  <h3>Order Request Form</h3>
+  <p class="form-intro">Fields marked * are required.</p>
+
+  <div style="padding:15px;background:#e9f8f7;border-radius:10px;margin:15px 0">
+    <h3>JazzCash Payment</h3>
+    <p><strong>Account Name:</strong> Abdul Jabar</p>
+    <p><strong>JazzCash Number:</strong> 03232154855</p>
+    <p>Please confirm your order and final amount before paying.</p>
+  </div>
+
+  <input type="hidden" name="_subject"
+   value="New Smart Dost Store Order">
     <h3>Order Request Form</h3>
     <p class="form-intro">Fields marked * are required.</p>
     <input type="hidden" name="_subject" value="New order - Smart Dost Store Online">
@@ -317,8 +333,26 @@ footer p,footer a { color:#c6d5e0; font-size:13px; }
         <label for="address">Delivery Address *</label>
         <textarea id="address" name="Delivery Address" placeholder="City, area and delivery address" autocomplete="street-address" required></textarea>
       </div>
-      <div class="field full">
-        <label for="message">Additional Message</label>
+     <div class="field full">
+  <label for="transactionRef">JazzCash Transaction ID (TID) *</label>
+  <input
+    id="transactionRef"
+    type="text"
+    name="JazzCash Transaction ID"
+    placeholder="Enter transaction ID"
+    required>
+</div>
+
+<div class="field full">
+  <label for="paymentScreenshot">Payment Screenshot *</label>
+  <input
+    id="paymentScreenshot"
+    type="file"
+    name="Payment Screenshot"
+    accept="image/png,image/jpeg,image/webp"
+    required>
+  <small>Upload your payment receipt screenshot.</small>
+</div>
         <textarea id="message" name="Additional Message" placeholder="Any other details?"></textarea>
       </div>
     </div>
