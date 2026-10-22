@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b5d">
+<meta name="description" content="Smart Dost Store — shop useful products at friendly prices.">
+<title>Smart Dost Store | Shop Smart, Save More</title>
+<style>
+:root{--navy:#123b5d;--blue:#176b87;--gold:#f3bd4a;--ink:#172b3a;--muted:#657786;--bg:#f4f7fa;--white:#fff;--line:#dce5eb}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+a{color:inherit}
+.topbar{background:var(--navy);color:white;text-align:center;padding:9px 14px;font-size:13px}
+header{background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.nav{max-width:1100px;margin:auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:21px;font-weight:800;color:var(--navy);text-decoration:none;letter-spacing:-.4px}
+.brand span{color:var(--blue)}
+.nav a.shoplink{background:var(--gold);padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px}
+.hero{background:linear-gradient(120deg,#123b5d,#176b87);color:white;padding:48px 18px}
+.hero-inner{max-width:1100px;margin:auto;display:grid;grid-template-columns:1.4fr .8fr;gap:28px;align-items:center}
+.eyebrow{color:#ffe3a0;text-transform:uppercase;font-size:12px;letter-spacing:1.6px;font-weight:800}
+h1{font-size:clamp(32px,5vw,52px);line-height:1.08;margin:12px 0}
+.hero p{max-width:590px;color:#e8f2f8;font-size:17px}
+.cta{display:inline-block;background:var(--gold);color:#172b3a;text-decoration:none;font-weight:800;padding:13px 18px;border-radius:10px;margin-top:10px}
+.hero-art{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:22px;padding:28px;text-align:center}
+.hero-art .bag{font-size:78px;line-height:1.2}
+.hero-art strong{display:block;font-size:20px;margin-top:12px}
+.hero-art small{color:#e8f2f8}
+.features{max-width:1100px;margin:20px auto 0;padding:0 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.feature{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;font-size:14px;font-weight:700}
+.feature span{display:block;font-size:23px;margin-bottom:4px}
+section{max-width:1100px;margin:38px auto;padding:0 18px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:16px}
+h2{margin:0;color:var(--navy);font-size:27px}
+.section-head p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.product{background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.product-visual{height:145px;background:#eaf1f6;display:flex;align-items:center;justify-content:center;font-size:56px}
+.product-content{padding:16px;display:flex;flex-direction:column;flex:1}
+.product h3{margin:0 0 5px;font-size:17px}
+.product p{margin:0 0 12px;color:var(--muted);font-size:13px;flex:1}
+.price{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:12px}
+.order-btn{display:block;text-align:center;background:var(--navy);color:white;padding:11px;border-radius:9px;text-decoration:none;font-weight:700;font-size:14px}
+.notice{font-size:13px;color:var(--muted);margin-top:12px}
+.order-panel{background:white;border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;grid-template-columns:.8fr 1.2fr;gap:24px}
+.order-info{background:#edf4f8;border-radius:13px;padding:20px}
+.order-info h3{margin-top:0;color:var(--navy)}
+form{display:grid;gap:12px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #cbd8e0;border-radius:9px;font:inherit;background:white}
+textarea{min-height:90px;resize:vertical}
+button{border:0;background:var(--blue);color:white;padding:13px;border-radius:9px;font-weight:800;font-size:15px;cursor:pointer}
+footer{margin-top:42px;background:#0d2e48;color:white;padding:25px 18px;text-align:center}
+footer p{margin:5px;color:#d9e6ee;font-size:13px}
+@media(max-width:720px){.hero-inner{grid-template-columns:1fr}.hero-art{padding:18px}.hero-art .bag{font-size:55px}.features{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-visual{height:105px;font-size:42px}.product-content{padding:12px}.product h3{font-size:15px}.order-panel{grid-template-columns:1fr}.section-head{display:block}}
+@media(max-width:380px){.products{grid-template-columns:1fr}.brand{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="topbar">Welcome to Smart Dost Store — useful products at friendly prices</div>
+<header>
+  <div class="nav">
+    <a class="brand" href="#">Smart Dost <span>Store</span></a>
+    <a class="shoplink" href="#products">Shop Products</a>
+  </div>
+</header>
+<main>
+  <div class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">A smarter way to shop</div>
+        <h1>Shop Smart.<br>Save More.</h1>
+        <p>Discover useful everyday products, browse our collection, and place your order easily through WhatsApp.</p>
+        <a class="cta" href="#products">Explore Products →</a>
+      </div>
+      <div class="hero-art">
+        <div class="bag">🛍️</div>
+        <strong>Smart Dost Store</strong>
+        <small>Your shopping friend, online.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature"><span>📦</span>Cash on Delivery*</div>
+    <div class="feature"><span>💬</span>Easy WhatsApp Orders</div>
+    <div class="feature"><span>💳</span>JazzCash & Easypaisa*</div>
+  </div>
+
+  <section id="products">
+    <div class="section-head">
+      <div><h2>Featured Products</h2><p>Sample listings — add your confirmed products and prices before launch.</p></div>
+    </div>
+    <div class="products">
+      <article class="product">
+        <div class="product-visual">🎧</div>
+        <div class="product-content">
+          <h3>Everyday Accessories</h3>
+          <p>Useful accessories for everyday use. Replace this description with the actual product details.</p>
+          <div class="price">Price: To be confirmed</div>
+          <a class="order-btn" href="#order" onclick="selectProduct('Everyday Accessories')">Order This Product</a>
+        </div>
+      </article>
+      <article class="product">
+        <div class="product-visual">🏠</div>
+        <div class="product-content">
+          <h3>Home Essentials</h3>
+          <p>Handy items for your home. Confirm availability, quality, and delivery time with your supplier.</p>
+          <div class="price">Price: To be confirmed</div>
+          <a class="order-btn" href="#order" onclick="selectProduct('Home Essentials')">Order This Product</a>
+        </div>
+      </article>
+      <article class="product">
+        <div class="product-visual">🎒</div>
+        <div class="product-content">
+          <h3>Bags & Daily Use</h3>
+          <p>Practical products for school, work, and everyday life. Add your real product photo and price.</p>
+          <div class="price">Price: To be confirmed</div>
+          <a class="order-btn" href="#order" onclick="selectProduct('Bags & Daily Use')">Order This Product</a>
+        </div>
+      </article>
+    </div>
+    <p class="notice">*Cash on Delivery and advance payment options should only be advertised after you confirm that your supplier and delivery service support them.</p>
+  </section>
+
+  <section id="order">
+    <div class="section-head">
+      <div><h2>Place an Order</h2><p>Fill in your details. This form opens WhatsApp with your order message.</p></div>
+    </div>
+    <div class="order-panel">
+      <div class="order-info">
+        <h3>How ordering works</h3>
+        <p>1. Choose a product.<br>2. Enter your contact and delivery details.<br>3. Tap the WhatsApp button and send the prepared message.</p>
+        <p><strong>Payment options:</strong> Cash on Delivery, JazzCash, or Easypaisa — subject to confirmation.</p>
+        <p class="notice">Never share your PIN or OTP with anyone.</p>
+      </div>
+      <form id="orderForm">
+        <div><label for="customer">Your Full Name</label><input id="customer" required placeholder="Enter your name"></div>
+        <div><label for="phone">Phone Number</label><input id="phone" required inputmode="tel" placeholder="03XX XXXXXXX"></div>
+        <div><label for="product">Product</label><select id="product" required><option value="">Choose a product</option><option>Everyday Accessories</option><option>Home Essentials</option><option>Bags & Daily Use</option><option>Other product</option></select></div>
+        <div><label for="quantity">Quantity</label><input id="quantity" type="number" min="1" value="1" required></div>
+        <div><label for="payment">Preferred Payment Method</label><select id="payment" required><option value="">Choose payment method</option><option>Cash on Delivery (if available)</option><option>JazzCash (manual confirmation)</option><option>Easypaisa (manual confirmation)</option></select></div>
+        <div><label for="address">Delivery Address</label><textarea id="address" required placeholder="House, street, area, city"></textarea></div>
+        <button type="submit">Continue to WhatsApp</button>
+        <p class="notice" id="formNotice">The WhatsApp number must be added by the store owner before this order button can work.</p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer>
+  <strong>Smart Dost Store</strong>
+  <p>Shop Smart. Save More.</p>
+  <p>Product availability, final price, delivery charges, and return terms must be confirmed before an order is accepted.</p>
+</footer>
+<script>
+/* STORE SETUP: Replace 923001234567 with your WhatsApp number in international format.
+   Example format for Pakistan: 92 followed by the mobile number without the first 0. */
+const STORE_WHATSAPP_NUMBER = "923001234567";
+
+function selectProduct(name) {
+  document.getElementById("product").value = name;
+}
+document.getElementById("orderForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  if (!STORE_WHATSAPP_NUMBER || STORE_WHATSAPP_NUMBER === "923001234567") {
+    alert("The store owner must add the correct WhatsApp number in the website code before orders can be sent.");
+    return;
+  }
+  const message = [
+    "New Order — Smart Dost Store",
+    "Name: " + document.getElementById("customer").value.trim(),
+    "Phone: " + document.getElementById("phone").value.trim(),
+    "Product: " + document.getElementById("product").value,
+    "Quantity: " + document.getElementById("quantity").value,
+    "Payment: " + document.getElementById("payment").value,
+    "Address: " + document.getElementById("address").value.trim()
+  ].join("\n");
+  window.location.href = "https://wa.me/" + STORE_WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+});
+</script>
+</body>
+</html>
