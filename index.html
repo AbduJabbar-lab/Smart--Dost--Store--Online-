@@ -274,8 +274,7 @@ footer p,footer a { color:#c6d5e0; font-size:13px; }
  method="POST">
  
 
-  <h3>Order Request Form</h3>
-  <p class="form-intro">Fields marked * are required.</p>
+  
 
   <div style="padding:15px;background:#e9f8f7;border-radius:10px;margin:15px 0">
     <h3>JazzCash Payment</h3>
@@ -284,8 +283,7 @@ footer p,footer a { color:#c6d5e0; font-size:13px; }
     <p>Please confirm your order and final amount before paying.</p>
   </div>
 
-  <input type="hidden" name="_subject"
-   value="New Smart Dost Store Order">
+  
     <h3>Order Request Form</h3>
     <p class="form-intro">Fields marked * are required.</p>
     <input type="hidden" name="_subject" value="New order - Smart Dost Store Online">
@@ -333,31 +331,21 @@ footer p,footer a { color:#c6d5e0; font-size:13px; }
         <label for="address">Delivery Address *</label>
         <textarea id="address" name="Delivery Address" placeholder="City, area and delivery address" autocomplete="street-address" required></textarea>
       </div>
-     <div class="field full">
-  <label for="transactionRef">JazzCash Transaction ID (TID) *</label>
-  <input
-    id="transactionRef"
-    type="text"
-    name="JazzCash Transaction ID"
-    placeholder="Enter transaction ID"
-    required>
-</div>
-
 
 <div class="field full">
-  <label for="transactionRef">JazzCash Transaction ID (TID) *</label>
+  <label for="transactionRef">Transaction ID (if already paid)</label>
   <input
     id="transactionRef"
     type="text"
     name="JazzCash Transaction ID"
     placeholder="Enter transaction ID"
-    required>
+    
 </div>
 
 <div class="field full">
   <p>Order submit karne ke baad payment screenshot WhatsApp par bhejein.</p>
   <a
-    href="https://wa.me/923232154855?text=Assalam-o-Alaikum%2C%20meri%20Ilm%20Dost%20Learning%20Store%20ki%20payment%20screenshot%20yehan%20bhej raha%20hoon."
+    href="https://wa.me/923232154855?text=Assalam-o-Alaikum%2C%20Smart%20Dost%20Store%20Online%20ke%20order%20ki%20payment%20screenshot%20bhej%20raha%20hoon."
     target="_blank"
     rel="noopener"
     style="display:inline-block;background:#25D366;color:white;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:bold;">
@@ -365,10 +353,18 @@ footer p,footer a { color:#c6d5e0; font-size:13px; }
   </a>
 </div>
 
+        
+      <div class="field full">
+        <label for="message">Additional Message (Optional)</label>
         <textarea id="message" name="Additional Message" placeholder="Any other details?"></textarea>
       </div>
     </div>
     <button class="btn submit-btn" type="submit">Submit Order Request →</button>
+    <p class="safe-note">This is an order request, not a confirmed purchase. Never enter your banking PIN, password or OTP.</p>
+  </form>
+</div>
+</section>
+
     <p class="safe-note">This is an order request, not a confirmed purchase. Never enter your banking PIN, password or OTP.</p>
   </form>
 </div>
@@ -528,14 +524,13 @@ function renderStoreProducts() {
 
   productGrid.innerHTML = filtered.map(item => `
     <article class="product-card">
-      <img
-    src="${item.image || (item.i ? 'https://images.unsplash.com/photo-' + item.i + '?auto=format&fit=crop&w=600&q=75' : 'IMG_20261023_232532.jpg')}"
-    alt="${item.n}"
-    loading="lazy"
-    onerror="this.onerror=null;this.src='IMG_20261023_232532.jpg'">
+      
+<img
+  src="${item.image || (item.i ? 'https://images.unsplash.com/photo-' + item.i + '?auto=format&fit=crop&w=600&q=75' : 'IMG_20261023_232532.jpg')}"
   alt="${item.n}"
   loading="lazy"
   onerror="this.onerror=null;this.src='IMG_20261023_232532.jpg'">
+
       <div class="product-info">
         <h3>${item.n}</h3>
         <div class="product-price">Sample price: Rs. ${item.p.toLocaleString("en-PK")}</div>
