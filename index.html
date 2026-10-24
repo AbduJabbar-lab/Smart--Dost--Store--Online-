@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,432 +6,65 @@
 <meta name="theme-color" content="#102d46">
 <meta name="description" content="Smart Dost Store Online - mobile accessories, watches, books, clothing and everyday products.">
 <title>Smart Dost Store Online</title>
-
 <style>
-:root {
-  --navy:#102d46;
-  --blue:#176b87;
-  --teal:#e9f8f7;
-  --gold:#f3bd4e;
-  --text:#243447;
-  --muted:#667788;
-  --border:#e2e8ef;
-}
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
-  background:#f7f9fc;
-  line-height:1.6;
-}
-a { text-decoration:none; color:inherit; }
-button,input,select,textarea { font:inherit; }
-button { cursor:pointer; }
-.container { width:min(1120px,92%); margin:auto; }
-.topbar {
-  background:#0b2033; color:white; text-align:center;
-  padding:8px; font-size:13px;
-}
-header {
-  position:sticky; top:0; z-index:10;
-  background:white; box-shadow:0 3px 15px #00000010;
-}
-.navbar {
-  min-height:70px; display:flex; justify-content:space-between;
-  align-items:center; gap:15px; padding:12px 0;
-}
-.brand { color:var(--navy); font-weight:800; font-size:20px; }
-nav { display:flex; gap:15px; align-items:center; flex-wrap:wrap; font-size:14px; }
-.btn {
-  display:inline-block; border:0; border-radius:10px;
-  background:var(--blue); color:white; padding:11px 16px;
-  font-weight:bold;
-}
-.btn:hover { background:var(--navy); }
-.hero {
-  padding:55px 0; color:white;
-  background:linear-gradient(125deg,#102d46,#176b87);
-}
-.hero-inner {
-  display:grid; grid-template-columns:1.3fr .7fr;
-  align-items:center; gap:25px;
-}
-.hero h1 { font-size:clamp(32px,5vw,50px); line-height:1.15; margin:15px 0; }
-.hero p { color:#e4f1f8; }
-.hero-art {
-  text-align:center; padding:30px 15px; border-radius:20px;
-  background:#ffffff15; font-size:70px;
-}
-.hero-art strong { display:block; font-size:20px; }
-section { padding:45px 0; }
-.section-head { margin-bottom:20px; }
-.section-head h2 { color:var(--navy); margin:0; font-size:29px; }
-.section-head p { color:var(--muted); margin:5px 0; }
-.search-wrap { margin:15px 0 22px; }
-.search-wrap input {
-  width:100%; padding:13px; border:1px solid var(--border);
-  border-radius:10px; background:white;
-}
-.category-grid {
-  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px;
-}
-.category-card {
-  background:white; padding:17px; border:1px solid var(--border);
-  border-radius:15px; box-shadow:0 4px 15px #102d4608;
-}
-.category-icon {
-  display:grid; place-items:center; height:90px; font-size:45px;
-  background:linear-gradient(135deg,#d8f3ff,#d9fbe5,#fff0cc);
-  border-radius:12px; margin-bottom:12px;
-}
-.category-card h3 { margin:0 0 5px; color:var(--navy); font-size:17px; }
-.category-card p { font-size:13px; color:var(--muted); }
-.text-btn {
-  border:0; background:none; padding:0; color:var(--blue);
-  font-weight:bold; text-align:left;
-}
-.product-section { background:#f0f6fa; }
-.product-grid {
-  display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px;
-}
-.product-card {
-  background:white; border:1px solid var(--border);
-  border-radius:14px; overflow:hidden;
-}
-.product-card img {
-  display:block; width:100%; height:155px; object-fit:cover;
-  background:#e9f8f7;
-}
-.product-info { padding:12px; }
-.product-info h3 { font-size:15px; line-height:1.35; min-height:40px; margin:0 0 8px; }
-.product-price { color:var(--blue); font-weight:bold; margin-bottom:10px; }
-.product-info .btn { width:100%; padding:9px 5px; font-size:13px; }
-.price-note { font-size:12px; color:var(--muted); }
-.empty-message { display:none; color:var(--muted); }
-.order-section { background:var(--teal); }
-.order-layout {
-  display:grid; grid-template-columns:.8fr 1.2fr; gap:25px; align-items:start;
-}
-.order-info h2 { color:var(--navy); font-size:30px; }
-.order-form {
-  background:white; border:1px solid #d9e9e8;
-  border-radius:18px; padding:22px;
-}
-.order-form h3 { margin:0; color:var(--navy); font-size:23px; }
-.form-intro { font-size:13px; color:var(--muted); }
-.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-.field { display:flex; flex-direction:column; gap:5px; min-width:0; }
-.field.full { grid-column:1/-1; }
-.field label { font-size:13px; font-weight:bold; }
-.field input,.field select,.field textarea {
-  width:100%; min-width:0; padding:11px;
-  border:1px solid #d7e0e8; border-radius:9px;
-}
-.field textarea { min-height:80px; }
-.submit-btn { width:100%; margin-top:17px; }
-.safe-note { font-size:11px; text-align:center; color:var(--muted); }
-.trust-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
-.trust-card {
-  padding:20px; border:1px solid var(--border);
-  border-radius:14px; background:white;
-}
-.notice { background:#fff8e7; padding:15px; border-radius:10px; font-size:13px; margin-top:20px; }
-footer { background:#0b2033; color:white; padding:28px 0; }
-footer p,footer a { color:#c6d5e0; font-size:13px; }
-.footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-.footer-links { display:flex; flex-direction:column; gap:6px; }
-.copyright { border-top:1px solid #ffffff25; padding-top:12px; font-size:12px; text-align:center; }
-
-@media(max-width:760px) {
-  .navbar { align-items:flex-start; flex-direction:column; }
-  nav { gap:12px; }
-  .hero-inner,.order-layout { grid-template-columns:1fr; }
-  .hero { padding:35px 0; }
-  .hero-art { padding:15px; font-size:48px; }
-  .category-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .product-card img { height:135px; }
-  .trust-grid,.footer-grid { grid-template-columns:1fr; }
-}
-@media(max-width:380px) {
-  .category-grid { gap:9px; }
-  .category-card { padding:11px; }
-  .form-grid { grid-template-columns:1fr; }
-  .field.full { grid-column:auto; }
-  .product-info { padding:9px; }
-}
+:root{--navy:#102d46;--blue:#176b87;--teal:#e9f8f7;--gold:#f3bd4e;--text:#243447;--muted:#667788;--border:#e2e8ef}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#f7f9fc;line-height:1.6}a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1120px,92%);margin:auto}
+.topbar{background:#0b2033;color:white;text-align:center;padding:8px;font-size:13px}header{position:sticky;top:0;z-index:10;background:white;box-shadow:0 3px 15px #00000010}.navbar{min-height:70px;display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px 0}.brand{color:var(--navy);font-weight:800;font-size:20px}nav{display:flex;gap:15px;align-items:center;flex-wrap:wrap;font-size:14px}.btn{display:inline-block;border:0;border-radius:10px;background:var(--blue);color:white;padding:11px 16px;font-weight:bold}.btn:hover{background:var(--navy)}section{padding:40px 0}.hero{padding:55px 0;color:white;background:linear-gradient(125deg,#102d46,#176b87)}.hero-inner{display:grid;grid-template-columns:1.3fr .7fr;align-items:center;gap:25px}.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.15;margin:15px 0}.hero p{color:#e4f1f8}.hero-art{text-align:center;padding:30px 15px;border-radius:20px;background:#ffffff15;font-size:70px}.hero-art strong{display:block;font-size:20px}.section-head{margin-bottom:20px}.section-head h2{color:var(--navy);margin:0;font-size:29px}.section-head p{color:var(--muted);margin:5px 0}.search-wrap{margin:15px 0 22px}.search-wrap input{width:100%;padding:13px;border:1px solid var(--border);border-radius:10px;background:white}.category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.category-card{background:white;padding:17px;border:1px solid var(--border);border-radius:15px;box-shadow:0 4px 15px #102d4608}.category-icon{display:grid;place-items:center;height:90px;font-size:45px;background:linear-gradient(135deg,#d8f3ff,#d9fbe5,#fff0cc);border-radius:12px;margin-bottom:12px}.category-card h3{margin:0 0 5px;color:var(--navy);font-size:17px}.category-card p{font-size:13px;color:var(--muted)}.text-btn{border:0;background:none;padding:0;color:var(--blue);font-weight:bold;text-align:left}.product-section{background:#f0f6fa}.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.product-card{background:white;border:1px solid var(--border);border-radius:14px;overflow:hidden}.product-card img{display:block;width:100%;height:155px;object-fit:cover;background:#e9f8f7}.product-info{padding:12px}.product-info h3{font-size:15px;line-height:1.35;min-height:40px;margin:0 0 8px}.product-price{color:var(--blue);font-weight:bold;margin-bottom:10px}.product-info .btn{width:100%;padding:9px 5px;font-size:13px}.price-note,.safe-note{font-size:12px;color:var(--muted)}.empty-message{display:none;color:var(--muted)}.order-section{background:var(--teal)}.order-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:25px;align-items:start}.order-info h2{color:var(--navy);font-size:30px}.order-form,.panel{background:white;border:1px solid #d9e9e8;border-radius:18px;padding:22px}.order-form h3{margin:0;color:var(--navy);font-size:23px}.form-intro{font-size:13px;color:var(--muted)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:bold}.field input,.field select,.field textarea,.account-input{width:100%;min-width:0;padding:11px;border:1px solid #d7e0e8;border-radius:9px}.field textarea{min-height:80px}.submit-btn{width:100%;margin-top:17px}.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.trust-card{padding:20px;border:1px solid var(--border);border-radius:14px;background:white}.notice{background:#fff8e7;padding:15px;border-radius:10px;font-size:13px;margin-top:20px}footer{background:#0b2033;color:white;padding:28px 0}footer p,footer a{color:#c6d5e0;font-size:13px}.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.footer-links{display:flex;flex-direction:column;gap:6px}.copyright{border-top:1px solid #ffffff25;padding-top:12px;font-size:12px;text-align:center}.account-box{background:white;padding:20px;border-radius:14px;max-width:600px;margin:auto}.account-box label{font-size:13px;font-weight:bold}.account-box form{margin-bottom:12px}.order-history-item{border:1px solid var(--border);padding:13px;border-radius:10px;margin:10px 0;background:#fbfdff}.status{font-weight:bold;color:#8a5a00}.hidden{display:none!important}
+@media(max-width:760px){.navbar{align-items:flex-start;flex-direction:column}nav{gap:12px}.hero-inner,.order-layout{grid-template-columns:1fr}.hero{padding:35px 0}.hero-art{padding:15px;font-size:48px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-card img{height:135px}.trust-grid,.footer-grid{grid-template-columns:1fr}}
+@media(max-width:380px){.category-grid{gap:9px}.category-card{padding:11px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.product-info{padding:9px}}
 </style>
 </head>
-
 <body>
 <div class="topbar">Welcome to Smart Dost Store Online — Shop smart, live better!</div>
+<header><div class="container navbar"><a class="brand" href="#home">🛍️ Smart Dost Store</a><nav><a href="#home">Home</a><a href="#account">Account</a><a href="#categories">Categories</a><a href="#products">Products</a><a href="#order">Place an Order</a><a href="#myOrders">My Orders</a></nav></div></header>
 
-<header>
-  <div class="container navbar">
-    <a class="brand" href="#home">🛍️ Smart Dost Store</a>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#categories">Categories</a>
-      <a href="#products">Products</a>
-      <a href="#order">Place an Order</a>
-    </nav>
-  </div>
-</header>
-<section id="account" style="padding:25px 0;background:#e9f8f7">
-  <div class="container">
-    <div style="background:white;padding:20px;border-radius:14px;max-width:550px;margin:auto">
-      <h2 style="color:#102d46;margin-top:0">Customer Account</h2>
-      <p>Create an account or log in with your email and password.</p>
+<section id="account" style="padding:25px 0;background:#e9f8f7"><div class="container"><div class="account-box">
+<h2 style="color:#102d46;margin-top:0">Customer Account</h2><p>Create an account or log in with your email and password.</p>
+<form id="signupForm"><label for="signupEmail">Email Address</label><input class="account-input" id="signupEmail" type="email" required autocomplete="email" style="display:block;margin:6px 0 14px"><label for="signupPassword">Password (at least 6 characters)</label><input class="account-input" id="signupPassword" type="password" required minlength="6" autocomplete="new-password" style="display:block;margin:6px 0 14px"><button class="btn" type="submit">Create Account</button></form>
+<hr style="margin:20px 0">
+<form id="loginForm"><label for="loginEmail">Email Address</label><input class="account-input" id="loginEmail" type="email" required autocomplete="email" style="display:block;margin:6px 0 14px"><label for="loginPassword">Password</label><input class="account-input" id="loginPassword" type="password" required autocomplete="current-password" style="display:block;margin:6px 0 14px"><button class="btn" type="submit">Log In</button></form>
+<button id="logoutButton" class="btn hidden" type="button">Log Out</button><p id="accountMessage" role="status" aria-live="polite"></p>
+</div></div></section>
 
-      <form id="signupForm">
-        <label for="signupEmail">Email Address</label>
-        <input id="signupEmail" type="email" required
-          autocomplete="email"
-          style="display:block;width:100%;padding:12px;margin:6px 0 14px;border:1px solid #d7e0e8;border-radius:8px">
-
-        <label for="signupPassword">Password (at least 6 characters)</label>
-        <input id="signupPassword" type="password" required minlength="6"
-          autocomplete="new-password"
-          style="display:block;width:100%;padding:12px;margin:6px 0 14px;border:1px solid #d7e0e8;border-radius:8px">
-
-        <button class="btn" type="submit">Create Account</button>
-      </form>
-
-      <hr style="margin:20px 0">
-
-      <form id="loginForm">
-        <label for="loginEmail">Email Address</label>
-        <input id="loginEmail" type="email" required
-          autocomplete="email"
-          style="display:block;width:100%;padding:12px;margin:6px 0 14px;border:1px solid #d7e0e8;border-radius:8px">
-
-        <label for="loginPassword">Password</label>
-        <input id="loginPassword" type="password" required
-          autocomplete="current-password"
-          style="display:block;width:100%;padding:12px;margin:6px 0 14px;border:1px solid #d7e0e8;border-radius:8px">
-
-        <button class="btn" type="submit">Log In</button>
-      </form>
-
-      <button id="logoutButton" class="btn"
-        type="button" hidden style="margin-top:12px">Log Out</button>
-
-      <p id="accountMessage" role="status" aria-live="polite"></p>
-    </div>
-  </div>
-</section>
 <main>
-<section class="hero" id="home">
-  <div class="container hero-inner">
-    <div>
-      <p>YOUR EVERYDAY SHOPPING PARTNER</p>
-      <h1>Good Products.<br>Smart Choices.</h1>
-      <p>Mobile accessories, watches, school books, clothing, bags and useful home products — browse and send an order request.</p>
-      <a class="btn" href="#categories" style="background:#f3bd4e;color:#102d46">Explore Categories →</a>
-    </div>
-    <div class="hero-art">🛍️<strong>Shopping Made Simple</strong><small>Browse • Choose • Order</small></div>
-  </div>
-</section>
+<section class="hero" id="home"><div class="container hero-inner"><div><p>YOUR EVERYDAY SHOPPING PARTNER</p><h1>Good Products.<br>Smart Choices.</h1><p>Mobile accessories, watches, school books, clothing, bags and useful home products — browse and send an order request.</p><a class="btn" href="#categories" style="background:#f3bd4e;color:#102d46">Explore Categories →</a></div><div class="hero-art">🛍️<strong>Shopping Made Simple</strong><small>Browse • Choose • Order</small></div></div></section>
+<section id="categories"><div class="container"><div class="section-head"><h2>Shop by Category</h2><p>Choose a category to see its products.</p></div><div class="search-wrap"><input id="categorySearch" type="search" placeholder="Search categories..." aria-label="Search categories"></div><div class="category-grid" id="categoryGrid">
+<article class="category-card" data-search="mobile accessories covers chargers glass earbuds headphones cables"><div class="category-icon">📱</div><h3>Mobile Accessories</h3><p>Covers, screen protectors, chargers, earbuds, headphones and cables.</p><button class="text-btn choose-category" data-category="Mobile Accessories">View products →</button></article>
+<article class="category-card" data-search="watches watch wrist smart digital analog"><div class="category-icon">⌚</div><h3>Watches</h3><p>50 different watch styles, with sample prices up to Rs. 5,000.</p><button class="text-btn choose-category" data-category="Watches">View products →</button></article>
+<article class="category-card" data-search="home essentials household kitchen"><div class="category-icon">🏠</div><h3>Home Essentials</h3><p>Useful products for everyday home needs.</p><button class="text-btn choose-category" data-category="Home Essentials">View products →</button></article>
+<article class="category-card" data-search="bags accessories school backpack travel purse"><div class="category-icon">🎒</div><h3>Bags &amp; Accessories</h3><p>School bags, travel bags and everyday accessories.</p><button class="text-btn choose-category" data-category="Bags & Accessories">View products →</button></article>
+<article class="category-card" data-search="clothing clothes fashion shirts trousers"><div class="category-icon">👕</div><h3>Clothing</h3><p>Clothes and fashion items.</p><button class="text-btn choose-category" data-category="Clothing">View products →</button></article>
+<article class="category-card" data-search="books stationery school sindh textbook board stb copies notebooks"><div class="category-icon">📚</div><h3>Books &amp; Stationery</h3><p>STB class books, copies, notebooks and stationery.</p><button class="text-btn choose-category" data-category="Books & Stationery">View products →</button></article>
+<article class="category-card" data-search="other products general"><div class="category-icon">✨</div><h3>Other Products</h3><p>Other useful items.</p><button class="text-btn choose-category" data-category="Other Products">View products →</button></article>
+</div><p id="emptyMessage" class="empty-message">No matching categories found.</p></div></section>
 
-<section id="categories">
-<div class="container">
-  <div class="section-head">
-    <h2>Shop by Category</h2>
-    <p>Choose a category to see its products.</p>
-  </div>
-  <div class="search-wrap">
-    <input id="categorySearch" type="search" placeholder="Search categories..." aria-label="Search categories">
-  </div>
-  <div class="category-grid" id="categoryGrid">
-    <article class="category-card" data-search="mobile accessories covers chargers glass earbuds headphones cables">
-      <div class="category-icon">📱</div><h3>Mobile Accessories</h3>
-      <p>Covers, screen protectors, chargers, earbuds, headphones and cables.</p>
-      <button class="text-btn choose-category" data-category="Mobile Accessories">View products →</button>
-    </article>
-    <article class="category-card" data-search="watches watch wrist smart digital analog">
-      <div class="category-icon">⌚</div><h3>Watches</h3>
-      <p>50 different watch styles, with sample prices up to Rs. 5,000.</p>
-      <button class="text-btn choose-category" data-category="Watches">View products →</button>
-    </article>
-    <article class="category-card" data-search="home essentials household kitchen">
-      <div class="category-icon">🏠</div><h3>Home Essentials</h3>
-      <p>Useful products for everyday home needs.</p>
-      <button class="text-btn choose-category" data-category="Home Essentials">View products →</button>
-    </article>
-    <article class="category-card" data-search="bags accessories school backpack travel purse">
-      <div class="category-icon">🎒</div><h3>Bags &amp; Accessories</h3>
-      <p>School bags, travel bags and everyday accessories.</p>
-      <button class="text-btn choose-category" data-category="Bags & Accessories">View products →</button>
-    </article>
-    <article class="category-card" data-search="clothing clothes fashion shirts trousers">
-      <div class="category-icon">👕</div><h3>Clothing</h3>
-      <p>Clothes and fashion items.</p>
-      <button class="text-btn choose-category" data-category="Clothing">View products →</button>
-    </article>
-    <article class="category-card" data-search="books stationery school sindh textbook board stb copies notebooks">
-      <div class="category-icon">📚</div><h3>Books &amp; Stationery</h3>
-      <p>STB class books, copies, notebooks and stationery.</p>
-      <button class="text-btn choose-category" data-category="Books & Stationery">View products →</button>
-    </article>
-    <article class="category-card" data-search="other products general">
-      <div class="category-icon">✨</div><h3>Other Products</h3>
-      <p>Other useful items.</p>
-      <button class="text-btn choose-category" data-category="Other Products">View products →</button>
-    </article>
-  </div>
-  <p id="emptyMessage" class="empty-message">No matching categories found.</p>
-</div>
-</section>
+<section id="products" class="product-section"><div class="container"><div class="section-head"><h2 id="productHeading">All Products</h2><p>Choose a product and tap Order Now.</p></div><div class="search-wrap"><input id="productSearch" type="search" placeholder="Search products..." aria-label="Search products"></div><div id="productGrid" class="product-grid"></div><p id="productEmpty" class="empty-message">No products found in this category.</p><p class="price-note">Prices and photos are examples only, not confirmed stock or final selling prices. Confirm model, actual price and delivery charges before paying.</p></div></section>
 
-<section id="products" class="product-section">
-<div class="container">
-  <div class="section-head">
-    <h2 id="productHeading">All Products</h2>
-    <p>Choose a product and tap Order Now.</p>
-  </div>
-  <div class="search-wrap">
-    <input id="productSearch" type="search" placeholder="Search products..." aria-label="Search products">
-  </div>
-  <div id="productGrid" class="product-grid"></div>
-  <p id="productEmpty" class="empty-message">No products found in this category.</p>
-  <p class="price-note">Important: prices and photos are examples only, not confirmed stock or final selling prices. Confirm the model, actual price and delivery charges before paying.</p>
-</div>
-</section>
+<section id="order" class="order-section"><div class="container order-layout"><div class="order-info"><h2>Place Your Order</h2><p>Fill in your contact and delivery details. We will confirm the requested product, final price and availability.</p><p><strong>Important:</strong> Wait for confirmation before making payment. Never share your PIN or OTP.</p><div class="notice"><strong>JazzCash Payment</strong><p>Account Name: Abdul Jabar</p><p>JazzCash Number: 03232154855</p><p>Please confirm your order and final amount before paying.</p></div></div>
+<form class="order-form" id="orderForm" action="https://formspree.io/f/xaeqrpkq" method="POST">
+<h3>Order Request Form</h3><p class="form-intro">Fields marked * are required. You must be logged in to submit an order.</p><input type="hidden" name="_subject" value="New order - Smart Dost Store Online"><input type="hidden" id="customerEmailField" name="Customer Account Email" value="">
+<div class="form-grid">
+<div class="field"><label for="customerName">Full Name *</label><input id="customerName" type="text" name="Customer Name" placeholder="Enter your name" autocomplete="name" required></div>
+<div class="field"><label for="phone">Phone Number *</label><input id="phone" type="tel" name="Phone Number" placeholder="03XXXXXXXXX" autocomplete="tel" required></div>
+<div class="field full"><label for="product">Product Category *</label><select id="product" name="Product" required><option value="">Choose a category</option><option>Mobile Accessories</option><option>Watches</option><option>Home Essentials</option><option>Bags &amp; Accessories</option><option>Clothing</option><option>Books &amp; Stationery</option><option>Other Products</option></select></div>
+<div class="field full"><label for="details">Product Details *</label><input id="details" type="text" name="Product Details" placeholder="Product name, model, size or colour" required></div>
+<div class="field"><label for="quantity">Quantity *</label><input id="quantity" type="number" name="Quantity" min="1" max="100" value="1" required></div>
+<div class="field"><label for="payment">Preferred Payment Method</label><select id="payment" name="Payment Method"><option value="Discuss before payment">Discuss before payment</option><option value="JazzCash">JazzCash (confirm first)</option><option value="Easypaisa">Easypaisa (confirm first)</option><option value="Cash on Delivery if available">Cash on Delivery (if available)</option></select></div>
+<div class="field full"><label for="address">Delivery Address *</label><textarea id="address" name="Delivery Address" placeholder="City, area and delivery address" autocomplete="street-address" required></textarea></div>
+<div class="field full"><label for="transactionRef">Transaction ID (if already paid)</label><input id="transactionRef" type="text" name="JazzCash Transaction ID" placeholder="Enter transaction ID"></div>
+<div class="field full"><p>After submitting your order, you can send the payment screenshot on WhatsApp.</p><a href="https://wa.me/923232154855?text=Assalam-o-Alaikum%2C%20Smart%20Dost%20Store%20Online%20ke%20order%20ki%20payment%20screenshot%20bhej%20raha%20hoon." target="_blank" rel="noopener" style="display:inline-block;background:#25D366;color:white;padding:12px 18px;border-radius:8px;font-weight:bold">WhatsApp Par Screenshot Bhejein</a></div>
+<div class="field full"><label for="message">Additional Message (Optional)</label><textarea id="message" name="Additional Message" placeholder="Any other details?"></textarea></div>
+</div><button class="btn submit-btn" type="submit">Submit Order Request →</button><p id="orderMessage" role="status" aria-live="polite"></p><p class="safe-note">This is an order request, not a confirmed purchase. Never enter your banking PIN, password or OTP.</p></form></div></section>
 
-<section id="order" class="order-section">
-<div class="container order-layout">
-  <div class="order-info">
-    <h2>Place Your Order</h2>
-    <p>Fill in your contact and delivery details. We will confirm the requested product, final price and availability.</p>
-    <p><strong>Important:</strong> Wait for confirmation before making payment. Never share your PIN or OTP.</p>
-  </div>
+<section id="myOrders"><div class="container"><div class="section-head"><h2>My Orders</h2><p>Log in to view orders submitted from your account.</p></div><div class="panel"><p id="ordersMessage">Please log in to view your orders.</p><div id="ordersList"></div></div></div></section>
 
-<form class="order-form"
- action="https://formspree.io/f/xaeqrpkq"
- method="POST">
- 
-
-  
-
-  <div style="padding:15px;background:#e9f8f7;border-radius:10px;margin:15px 0">
-    <h3>JazzCash Payment</h3>
-    <p><strong>Account Name:</strong> Abdul Jabar</p>
-    <p><strong>JazzCash Number:</strong> 03232154855</p>
-    <p>Please confirm your order and final amount before paying.</p>
-  </div>
-
-  
-    <h3>Order Request Form</h3>
-    <p class="form-intro">Fields marked * are required.</p>
-    <input type="hidden" name="_subject" value="New order - Smart Dost Store Online">
-<input type="hidden" id="customerEmailField" name="Customer Account Email" value="">
-    <div class="form-grid">
-      <div class="field">
-        <label for="customerName">Full Name *</label>
-        <input id="customerName" type="text" name="Customer Name" placeholder="Enter your name" autocomplete="name" required>
-      </div>
-      <div class="field">
-        <label for="phone">Phone Number *</label>
-        <input id="phone" type="tel" name="Phone Number" placeholder="03XXXXXXXXX" autocomplete="tel" required>
-      </div>
-      <div class="field full">
-        <label for="product">Product Category *</label>
-        <select id="product" name="Product" required>
-          <option value="">Choose a category</option>
-          <option>Mobile Accessories</option>
-          <option>Watches</option>
-          <option>Home Essentials</option>
-          <option>Bags &amp; Accessories</option>
-          <option>Clothing</option>
-          <option>Books &amp; Stationery</option>
-          <option>Other Products</option>
-        </select>
-      </div>
-      <div class="field full">
-        <label for="details">Product Details *</label>
-        <input id="details" type="text" name="Product Details" placeholder="Product name, model, size or colour" required>
-      </div>
-      <div class="field">
-        <label for="quantity">Quantity *</label>
-        <input id="quantity" type="number" name="Quantity" min="1" max="100" value="1" required>
-      </div>
-      <div class="field">
-        <label for="payment">Preferred Payment Method</label>
-        <select id="payment" name="Payment Method">
-          <option value="Discuss before payment">Discuss before payment</option>
-          <option value="JazzCash">JazzCash (confirm first)</option>
-          <option value="Easypaisa">Easypaisa (confirm first)</option>
-          <option value="Cash on Delivery if available">Cash on Delivery (if available)</option>
-        </select>
-      </div>
-      <div class="field full">
-        <label for="address">Delivery Address *</label>
-        <textarea id="address" name="Delivery Address" placeholder="City, area and delivery address" autocomplete="street-address" required></textarea>
-      </div>
-
-<div class="field full">
-  <label for="transactionRef">Transaction ID (if already paid)</label>
-  <input
-    id="transactionRef"
-    type="text"
-    name="JazzCash Transaction ID"
-    placeholder="Enter transaction ID">
-</div>
-<div class="field full">
-  <p>Order submit karne ke baad payment screenshot WhatsApp par bhejein.</p>
-  <a
-    href="https://wa.me/923232154855?text=Assalam-o-Alaikum%2C%20Smart%20Dost%20Store%20Online%20ke%20order%20ki%20payment%20screenshot%20bhej%20raha%20hoon."
-    target="_blank"
-    rel="noopener"
-    style="display:inline-block;background:#25D366;color:white;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:bold;">
-    WhatsApp Par Screenshot Bhejein
-  </a>
-</div>
-
-        
-      <div class="field full">
-        <label for="message">Additional Message (Optional)</label>
-        <textarea id="message" name="Additional Message" placeholder="Any other details?"></textarea>
-      </div>
-    </div>
-    <button class="btn submit-btn" type="submit">Submit Order Request →</button>
-    
-
-    <p class="safe-note">This is an order request, not a confirmed purchase. Never enter your banking PIN, password or OTP.</p>
-  </form>
-</div>
-</section>
-
-<section id="why-us">
-<div class="container">
-  <div class="section-head"><h2>Why Shop With Us?</h2><p>Simple online order requests.</p></div>
-  <div class="trust-grid">
-    <article class="trust-card"><h3>📱 Easy Ordering</h3><p>Browse products on your mobile and submit a request.</p></article>
-    <article class="trust-card"><h3>💬 Clear Confirmation</h3><p>Confirm the final price and delivery details before paying.</p></article>
-    <article class="trust-card"><h3>📦 Availability Check</h3><p>Product availability must be checked before confirmation.</p></article>
-  </div>
-  <div class="notice"><strong>Please note:</strong> Product names, photos and prices are examples. Confirm real stock, price and delivery details before paying.</div>
-</div>
-</section>
+<section id="why-us"><div class="container"><div class="section-head"><h2>Why Shop With Us?</h2><p>Simple online order requests.</p></div><div class="trust-grid"><article class="trust-card"><h3>📱 Easy Ordering</h3><p>Browse products on your mobile and submit a request.</p></article><article class="trust-card"><h3>💬 Clear Confirmation</h3><p>Confirm the final price and delivery details before paying.</p></article><article class="trust-card"><h3>📦 Availability Check</h3><p>Product availability must be checked before confirmation.</p></article></div><div class="notice"><strong>Please note:</strong> Product names, photos and prices are examples. Confirm real stock, price and delivery details before paying.</div></div></section>
 </main>
-
-<footer>
-<div class="container">
-  <div class="footer-grid">
-    <div><h3>🛍️ Smart Dost Store Online</h3><p>Your everyday shopping partner.</p></div>
-    <div class="footer-links"><strong>Quick Links</strong><a href="#home">Home</a><a href="#categories">Categories</a><a href="#products">Products</a><a href="#order">Place an Order</a></div>
-  </div>
-  <div class="copyright">© <span id="year"></span> Smart Dost Store Online. All rights reserved.</div>
-</div>
-</footer>
+<footer><div class="container"><div class="footer-grid"><div><h3>🛍️ Smart Dost Store Online</h3><p>Your everyday shopping partner.</p></div><div class="footer-links"><strong>Quick Links</strong><a href="#home">Home</a><a href="#categories">Categories</a><a href="#products">Products</a><a href="#order">Place an Order</a><a href="#myOrders">My Orders</a></div></div><div class="copyright">© <span id="year"></span> Smart Dost Store Online. All rights reserved.</div></div></footer>
 
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
-
-const storeProducts = [
-  
+document.getElementById("year").textContent=new Date().getFullYear();
+const storeProducts=[
 {n:"Tecno Spark 30 Pro Ring Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232550.jpg"},
 {n:"Tecno Camon 20 / 20 Pro Fancy Wavy Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232606.jpg"},
 {n:"Tecno Spark 30 Pro Transparent Bumper Cover",c:"Mobile Accessories",p:299,image:"IMG_20261023_232619.jpg"},
@@ -443,185 +73,57 @@ const storeProducts = [
 {n:"Xiaomi Redmi A5 Premium PU Leather Cover",c:"Mobile Accessories",p:645,image:"IMG_20261023_232715.jpg"},
 {n:"Redmi A5 Soft Matt Cover",c:"Mobile Accessories",p:399,image:"IMG_20261023_232532.jpg"},
 {n:"Vivo Y05 Sixonic Candy Silicone Cover",c:"Mobile Accessories",p:499,image:"IMG_20261023_232648.jpg"},
-
-  {n:"OPPO Reno 3 Pro 4G Back Cover Soft Puffer Down Jacket",c:"Mobile Accessories",p:499,image:"IMG_20261023_232700.jpg"},
+{n:"OPPO Reno 3 Pro 4G Back Cover Soft Puffer Down Jacket",c:"Mobile Accessories",p:499,image:"IMG_20261023_232700.jpg"},
 {n:"OPPO A3X / A3 Soft Matte Back Cover with Camera Protection",c:"Mobile Accessories",p:330,image:"IMG_20261023_232715.jpg"},
 {n:"OPPO A76 / A96 / Realme 9i Embroidered Floral Cover",c:"Mobile Accessories",p:575,image:"IMG_20261024_012526.jpg"},
 {n:"OPPO A3 / A3X Soft Matte Camera Protection Cover",c:"Mobile Accessories",p:399,image:"IMG_20261024_012539.jpg"},
-
 {n:"Realme 6 Back Cover Shockproof Armor Case",c:"Mobile Accessories",p:499,image:"IMG_20261023_232532.jpg"},
 {n:"Realme 3 Pro Rexine Leather Back Cover",c:"Mobile Accessories",p:399,image:"IMG_20261023_232550.jpg"},
 {n:"Realme 5 / 5s / 5i / 6i Ladies Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232606.jpg"},
 {n:"Realme 5 / 5i / 5s / 6i Embroidered Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232619.jpg"},
 {n:"Realme C21Y Embroidered POLO Back Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232634.jpg"},
 {n:"Realme C71 / C75 / C75x Transparent Silicone Cover",c:"Mobile Accessories",p:199,image:"IMG_20261023_232648.jpg"},
-  {n:"USB-C Charger",c:"Mobile Accessories",p:800,i:"1583394838336-acd977736f90"},
-  {n:"Fast Charger",c:"Mobile Accessories",p:1500,i:"1583394838336-acd977736f90"},
-  {n:"Micro USB Cable",c:"Mobile Accessories",p:200,i:"1558618666-fcd25c85cd64"},
-  {n:"USB-C Cable",c:"Mobile Accessories",p:300,i:"1558618666-fcd25c85cd64"},
-  {n:"Lightning Cable",c:"Mobile Accessories",p:500,i:"1558618666-fcd25c85cd64"},
-  {n:"Braided Charging Cable",c:"Mobile Accessories",p:450,i:"1558618666-fcd25c85cd64"},
-  {n:"Wireless Earbuds",c:"Mobile Accessories",p:1800,i:"1590658268037-6bf12165a8df"},
-  {n:"Bluetooth Earbuds Premium",c:"Mobile Accessories",p:3500,i:"1590658268037-6bf12165a8df"},
-  {n:"Wired Earphones",c:"Mobile Accessories",p:350,i:"1590658268037-6bf12165a8df"},
-  {n:"Bluetooth Headphones",c:"Mobile Accessories",p:2500,i:"1505740420928-5e560c06d30e"},
-  {n:"Over-Ear Headphones",c:"Mobile Accessories",p:4000,i:"1505740420928-5e560c06d30e"},
-  {n:"Kids Headphones",c:"Mobile Accessories",p:1200,i:"1505740420928-5e560c06d30e"},
-  {n:"Phone Holder",c:"Mobile Accessories",p:500,i:"1512499617640-c74ae3a79d37"},
-  {n:"Mobile Stand",c:"Mobile Accessories",p:300,i:"1512499617640-c74ae3a79d37"},
-  {n:"Power Bank",c:"Mobile Accessories",p:2500,i:"1609091839311-d5365f9ff1c5"},
-  {n:"USB Adapter",c:"Mobile Accessories",p:250,i:"1583394838336-acd977736f90"},
-
-  {n:"School Copy - Small",c:"Books & Stationery",p:60,i:"1531346878377-a5be20888e57"},
-  {n:"School Copy - Large",c:"Books & Stationery",p:150,i:"1531346878377-a5be20888e57"},
-  {n:"Register / Notebook",c:"Books & Stationery",p:250,i:"1531346878377-a5be20888e57"},
-  {n:"Ballpoint Pens Pack",c:"Books & Stationery",p:200,i:"1455390582262-044cdea277a9"},
-  {n:"Pencils and Erasers",c:"Books & Stationery",p:100,i:"1455390582262-044cdea277a9"},
-  {n:"STB Class 1 Books",c:"Books & Stationery",p:500,i:"1544947950-fa07a98d237f"},
-  {n:"STB Class 2 Books",c:"Books & Stationery",p:600,i:"1544947950-fa07a98d237f"},
-  {n:"STB Class 3 Books",c:"Books & Stationery",p:700,i:"1544947950-fa07a98d237f"},
-  {n:"STB Class 4 Books",c:"Books & Stationery",p:800,i:"1544947950-fa07a98d237f"},
-  {n:"STB Class 5 Books",c:"Books & Stationery",p:900,i:"1544947950-fa07a98d237f"},
-  {n:"STB Class 6 Books",c:"Books & Stationery",p:1000,i:"1544947950-fa07a98d237f"},
-  {n:"STB Class 7 Books",c:"Books & Stationery",p:1000,i:"1544947950-fa07a98d237f"},
-  {n:"STB Class 8 Books",c:"Books & Stationery",p:1200,i:"1544947950-fa07a98d237f"},
-  {n:"STB Class 9 Books",c:"Books & Stationery",p:1500,i:"1544947950-fa07a98d237f"},
-  {n:"STB Class 10 Books",c:"Books & Stationery",p:1500,i:"1544947950-fa07a98d237f"},
-
-  {n:"Men's T-Shirt",c:"Clothing",p:800,i:"1521572163474-6864f9cf17ab"},
-  {n:"Men's Casual Shirt",c:"Clothing",p:1500,i:"1596755094514-f87e34085b2c"},
-  {n:"Kids T-Shirt",c:"Clothing",p:500,i:"1521572163474-6864f9cf17ab"},
-  {n:"Casual Trousers",c:"Clothing",p:1800,i:"1473966968600-fa801b869a1a"},
-  {n:"Women's Scarf",c:"Clothing",p:700,i:"1601924994987-69e26d50dc26"},
-
-  {n:"School Backpack",c:"Bags & Accessories",p:1800,i:"1553062407-98eeb64c6a62"},
-  {n:"Travel Bag",c:"Bags & Accessories",p:2500,i:"1565026057447-bc90a3dceb87"},
-  {n:"Small Handbag",c:"Bags & Accessories",p:1600,i:"1584917865442-de89df76afd3"},
-  {n:"Wallet",c:"Bags & Accessories",p:700,i:"1627123424574-724758594e93"},
-  {n:"School Pencil Pouch",c:"Bags & Accessories",p:250,i:"1544816155-12df9643f363"},
-
-  {n:"Lunch Box",c:"Home Essentials",p:500,i:"1498837167922-ddd27525d352"},
-  {n:"Water Bottle",c:"Home Essentials",p:350,i:"1602143407151-7111542de6e8"},
-  {n:"Storage Box",c:"Home Essentials",p:650,i:"1583847268964-b28dc8f51f92"},
-  {n:"Kitchen Organizer",c:"Home Essentials",p:900,i:"1556911220-e15b29be8c8f"},
-  {n:"Cleaning Brush",c:"Home Essentials",p:200,i:"1585421514738-01798e348b17"},
-
-  {n:"General Household Item",c:"Other Products",p:500,i:"1600566753086-00f18fb6b3ea"},
-  {n:"Gift Item",c:"Other Products",p:700,i:"1513201099705-a9746e1e201d"},
-  {n:"Daily Use Accessory",c:"Other Products",p:300,i:"1523275335684-37898b6baf30"}
-];
-
-const watchNames = [
-"Classic Analog Watch","Minimalist Watch","Leather Strap Watch","Metal Strap Watch",
-"Black Dial Watch","Silver Dial Watch","Gold-Tone Watch","Brown Strap Watch",
-"Sports Watch","Digital Sports Watch","LED Digital Watch","Kids Digital Watch",
-"Kids Cartoon Watch","Women's Elegant Watch","Women's Slim Watch","Rose-Gold Watch",
-"Mesh Strap Watch","Square Dial Watch","Round Dial Watch","Chronograph Style Watch",
-"Fashion Watch","Casual Everyday Watch","Office Wear Watch","Classic White Dial Watch",
-"Classic Blue Dial Watch","Classic Green Dial Watch","Black Sports Digital Watch",
-"Water-Resistant Style Watch","Silicone Strap Watch","Stainless-Steel Style Watch",
-"Vintage Style Watch","Fashion Square Watch","Couple Style Watch","Premium Look Watch",
-"Everyday Metal Watch","Simple Leather Watch","Fashion Number Dial Watch","Digital Alarm Watch",
-"Sporty Silicone Watch","Smartwatch Style Basic","Smartwatch Style Premium",
-"Fitness Style Watch","Blue Strap Watch","Red Strap Watch","Elegant Gold Dial Watch",
-"Silver Mesh Fashion Watch","Black Minimal Watch","Brown Classic Watch",
-"Modern Square Smartwatch Style","Everyday Classic Watch"
-];
-const watchPrices = [
-1200,1500,2200,2500,1800,2000,2800,1700,1600,1400,
-1300,800,700,2200,2500,2800,3000,1800,1600,3500,
-1900,1100,2400,1700,2000,2300,1500,3000,1200,3200,
-2600,2100,4000,4500,2800,1400,1900,1300,1700,3500,
-4900,3000,1600,1400,3200,2700,2000,2300,4200,1800
-];
-watchNames.forEach((name,index) => {
-  storeProducts.push({
-    n:name,
-    c:"Watches",
-    p:watchPrices[index],
-    i:"1524805444758-089113d48a6d"
-  });
-});
-
-const productGrid = document.getElementById("productGrid");
-const productSearch = document.getElementById("productSearch");
-const productEmpty = document.getElementById("productEmpty");
-const productHeading = document.getElementById("productHeading");
-const categorySelect = document.getElementById("product");
-const detailsInput = document.getElementById("details");
-let selectedProductCategory = "";
-
-function renderStoreProducts() {
-  const query = productSearch.value.trim().toLowerCase();
-  const filtered = storeProducts.filter(item => {
-    const categoryMatch = !selectedProductCategory || item.c === selectedProductCategory;
-    const searchMatch = (item.n + " " + item.c).toLowerCase().includes(query);
-    return categoryMatch && searchMatch;
-  });
-
-  productGrid.innerHTML = filtered.map(item => `
-    <article class="product-card">
-      
-<img
-  src="${item.image || (item.i ? 'https://images.unsplash.com/photo-' + item.i + '?auto=format&fit=crop&w=600&q=75' : 'IMG_20261023_232532.jpg')}"
-  alt="${item.n}"
-  loading="lazy"
-  onerror="this.onerror=null;this.src='IMG_20261023_232532.jpg'">
-
-      <div class="product-info">
-        <h3>${item.n}</h3>
-        <div class="product-price">Sample price: Rs. ${item.p.toLocaleString("en-PK")}</div>
-        <button type="button" class="btn order-product"
-          data-name="${item.n}" data-category="${item.c}" data-price="${item.p}">
-          Order Now
-        </button>
-      </div>
-    </article>
-  `).join("");
-
-  productEmpty.style.display = filtered.length ? "none" : "block";
-  productHeading.textContent = selectedProductCategory || "All Products";
-}
-
-function showCategory(category) {
-  selectedProductCategory = category;
-  productSearch.value = "";
-  renderStoreProducts();
-  document.getElementById("products").scrollIntoView({behavior:"smooth"});
-}
-
-renderStoreProducts();
-
-productSearch.addEventListener("input", renderStoreProducts);
-
-document.querySelectorAll(".choose-category").forEach(button => {
-  button.addEventListener("click", () => {
-    showCategory(button.dataset.category);
-  });
-});
-
-productGrid.addEventListener("click", event => {
-  const button = event.target.closest(".order-product");
-  if (!button) return;
-
-  categorySelect.value = button.dataset.category;
-  detailsInput.value = button.dataset.name +
-    " - Sample price Rs. " + button.dataset.price;
-  document.getElementById("order").scrollIntoView({behavior:"smooth"});
-  setTimeout(() => detailsInput.focus(), 500);
-});
-
-document.getElementById("categorySearch").addEventListener("input", function() {
-  const query = this.value.trim().toLowerCase();
-  let visible = 0;
-  document.querySelectorAll(".category-card").forEach(card => {
-    const text = (card.innerText + " " + card.dataset.search).toLowerCase();
-    const match = text.includes(query);
-    card.style.display = match ? "" : "none";
-    if (match) visible++;
-  });
-  document.getElementById("emptyMessage").style.display = visible ? "none" : "block";
-});
+{n:"USB-C Charger",c:"Mobile Accessories",p:800,i:"1583394838336-acd977736f90"},{n:"Fast Charger",c:"Mobile Accessories",p:1500,i:"1583394838336-acd977736f90"},{n:"Micro USB Cable",c:"Mobile Accessories",p:200,i:"1558618666-fcd25c85cd64"},{n:"USB-C Cable",c:"Mobile Accessories",p:300,i:"1558618666-fcd25c85cd64"},{n:"Lightning Cable",c:"Mobile Accessories",p:500,i:"1558618666-fcd25c85cd64"},{n:"Braided Charging Cable",c:"Mobile Accessories",p:450,i:"1558618666-fcd25c85cd64"},{n:"Wireless Earbuds",c:"Mobile Accessories",p:1800,i:"1590658268037-6bf12165a8df"},{n:"Bluetooth Earbuds Premium",c:"Mobile Accessories",p:3500,i:"1590658268037-6bf12165a8df"},{n:"Wired Earphones",c:"Mobile Accessories",p:350,i:"1590658268037-6bf12165a8df"},{n:"Bluetooth Headphones",c:"Mobile Accessories",p:2500,i:"1505740420928-5e560c06d30e"},{n:"Over-Ear Headphones",c:"Mobile Accessories",p:4000,i:"1505740420928-5e560c06d30e"},{n:"Kids Headphones",c:"Mobile Accessories",p:1200,i:"1505740420928-5e560c06d30e"},{n:"Phone Holder",c:"Mobile Accessories",p:500,i:"1512499617640-c74ae3a79d37"},{n:"Mobile Stand",c:"Mobile Accessories",p:300,i:"1512499617640-c74ae3a79d37"},{n:"Power Bank",c:"Mobile Accessories",p:2500,i:"1609091839311-d5365f9ff1c5"},{n:"USB Adapter",c:"Mobile Accessories",p:250,i:"1583394838336-acd977736f90"},
+{n:"School Copy - Small",c:"Books & Stationery",p:60,i:"1531346878377-a5be20888e57"},{n:"School Copy - Large",c:"Books & Stationery",p:150,i:"1531346878377-a5be20888e57"},{n:"Register / Notebook",c:"Books & Stationery",p:250,i:"1531346878377-a5be20888e57"},{n:"Ballpoint Pens Pack",c:"Books & Stationery",p:200,i:"1455390582262-044cdea277a9"},{n:"Pencils and Erasers",c:"Books & Stationery",p:100,i:"1455390582262-044cdea277a9"},
+...Array.from({length:10},(_,i)=>({n:`STB Class ${i+1} Books`,c:"Books & Stationery",p:[500,600,700,800,900,1000,1000,1200,1500,1500][i],i:"1544947950-fa07a98d237f"})),
+{n:"Men's T-Shirt",c:"Clothing",p:800,i:"1521572163474-6864f9cf17ab"},{n:"Men's Casual Shirt",c:"Clothing",p:1500,i:"1596755094514-f87e34085b2c"},{n:"Kids T-Shirt",c:"Clothing",p:500,i:"1521572163474-6864f9cf17ab"},{n:"Casual Trousers",c:"Clothing",p:1800,i:"1473966968600-fa801b869a1a"},{n:"Women's Scarf",c:"Clothing",p:700,i:"1601924994987-69e26d50dc26"},
+{n:"School Backpack",c:"Bags & Accessories",p:1800,i:"1553062407-98eeb64c6a62"},{n:"Travel Bag",c:"Bags & Accessories",p:2500,i:"1565026057447-bc90a3dceb87"},{n:"Small Handbag",c:"Bags & Accessories",p:1600,i:"1584917865442-de89df76afd3"},{n:"Wallet",c:"Bags & Accessories",p:700,i:"1627123424574-724758594e93"},{n:"School Pencil Pouch",c:"Bags & Accessories",p:250,i:"1544816155-12df9643f363"},
+{n:"Lunch Box",c:"Home Essentials",p:500,i:"1498837167922-ddd27525d352"},{n:"Water Bottle",c:"Home Essentials",p:350,i:"1602143407151-7111542de6e8"},{n:"Storage Box",c:"Home Essentials",p:650,i:"1583847268964-b28dc8f51f92"},{n:"Kitchen Organizer",c:"Home Essentials",p:900,i:"1556911220-e15b29be8c8f"},{n:"Cleaning Brush",c:"Home Essentials",p:200,i:"1585421514738-01798e348b17"},
+{n:"General Household Item",c:"Other Products",p:500,i:"1600566753086-00f18fb6b3ea"},{n:"Gift Item",c:"Other Products",p:700,i:"1513201099705-a9746e1e201d"},{n:"Daily Use Accessory",c:"Other Products",p:300,i:"1523275335684-37898b6baf30"}];
+const watchNames=["Classic Analog Watch","Minimalist Watch","Leather Strap Watch","Metal Strap Watch","Black Dial Watch","Silver Dial Watch","Gold-Tone Watch","Brown Strap Watch","Sports Watch","Digital Sports Watch","LED Digital Watch","Kids Digital Watch","Kids Cartoon Watch","Women's Elegant Watch","Women's Slim Watch","Rose-Gold Watch","Mesh Strap Watch","Square Dial Watch","Round Dial Watch","Chronograph Style Watch","Fashion Watch","Casual Everyday Watch","Office Wear Watch","Classic White Dial Watch","Classic Blue Dial Watch","Classic Green Dial Watch","Black Sports Digital Watch","Water-Resistant Style Watch","Silicone Strap Watch","Stainless-Steel Style Watch","Vintage Style Watch","Fashion Square Watch","Couple Style Watch","Premium Look Watch","Everyday Metal Watch","Simple Leather Watch","Fashion Number Dial Watch","Digital Alarm Watch","Sporty Silicone Watch","Smartwatch Style Basic","Smartwatch Style Premium","Fitness Style Watch","Blue Strap Watch","Red Strap Watch","Elegant Gold Dial Watch","Silver Mesh Fashion Watch","Black Minimal Watch","Brown Classic Watch","Modern Square Smartwatch Style","Everyday Classic Watch"];
+const watchPrices=[1200,1500,2200,2500,1800,2000,2800,1700,1600,1400,1300,800,700,2200,2500,2800,3000,1800,1600,3500,1900,1100,2400,1700,2000,2300,1500,3000,1200,3200,2600,2100,4000,4500,2800,1400,1900,1300,1700,3500,4900,3000,1600,1400,3200,2700,2000,2300,4200,1800];
+watchNames.forEach((n,i)=>storeProducts.push({n,c:"Watches",p:watchPrices[i],i:"1524805444758-089113d48a6d"}));
+const productGrid=document.getElementById("productGrid"),productSearch=document.getElementById("productSearch"),productEmpty=document.getElementById("productEmpty"),productHeading=document.getElementById("productHeading"),categorySelect=document.getElementById("product"),detailsInput=document.getElementById("details");let selectedProductCategory="";
+function renderStoreProducts(){const q=productSearch.value.trim().toLowerCase();const filtered=storeProducts.filter(x=>(!selectedProductCategory||x.c===selectedProductCategory)&&(x.n+" "+x.c).toLowerCase().includes(q));productGrid.innerHTML=filtered.map(x=>`<article class="product-card"><img src="${x.image|| (x.i?'https://images.unsplash.com/photo-'+x.i+'?auto=format&fit=crop&w=600&q=75':'IMG_20261023_232532.jpg')}" alt="${x.n.replace(/"/g,'&quot;')}" loading="lazy" onerror="this.onerror=null;this.src='IMG_20261023_232532.jpg'"><div class="product-info"><h3>${x.n}</h3><div class="product-price">Sample price: Rs. ${x.p.toLocaleString("en-PK")}</div><button type="button" class="btn order-product" data-name="${x.n.replace(/"/g,'&quot;')}" data-category="${x.c}" data-price="${x.p}">Order Now</button></div></article>`).join("");productEmpty.style.display=filtered.length?"none":"block";productHeading.textContent=selectedProductCategory||"All Products"}
+function showCategory(c){selectedProductCategory=c;productSearch.value="";renderStoreProducts();document.getElementById("products").scrollIntoView({behavior:"smooth"})}
+renderStoreProducts();productSearch.addEventListener("input",renderStoreProducts);document.querySelectorAll(".choose-category").forEach(b=>b.addEventListener("click",()=>showCategory(b.dataset.category)));
+productGrid.addEventListener("click",e=>{const b=e.target.closest(".order-product");if(!b)return;categorySelect.value=b.dataset.category;detailsInput.value=b.dataset.name+" - Sample price Rs. "+b.dataset.price;document.getElementById("order").scrollIntoView({behavior:"smooth"});setTimeout(()=>detailsInput.focus(),500)});
+document.getElementById("categorySearch").addEventListener("input",function(){const q=this.value.trim().toLowerCase();let count=0;document.querySelectorAll(".category-card").forEach(c=>{const ok=(c.innerText+" "+c.dataset.search).toLowerCase().includes(q);c.style.display=ok?"":"none";if(ok)count++});document.getElementById("emptyMessage").style.display=count?"none":"block"});
 </script>
 
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+const firebaseConfig={apiKey:"AIzaSyDkvePLdT859PrwRS7yb-YJfByAhafRBhM",authDomain:"smart-dost-store-online.firebaseapp.com",projectId:"smart-dost-store-online",storageBucket:"smart-dost-store-online.firebasestorage.app",messagingSenderId:"147065420247",appId:"1:147065420247:web:b467192de4f2cdb440b392",measurementId:"G-ZWDV59J62W",databaseURL:"https://smart-dost-store-online-default-rtdb.asia-southeast1.firebasedatabase.app"};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app),$=id=>document.getElementById(id);
+const accountMessage=$("accountMessage"),logoutButton=$("logoutButton"),ordersList=$("ordersList"),ordersMessage=$("ordersMessage"),orderForm=$("orderForm"),orderMessage=$("orderMessage");let ordersUnsubscribe=null;
+function errText(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-email":"Please enter a valid email address.","auth/weak-password":"Password must be at least 6 characters.","auth/invalid-credential":"Email or password is incorrect.","auth/network-request-failed":"Network error. Check your internet."};return m[e.code]||e.message||"Something went wrong."}
+$("signupForm").addEventListener("submit",async e=>{e.preventDefault();accountMessage.textContent="Creating account...";try{await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);accountMessage.textContent="Account created and logged in.";$("signupForm").reset()}catch(x){accountMessage.textContent=errText(x)}});
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();accountMessage.textContent="Logging in...";try{await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);accountMessage.textContent="Login successful.";$("loginForm").reset()}catch(x){accountMessage.textContent=errText(x)}});
+logoutButton.addEventListener("click",async()=>{try{await signOut(auth);accountMessage.textContent="You have logged out."}catch(x){accountMessage.textContent=errText(x)}});
+onAuthStateChanged(auth,user=>{logoutButton.classList.toggle("hidden",!user);$("signupForm").classList.toggle("hidden",!!user);$("loginForm").classList.toggle("hidden",!!user);
+if(user){accountMessage.textContent="Logged in as "+(user.email||"customer")+". You can submit an order.";$("customerEmailField").value=user.email||"";ordersMessage.textContent="Loading your orders...";if(ordersUnsubscribe){ordersUnsubscribe();ordersUnsubscribe=null}
+ordersUnsubscribe=onValue(ref(db,"orders/"+user.uid),snap=>{ordersList.replaceChildren();if(!snap.exists()){ordersMessage.textContent="You have not placed any orders yet.";return}ordersMessage.textContent="Your order history:";Object.entries(snap.val()).reverse().forEach(([id,o])=>{const card=document.createElement("article");card.className="order-history-item";const title=document.createElement("h3");title.textContent=o.productDetails||o.product||"Order";const status=document.createElement("p");status.className="status";status.textContent="Status: "+(o.status||"Pending");const info=document.createElement("p");info.textContent="Quantity: "+o.quantity+" | Payment: "+o.paymentMethod+" | Date: "+(o.createdAt?new Date(o.createdAt).toLocaleString():"Not available");const addr=document.createElement("p");addr.textContent="Delivery address: "+(o.deliveryAddress||"");card.append(title,status,info,addr);ordersList.append(card)})},x=>{ordersMessage.textContent="Could not load orders: "+errText(x)});
+}else{$("customerEmailField").value="";accountMessage.textContent="Create an account or log in to place an order.";ordersMessage.textContent="Please log in to view your orders.";ordersList.replaceChildren();if(ordersUnsubscribe){ordersUnsubscribe();ordersUnsubscribe=null}}});
+orderForm.addEventListener("submit",async e=>{e.preventDefault();orderMessage.textContent="";const user=auth.currentUser;if(!user){orderMessage.textContent="Please create an account or log in before submitting an order.";document.getElementById("account").scrollIntoView({behavior:"smooth"});return}
+const v=id=>$(id).value.trim(),quantity=Number(v("quantity"));if(!Number.isInteger(quantity)||quantity<1||quantity>100){orderMessage.textContent="Quantity must be between 1 and 100.";return}
+const data={customerEmail:user.email||"",status:"Pending",createdAt:Date.now(),customerName:v("customerName"),phone:v("phone"),product:v("product"),productDetails:v("details"),quantity,paymentMethod:v("payment"),deliveryAddress:v("address"),transactionRef:v("transactionRef"),additionalMessage:v("message")};
+const btn=orderForm.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent="Submitting...";
+try{const newOrder=push(ref(db,"orders/"+user.uid));await set(newOrder,data);orderMessage.textContent="Order saved. Sending email notification...";
+try{const r=await fetch(orderForm.action,{method:"POST",body:new FormData(orderForm),headers:{Accept:"application/json"}});orderMessage.textContent=r.ok?"Order saved successfully. Email notification request sent.":"Order saved, but Formspree email failed. Check Formspree settings."}catch(_){orderMessage.textContent="Order saved, but email notification failed. Check internet and Formspree settings."}
+orderForm.reset();$("customerEmailField").value=user.email||"";$("quantity").value="1";document.getElementById("myOrders").scrollIntoView({behavior:"smooth"});
+}catch(x){orderMessage.textContent="Order could not be saved: "+errText(x)+". Check Firebase Database Rules."}finally{btn.disabled=false;btn.textContent="Submit Order Request →"}});
+</script>
+</body>
 </html>
