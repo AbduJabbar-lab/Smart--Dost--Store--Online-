@@ -182,7 +182,49 @@ footer p,footer a { color:#c6d5e0; font-size:13px; }
     </nav>
   </div>
 </header>
+<section id="account" style="padding:25px 0;background:#e9f8f7">
+  <div class="container">
+    <div style="background:white;padding:20px;border-radius:14px;max-width:550px;margin:auto">
+      <h2 style="color:#102d46;margin-top:0">Customer Account</h2>
+      <p>Create an account or log in with your email and password.</p>
 
+      <form id="signupForm">
+        <label for="signupEmail">Email Address</label>
+        <input id="signupEmail" type="email" required
+          autocomplete="email"
+          style="display:block;width:100%;padding:12px;margin:6px 0 14px;border:1px solid #d7e0e8;border-radius:8px">
+
+        <label for="signupPassword">Password (at least 6 characters)</label>
+        <input id="signupPassword" type="password" required minlength="6"
+          autocomplete="new-password"
+          style="display:block;width:100%;padding:12px;margin:6px 0 14px;border:1px solid #d7e0e8;border-radius:8px">
+
+        <button class="btn" type="submit">Create Account</button>
+      </form>
+
+      <hr style="margin:20px 0">
+
+      <form id="loginForm">
+        <label for="loginEmail">Email Address</label>
+        <input id="loginEmail" type="email" required
+          autocomplete="email"
+          style="display:block;width:100%;padding:12px;margin:6px 0 14px;border:1px solid #d7e0e8;border-radius:8px">
+
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" type="password" required
+          autocomplete="current-password"
+          style="display:block;width:100%;padding:12px;margin:6px 0 14px;border:1px solid #d7e0e8;border-radius:8px">
+
+        <button class="btn" type="submit">Log In</button>
+      </form>
+
+      <button id="logoutButton" class="btn"
+        type="button" hidden style="margin-top:12px">Log Out</button>
+
+      <p id="accountMessage" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
 <main>
 <section class="hero" id="home">
   <div class="container hero-inner">
@@ -358,10 +400,7 @@ footer p,footer a { color:#c6d5e0; font-size:13px; }
       </div>
     </div>
     <button class="btn submit-btn" type="submit">Submit Order Request →</button>
-    <p class="safe-note">This is an order request, not a confirmed purchase. Never enter your banking PIN, password or OTP.</p>
-  </form>
-</div>
-</section>
+    
 
     <p class="safe-note">This is an order request, not a confirmed purchase. Never enter your banking PIN, password or OTP.</p>
   </form>
@@ -582,6 +621,89 @@ document.getElementById("categorySearch").addEventListener("input", function() {
     if (match) visible++;
   });
   document.getElementById("emptyMessage").style.display = visible ? "none" : "block";
+});
+</script>
+<script type="module">
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDkvePLdT859PrwRS7yb-YJfByAhafRBhM",
+  authDomain: "smart-dost-store-online.firebaseapp.com",
+  projectId: "smart-dost-store-online",
+  storageBucket: "smart-dost-store-online.firebasestorage.app",
+  messagingSenderId: "147065420247",
+  appId: "1:147065420247:web:b467192de4f2cdb440b392",
+  measurementId: "G-ZWDV59J62W"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const signupForm = document.getElementById("signupForm");
+const loginForm = document.getElementById("loginForm");
+const logoutButton = document.getElementById("logoutButton");
+const accountMessage = document.getElementById("accountMessage");
+
+function showMessage(message) {
+  accountMessage.textContent = message;
+}
+
+signupForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById("signupEmail").value.trim();
+  const password = document.getElementById("signupPassword").value;
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    signupForm.reset();
+    showMessage("Account created successfully!");
+  } catch (error) {
+    showMessage(error.message);
+  }
+});
+
+loginForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    loginForm.reset();
+    showMessage("Login successful!");
+  } catch (error) {
+    showMessage(error.message);
+  }
+});
+
+logoutButton.addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    showMessage("You have logged out.");
+  } catch (error) {
+    showMessage(error.message);
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  logoutButton.hidden = !user;
+
+  if (user) {
+    showMessage("Logged in as: " + user.email);
+  } else {
+    showMessage("Please create an account or log in.");
+  }
 });
 </script>
 </body>
