@@ -700,10 +700,14 @@ onAuthStateChanged(auth, (user) => {
   logoutButton.hidden = !user;
 
   if (user) {
-    showMessage("Logged in as: " + user.email);
-  } else {
-    showMessage("Please create an account or log in.");
-  }
+  document.getElementById("customerEmailField").value =
+    user.email || "";
+
+  showMessage("Logged in as: " + user.email);
+} else {
+  document.getElementById("customerEmailField").value = "";
+  showMessage("Please create an account or log in.");
+}
 });
 </script>
 </body>
