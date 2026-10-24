@@ -108,7 +108,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 import { getDatabase, ref, push, set, onValue, update } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 const firebaseConfig={apiKey:"AIzaSyDkvePLdT859PrwRS7yb-YJfByAhafRBhM",authDomain:"smart-dost-store-online.firebaseapp.com",projectId:"smart-dost-store-online",storageBucket:"smart-dost-store-online.firebasestorage.app",messagingSenderId:"147065420247",appId:"1:147065420247:web:b467192de4f2cdb440b392",measurementId:"G-ZWDV59J62W",databaseURL:"https://smart-dost-store-online-default-rtdb.asia-southeast1.firebasedatabase.app"};
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app),$=id=>document.getElementById(id);
-accountMessage.textContent = "Firebase script loaded successfully.";
+
 const ADMIN_EMAIL="jabbardaharki21@gmail.com";
 const accountMessage=$("accountMessage"),logoutButton=$("logoutButton"),ordersList=$("ordersList"),ordersMessage=$("ordersMessage"),orderForm=$("orderForm"),orderMessage=$("orderMessage"),adminPanel=$("adminPanel"),adminMessage=$("adminMessage"),adminOrdersList=$("adminOrdersList");let ordersUnsubscribe=null,adminUnsubscribe=null;
 function errText(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-email":"Please enter a valid email address.","auth/weak-password":"Password must be at least 6 characters.","auth/invalid-credential":"Email or password is incorrect.","auth/network-request-failed":"Network error. Check your internet."};return m[e.code]||e.message||"Something went wrong."}
