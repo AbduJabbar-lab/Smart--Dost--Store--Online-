@@ -623,6 +623,168 @@ document.getElementById("categorySearch").addEventListener("input", function() {
   document.getElementById("emptyMessage").style.display = visible ? "none" : "block";
 });
 </script>
+const orderForm = document.querySelector(".order-form");
+const ordersMessage = document.getElementById("ordersMessage");
+const myOrdersList = document.getElementById("myOrdersList");
+
+// لاگ اِن صارف کے آرڈرز دکھائیں
+onAuthStateChanged(auth, (user) => {
+  myOrdersList.replaceChildren();
+
+  if (!user) {
+    ordersMessage.textContent =
+      "اپنے آرڈرز دیکھنے کے لیے لاگ اِن کریں۔";
+    return;
+  }
+
+  ordersMessage.textContent = "آپ کے آرڈرز لوڈ ہو رہے ہیں...";
+
+  const ordersRef = ref(database, "orders/" + user.uid);
+
+  onValue(ordersRef, (snapshot) => {
+    myOrdersList.replaceChildren();
+
+    if (!snapshot.exists()) {
+      ordersMessage.textContent = "ابھی آپ کا کوئی آرڈر موجود نہیں۔";
+      return;
+    }
+
+    ordersMessage.textContent = "آپ کے آرڈرز:";
+
+    snapshot.forEach((orderSnapshot) => {
+      const order = orderSnapshot.val();
+      const card = document.createElement("div");
+
+      card.style.cssText =
+        "border:1px solid #ccc; padding:12px; margin:10px 0; border-radius:8px;";
+
+      const title = document.createElement("h3");
+      title.textContent = order.product || "Product";
+      card.appendChild(title);
+
+      const details = [
+        "آرڈر: " + order.status,
+        "نام: " + order.customerName,
+        "فون: " + order.phone,
+        "مقدار: " + order.quantity,
+        "ادائیگی: " + order.paymentMethod,
+        "پتہ: " + order.deliveryAddress,
+        "تفصیل: " + (order.productDetails || ""),
+        "اضافی پیغام: " + (order.additionalMessage || "")
+      ];
+
+      details.forEach((line) => {
+        const p = document.createElement("p");
+        p.textContent = line;
+        card.appendChild(p);
+      });
+
+      myOrdersList.appendChild(card);
+    });
+  }, (error) => {
+    ordersMessage.textContent =
+      "آرڈرز لوڈ نہیں ہوئے۔ دوبارہ لاگ اِن کرکے دیکھیں۔";
+    console.error(error);
+  });
+});
+
+// نیا آرڈر Firebase میں محفوظ کریں
+if (orderForm) {
+  orderForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert("آرڈر دینے سے پہلے اپنے اکاؤنٹ میں لاگ اِن کریں۔");
+      return;
+    }
+
+    const submitButton = orderForm.querySelector(
+      'button[type="submit"]'
+    );
+    const originalText = submitButton
+      ? submitButton.textContent
+      : "";
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "آرڈر محفوظ ہو رہا ہے...";
+    }
+
+    try {
+      const value = (id) =>
+        document.getElementById(id)?.value?.trim() || "";
+
+      const orderData = {
+        customerEmail: user.email || "",
+        status: "Pending",
+        createdAt: Date.now(),
+        customerName: value("customerName"),
+        phone: value("phone"),
+        product: value("product"),
+        productDetails: value("details"),
+        quantity: Number(value("quantity")),
+        paymentMethod: value("payment"),
+        deliveryAddress: value("address"),
+        transactionRef: value("transactionRef"),
+        additionalMessage: value("message")
+      };
+
+      if (!orderData.customerEmail) {
+        throw new Error("آپ کے اکاؤنٹ کا ای میل موجود نہیں۔");
+      }
+
+      if (
+        !orderData.customerName ||
+        !orderData.phone ||
+        !orderData.product ||
+        !orderData.deliveryAddress ||
+        !Number.isInteger(orderData.quantity) ||
+        orderData.quantity < 1 ||
+        orderData.quantity > 100
+      ) {
+        throw new Error("براہِ کرم نام، فون، پروڈکٹ، پتہ اور درست مقدار درج کریں۔");
+      }
+
+      const userOrdersRef = ref(database, "orders/" + user.uid);
+      const newOrderRef = push(userOrdersRef);
+
+      await set(newOrderRef, orderData);
+
+      // آرڈر کی ای میل اطلاع Formspree کو بھیجیں
+      try {
+        const response = await fetch(orderForm.action, {
+          method: "POST",
+          body: new FormData(orderForm),
+          headers: { Accept: "application/json" }
+        });
+
+        if (!response.ok) {
+          throw new Error("Formspree notification failed");
+        }
+
+        alert("آپ کا آرڈر محفوظ ہوگیا اور اطلاع بھیج دی گئی ہے۔");
+      } catch (emailError) {
+        alert("آپ کا آرڈر Firebase میں محفوظ ہوگیا، لیکن ای میل اطلاع نہیں بھیجی جا سکی۔");
+        console.error(emailError);
+      }
+
+      orderForm.reset();
+      const emailField = document.getElementById("customerEmailField");
+      if (emailField) emailField.value = user.email || "";
+
+    } catch (error) {
+      console.error(error);
+      alert("آرڈر محفوظ نہیں ہوا: " + error.message);
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+    }
+  });
+}
 <script type="module">
 import { initializeApp } from
   "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
@@ -634,7 +796,13 @@ import {
   signOut,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
+import {
+  getDatabase,
+  ref,
+  push,
+  set,
+  onValue
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 const firebaseConfig = {
   apiKey: "AIzaSyDkvePLdT859PrwRS7yb-YJfByAhafRBhM",
   authDomain: "smart-dost-store-online.firebaseapp.com",
@@ -647,7 +815,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
+const database = getDatabase(app);
 const signupForm = document.getElementById("signupForm");
 const loginForm = document.getElementById("loginForm");
 const logoutButton = document.getElementById("logoutButton");
@@ -710,5 +878,10 @@ onAuthStateChanged(auth, (user) => {
 }
 });
 </script>
+<section id="myOrdersSection" style="padding:20px; max-width:800px; margin:auto;">
+  <h2>My Orders</h2>
+  <p id="ordersMessage">اپنے آرڈرز دیکھنے کے لیے لاگ اِن کریں۔</p>
+  <div id="myOrdersList"></div>
+</section>
 </body>
 </html>
