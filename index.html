@@ -16,7 +16,9 @@
 </head>
 <body>
 <div class="topbar">Welcome to Smart Dost Store Online — Shop smart, live better!</div>
-<header><div class="container navbar"><a class="brand" href="#home">🛍️ Smart Dost Store</a><nav><a href="#home">Home</a><a href="#account">Account</a><a href="#categories">Categories</a><a href="#products">Products</a><a href="#order">Place an Order</a><a href="#myOrders">My Orders</a></nav></div></header>
+<header><div class="container navbar"><a class="brand" href="#home">🛍️ Smart Dost Store</a><nav><a href="#home">Home</a><a href="#account">Account</a><a href="#categories">Categories</a><a href="#products">Products</a><a
+<a href="#wishlist">💖 Wishlist (<span id="wishlistCount">0</span>)</a>
+href="#order">Place an Order</a><a href="#myOrders">My Orders</a></nav></div></header>
 
 <section id="account" style="padding:25px 0;background:#e9f8f7"><div class="container"><div class="account-box">
 <h2 style="color:#102d46;margin-top:0">Customer Account</h2><p>Create an account or log in with your email and password.</p>
@@ -51,6 +53,20 @@
     </button>
   </div>
 </section>
+
+<section id="wishlist" class="product-section">
+  <div class="container">
+    <div class="section-head">
+      <h2>💖 My Wishlist</h2>
+      <p>Your favourite products, saved for later.</p>
+    </div>
+    <div id="wishlistGrid" class="product-grid"></div>
+    <p id="wishlistEmpty" class="empty-message">
+      Your wishlist is empty. Tap ❤️ on a product to save it here.
+    </p>
+  </div>
+</section>
+
 <section id="products" class="product-section"><div class="container"><div class="section-head"><h2 id="productHeading">All Products</h2><p>Choose a product and tap Order Now.</p></div><div class="search-wrap"><input id="productSearch" type="search" placeholder="Search products..." aria-label="Search products"></div><div id="productGrid" class="product-grid"></div><p id="productEmpty" class="empty-message">No products found in this category.</p><p class="price-note">Prices and photos are examples only, not confirmed stock or final selling prices. Confirm model, actual price and delivery charges before paying.</p></div></section>
 
 <section id="order" class="order-section"><div class="container order-layout"><div class="order-info"><h2>Place Your Order</h2><p>Fill in your contact and delivery details. We will confirm the requested product, final price and availability.</p><p><strong>Important:</strong> Wait for confirmation before making payment. Never share your PIN or OTP.</p><div class="notice"><strong>JazzCash Payment</strong><p>Account Name: Abdul Jabar</p><p>JazzCash Number: 03232154855</p><p>Please confirm your order and final amount before paying.</p></div></div>
