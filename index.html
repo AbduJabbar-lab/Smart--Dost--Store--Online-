@@ -86,7 +86,66 @@ href="#order">Place an Order</a><a href="#myOrders">My Orders</a></nav></div></h
 </div><button class="btn submit-btn" type="submit">Submit Order Request →</button><p id="orderMessage" role="status" aria-live="polite"></p><p class="safe-note">This is an order request, not a confirmed purchase. Never enter your banking PIN, password or OTP.</p></form></div></section>
 
 <section id="myOrders"><div class="container"><div class="section-head"><h2>My Orders</h2><p>Log in to view orders submitted from your account.</p></div><div class="panel"><p id="ordersMessage">Please log in to view your orders.</p><div id="ordersList"></div></div></div></section>
-<section id="adminPanel" class="hidden"><div class="container"><div class="section-head"><h2>Admin Panel</h2><p>Manage customer order requests. Only the configured admin email should use this panel.</p></div><div class="panel"><p id="adminMessage">Admin access required.</p><div id="adminOrdersList"></div></div></div></section>
+<section id="adminPanel" class="hidden"><div class="container"><div class="section-head"><h2>Admin Panel</h2><p>Manage customer order requests. Only the configured admin email should use this panel.</p></div><div class="panel"><p id="adminMessage">Admin access required.</p><div id="adminOrdersList"></div>
+<hr>
+<h2>Manage Products</h2>
+<p>Add, edit or delete products in the online store.</p>
+
+<form id="adminProductForm">
+  <input type="hidden" id="editProductId">
+
+  <div class="field">
+    <label for="adminProductName">Product Name</label>
+    <input id="adminProductName" required maxlength="120">
+  </div>
+
+  <div class="field">
+    <label for="adminProductCategory">Category</label>
+    <select id="adminProductCategory" required>
+      <option>Mobile Accessories</option>
+      <option>Watches</option>
+      <option>Home Essentials</option>
+      <option>Bags &amp; Accessories</option>
+      <option>Clothing</option>
+      <option>Books &amp; Stationery</option>
+      <option>Other Products</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="adminProductPrice">Price (PKR)</label>
+    <input id="adminProductPrice" type="number"
+      min="0" max="10000000" step="1" required>
+  </div>
+
+  <div class="field">
+    <label for="adminProductImage">Image URL or image filename</label>
+    <input id="adminProductImage" type="text"
+      maxlength="1000" placeholder="https://... or image.jpg">
+  </div>
+
+  <button class="btn" type="submit" id="saveProductButton">
+    Save Product
+  </button>
+  <button class="btn" type="button" id="cancelProductEdit"
+    style="background:#667788">
+    Cancel Edit
+  </button>
+</form>
+
+<p id="adminProductMessage" role="status"></p>
+
+<button class="btn" type="button" id="importSampleProducts"
+  style="background:#8a5a00">
+  Import Existing Sample Products to Firebase
+</button>
+
+<p class="safe-note">
+  Import is only for an empty products database. It will not overwrite existing Firebase products.
+</p>
+
+<div id="adminProductsList"></div>
+</div></div></section>
 
 <section id="why-us"><div class="container"><div class="section-head"><h2>Why Shop With Us?</h2><p>Simple online order requests.</p></div><div class="trust-grid"><article class="trust-card"><h3>📱 Easy Ordering</h3><p>Browse products on your mobile and submit a request.</p></article><article class="trust-card"><h3>💬 Clear Confirmation</h3><p>Confirm the final price and delivery details before paying.</p></article><article class="trust-card"><h3>📦 Availability Check</h3><p>Product availability must be checked before confirmation.</p></article></div><div class="notice"><strong>Please note:</strong> Product names, photos and prices are examples. Confirm real stock, price and delivery details before paying.</div></div></section>
 </main>
