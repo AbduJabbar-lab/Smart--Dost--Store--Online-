@@ -16,9 +16,18 @@
 </head>
 <body>
 <div class="topbar">Welcome to Smart Dost Store Online — Shop smart, live better!</div>
-<header><div class="container navbar"><a class="brand" href="#home">🛍️ Smart Dost Store</a><nav><a href="#home">Home</a><a href="#account">Account</a><a href="#categories">Categories</a><a href="#products">Products</a><a
-<a href="#wishlist">💖 Wishlist (<span id="wishlistCount">0</span>)</a>
-href="#order">Place an Order</a><a href="#myOrders">My Orders</a></nav></div></header>
+<header><div class="container navbar"><a class="brand" href="#home">🛍️ Smart Dost Store</a>
+<nav>
+  <a href="#home">Home</a>
+  <a href="#account">Account</a>
+  <a href="#categories">Categories</a>
+  <a href="#products">Products</a>
+  <a href="#wishlist">💖 Wishlist (<span id="wishlistCount">0</span>)</a>
+  <a href="#cart">🛒 Cart</a>
+  <a href="#order">Place an Order</a>
+  <a href="#myOrders">My Orders</a>
+</nav>
+</div></header>
 
 <section id="account" style="padding:25px 0;background:#e9f8f7"><div class="container"><div class="account-box">
 <h2 style="color:#102d46;margin-top:0">Customer Account</h2><p>Create an account or log in with your email and password.</p>
@@ -544,7 +553,212 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/fireba
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 import { getDatabase, ref, push, set, onValue, update } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 const firebaseConfig={apiKey:"AIzaSyDkvePLdT859PrwRS7yb-YJfByAhafRBhM",authDomain:"smart-dost-store-online.firebaseapp.com",projectId:"smart-dost-store-online",storageBucket:"smart-dost-store-online.firebasestorage.app",messagingSenderId:"147065420247",appId:"1:147065420247:web:b467192de4f2cdb440b392",measurementId:"G-ZWDV59J62W",databaseURL:"https://smart-dost-store-online-default-rtdb.asia-southeast1.firebasedatabase.app"};
-const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app),$=id=>document.getElementById(id);
+const app=initializeApp(firebaseConfig)
+let firebaseProducts = {};
+let firebaseProductsEmpty = null;
+let productsUnsubscribe = null;
+
+const adminProductForm = $("adminProductForm");
+const adminProductsList = $("adminProductsList");
+const adminProductMessage = $("adminProductMessage");
+const importProductsButton = $("importSampleProducts");
+
+function drawAdminProducts(products) {
+  adminProductsList.replaceChildren();
+
+  const entries = Object.entries(products || {});
+
+  if (!entries.length) {
+    adminProductsList.textContent =
+      "No Firebase products yet. Import the sample products or add a new product.";
+    return;
+  }
+
+  entries.forEach(([id, product]) => {
+    const card = document.createElement("article");
+    card.className = "order-history-item";
+
+    const title = document.createElement("h3");
+    title.textContent = product.n || "Unnamed product";
+
+    const info = document.createElement("p");
+    info.textContent =
+      (product.c || "No category") +
+      " | Rs. " + Number(product.p || 0).toLocaleString("en-PK");
+
+    const edit = document.createElement("button");
+    edit.type = "button";
+    edit.className = "btn";
+    edit.textContent = "Edit";
+    edit.style.marginRight = "8px";
+
+    edit.addEventListener("click", () => {
+      $("editProductId").value = id;
+      $("adminProductName").value = product.n || "";
+      $("adminProductCategory").value = product.c || "Other Products";
+      $("adminProductPrice").value = Number(product.p || 0);
+      $("adminProductImage").value = product.image || "";
+      $("saveProductButton").textContent = "Update Product";
+      adminProductMessage.textContent = "Editing: " + (product.n || "");
+      adminProductForm.scrollIntoView({ behavior: "smooth" });
+    });
+
+    const del = document.createElement("button");
+    del.type = "button";
+    del.className = "btn";
+    del.textContent = "Delete";
+    del.style.background = "#a83246";
+
+    del.addEventListener("click", async () => {
+      if (!auth.currentUser ||
+          String(auth.currentUser.email || "").toLowerCase() !== ADMIN_EMAIL) {
+        adminProductMessage.textContent = "Admin login required.";
+        return;
+      }
+
+      if (!confirm("Delete this product: " + (product.n || "Unnamed") + "?")) {
+        return;
+      }
+
+      del.disabled = true;
+      try {
+        await remove(ref(db, "products/" + id));
+        adminProductMessage.textContent = "Product deleted.";
+      } catch (e) {
+        adminProductMessage.textContent =
+          "Delete failed: " + errText(e);
+      } finally {
+        del.disabled = false;
+      }
+    });
+
+    card.append(title, info, edit, del);
+    adminProductsList.appendChild(card);
+  });
+}
+
+function resetProductForm() {
+  adminProductForm.reset();
+  $("editProductId").value = "";
+  $("saveProductButton").textContent = "Save Product";
+}
+
+$("cancelProductEdit").addEventListener("click", resetProductForm);
+
+adminProductForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const user = auth.currentUser;
+  if (!user ||
+      String(user.email || "").toLowerCase() !== ADMIN_EMAIL) {
+    adminProductMessage.textContent = "Only the authorized admin can save products.";
+    return;
+  }
+
+  const name = $("adminProductName").value.trim();
+  const category = $("adminProductCategory").value;
+  const price = Number($("adminProductPrice").value);
+  const image = $("adminProductImage").value.trim();
+  const id = $("editProductId").value;
+
+  if (!name || !Number.isFinite(price) ||
+      price < 0 || price > 10000000) {
+    adminProductMessage.textContent = "Enter a valid name and price.";
+    return;
+  }
+
+  const productData = { n: name, c: category, p: price, image };
+
+  const button = $("saveProductButton");
+  button.disabled = true;
+  adminProductMessage.textContent = "Saving product...";
+
+  try {
+    if (id) {
+      await update(ref(db, "products/" + id), productData);
+      adminProductMessage.textContent = "Product updated successfully.";
+    } else {
+      const newProduct = push(ref(db, "products"));
+      await set(newProduct, productData);
+      adminProductMessage.textContent = "Product added successfully.";
+    }
+
+    resetProductForm();
+  } catch (e) {
+    adminProductMessage.textContent =
+      "Save failed: " + errText(e) +
+      ". Check Firebase Rules and admin login.";
+  } finally {
+    button.disabled = false;
+  }
+});
+
+importProductsButton.addEventListener("click", async () => {
+  const user = auth.currentUser;
+
+  if (!user ||
+      String(user.email || "").toLowerCase() !== ADMIN_EMAIL) {
+    adminProductMessage.textContent = "Admin login required.";
+    return;
+  }
+
+  if (firebaseProductsEmpty !== true) {
+    adminProductMessage.textContent =
+      "Import is allowed only when the Firebase products database is empty.";
+    return;
+  }
+
+  const samples = storeProducts.map(product => ({
+    n: product.n,
+    c: product.c,
+    p: Number(product.p),
+    image: product.image || "",
+    ...(product.i ? { i: product.i } : {})
+  }));
+
+  importProductsButton.disabled = true;
+  adminProductMessage.textContent =
+    "Importing " + samples.length + " sample products...";
+
+  try {
+    for (const product of samples) {
+      await set(push(ref(db, "products")), product);
+    }
+
+    adminProductMessage.textContent =
+      "Sample products imported. The store will now load products from Firebase.";
+  } catch (e) {
+    adminProductMessage.textContent =
+      "Import stopped: " + errText(e) +
+      ". Some products may already have been imported; check Firebase before retrying.";
+  } finally {
+    importProductsButton.disabled = false;
+  }
+});
+
+productsUnsubscribe = onValue(
+  ref(db, "products"),
+  snapshot => {
+    firebaseProducts = snapshot.val() || {};
+    firebaseProductsEmpty = Object.keys(firebaseProducts).length === 0;
+
+    if (!firebaseProductsEmpty) {
+      const onlineProducts = Object.entries(firebaseProducts).map(
+        ([id, product]) => ({ ...product, id })
+      );
+
+      storeProducts.splice(0, storeProducts.length, ...onlineProducts);
+      renderStoreProducts();
+    }
+
+    drawAdminProducts(firebaseProducts);
+  },
+  error => {
+    adminProductMessage.textContent =
+      "Could not load Firebase products: " + errText(error);
+  }
+);
+,auth=getAuth(app),db=getDatabase(app),$=id=>document.getElementById(id);
 window.firebaseTest = "loaded";
 alert("Firebase script loaded successfully");
 const ADMIN_EMAIL="jabbardaharki21@gmail.com";
