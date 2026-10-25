@@ -1,896 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#102d46">
 <meta name="description" content="Smart Dost Store Online - mobile accessories, watches, books, clothing and everyday products.">
 <title>Smart Dost Store Online</title>
 <style>
-:root{--navy:#102d46;--blue:#176b87;--teal:#e9f8f7;--gold:#f3bd4e;--text:#243447;--muted:#667788;--border:#e2e8ef}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#f7f9fc;line-height:1.6}a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1120px,92%);margin:auto}
-.topbar{background:#0b2033;color:white;text-align:center;padding:8px;font-size:13px}header{position:sticky;top:0;z-index:10;background:white;box-shadow:0 3px 15px #00000010}.navbar{min-height:70px;display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px 0}.brand{color:var(--navy);font-weight:800;font-size:20px}nav{display:flex;gap:15px;align-items:center;flex-wrap:wrap;font-size:14px}.btn{display:inline-block;border:0;border-radius:10px;background:var(--blue);color:white;padding:11px 16px;font-weight:bold}.btn:hover{background:var(--navy)}section{padding:40px 0}.hero{padding:55px 0;color:white;background:linear-gradient(125deg,#102d46,#176b87)}.hero-inner{display:grid;grid-template-columns:1.3fr .7fr;align-items:center;gap:25px}.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.15;margin:15px 0}.hero p{color:#e4f1f8}.hero-art{text-align:center;padding:30px 15px;border-radius:20px;background:#ffffff15;font-size:70px}.hero-art strong{display:block;font-size:20px}.section-head{margin-bottom:20px}.section-head h2{color:var(--navy);margin:0;font-size:29px}.section-head p{color:var(--muted);margin:5px 0}.search-wrap{margin:15px 0 22px}.search-wrap input{width:100%;padding:13px;border:1px solid var(--border);border-radius:10px;background:white}.category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.category-card{background:white;padding:17px;border:1px solid var(--border);border-radius:15px;box-shadow:0 4px 15px #102d4608}.category-icon{display:grid;place-items:center;height:90px;font-size:45px;background:linear-gradient(135deg,#d8f3ff,#d9fbe5,#fff0cc);border-radius:12px;margin-bottom:12px}.category-card h3{margin:0 0 5px;color:var(--navy);font-size:17px}.category-card p{font-size:13px;color:var(--muted)}.text-btn{border:0;background:none;padding:0;color:var(--blue);font-weight:bold;text-align:left}.product-section{background:#f0f6fa}.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.product-card{background:white;border:1px solid var(--border);border-radius:14px;overflow:hidden}.product-card img{display:block;width:100%;height:155px;object-fit:cover;background:#e9f8f7}.product-info{padding:12px}.product-info h3{font-size:15px;line-height:1.35;min-height:40px;margin:0 0 8px}.product-price{color:var(--blue);font-weight:bold;margin-bottom:10px}.product-info .btn{width:100%;padding:9px 5px;font-size:13px}.price-note,.safe-note{font-size:12px;color:var(--muted)}.empty-message{display:none;color:var(--muted)}.order-section{background:var(--teal)}.order-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:25px;align-items:start}.order-info h2{color:var(--navy);font-size:30px}.order-form,.panel{background:white;border:1px solid #d9e9e8;border-radius:18px;padding:22px}.order-form h3{margin:0;color:var(--navy);font-size:23px}.form-intro{font-size:13px;color:var(--muted)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:bold}.field input,.field select,.field textarea,.account-input{width:100%;min-width:0;padding:11px;border:1px solid #d7e0e8;border-radius:9px}.field textarea{min-height:80px}.submit-btn{width:100%;margin-top:17px}.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.trust-card{padding:20px;border:1px solid var(--border);border-radius:14px;background:white}.notice{background:#fff8e7;padding:15px;border-radius:10px;font-size:13px;margin-top:20px}footer{background:#0b2033;color:white;padding:28px 0}footer p,footer a{color:#c6d5e0;font-size:13px}.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.footer-links{display:flex;flex-direction:column;gap:6px}.copyright{border-top:1px solid #ffffff25;padding-top:12px;font-size:12px;text-align:center}.account-box{background:white;padding:20px;border-radius:14px;max-width:600px;margin:auto}.account-box label{font-size:13px;font-weight:bold}.account-box form{margin-bottom:12px}.order-history-item{border:1px solid var(--border);padding:13px;border-radius:10px;margin:10px 0;background:#fbfdff}.status{font-weight:bold;color:#8a5a00}.hidden{display:none!important}
-@media(max-width:760px){.navbar{align-items:flex-start;flex-direction:column}nav{gap:12px}.hero-inner,.order-layout{grid-template-columns:1fr}.hero{padding:35px 0}.hero-art{padding:15px;font-size:48px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-card img{height:135px}.trust-grid,.footer-grid{grid-template-columns:1fr}}
-@media(max-width:380px){.category-grid{gap:9px}.category-card{padding:11px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.product-info{padding:9px}}
+:root{--navy:#102d46;--blue:#176b87;--gold:#f3bd4e;--text:#243447;--muted:#667788;--border:#e2e8ef}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:16px/1.55 Arial,Helvetica,sans-serif;color:var(--text);background:#f7f9fc}a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1120px,92%);margin:auto}.topbar{background:#0b2033;color:#fff;text-align:center;padding:8px;font-size:13px}header{position:sticky;top:0;z-index:10;background:#fff;box-shadow:0 3px 15px #0001}.navbar{min-height:65px;display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px 0}.brand{font-weight:800;color:var(--navy);font-size:20px}nav{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:14px}.btn{border:0;border-radius:9px;background:var(--blue);color:#fff;padding:10px 14px;font-weight:bold}.btn:hover{background:var(--navy)}.btn:disabled{opacity:.6;cursor:wait}section{padding:38px 0}.hero{background:linear-gradient(125deg,#102d46,#176b87);color:#fff;padding:50px 0}.hero-inner{display:grid;grid-template-columns:1.3fr .7fr;gap:25px;align-items:center}.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.15;margin:12px 0}.hero-art{text-align:center;padding:25px;border-radius:20px;background:#ffffff18;font-size:65px}.hero-art strong{display:block;font-size:20px}.section-head{margin-bottom:18px}.section-head h2{margin:0;color:var(--navy);font-size:28px}.section-head p,.muted{color:var(--muted);margin:5px 0}.search{width:100%;padding:12px;border:1px solid var(--border);border-radius:9px;margin:12px 0 20px;background:white}.category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.category-card,.panel,.account-box,.order-form,.trust-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px}.category-icon{display:grid;place-items:center;height:80px;font-size:42px;background:linear-gradient(135deg,#d8f3ff,#d9fbe5,#fff0cc);border-radius:10px;margin-bottom:10px}.category-card h3{margin:0;color:var(--navy)}.category-card p{font-size:13px;color:var(--muted)}.text-btn{border:0;background:none;color:var(--blue);font-weight:bold;padding:0}.product-section{background:#f0f6fa}.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.product-card{background:#fff;border:1px solid var(--border);border-radius:13px;overflow:hidden;min-width:0}.product-card img{width:100%;height:150px;display:block;object-fit:cover;background:linear-gradient(135deg,#d8f3ff,#fff0cc)}.product-info{padding:11px}.product-info h3{font-size:14px;line-height:1.35;min-height:38px;margin:0 0 7px}.price{color:var(--blue);font-weight:bold;margin-bottom:9px}.product-info .btn{width:100%;font-size:12px;margin-top:6px;padding:9px 4px}.empty{display:none;color:var(--muted)}.order-section{background:#e9f8f7}.order-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px;align-items:start}.order-info h2{font-size:29px;color:var(--navy)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field.full{grid-column:1/-1}.field label,.account-box label{font-size:13px;font-weight:bold}.field input,.field select,.field textarea,.account-input{width:100%;min-width:0;padding:10px;border:1px solid #d7e0e8;border-radius:8px}.field textarea{min-height:75px}.submit-btn{width:100%;margin-top:15px}.notice{background:#fff8e7;padding:14px;border-radius:9px;font-size:13px;margin-top:18px}.account-box{max-width:600px;margin:auto}.account-input{display:block;margin:5px 0 12px}.order-history-item{border:1px solid var(--border);padding:12px;border-radius:10px;margin:10px 0;background:#fbfdff;overflow-wrap:anywhere}.status{font-weight:bold;color:#8a5a00}.hidden{display:none!important}.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}footer{background:#0b2033;color:#fff;padding:25px 0}footer p,footer a{color:#c6d5e0;font-size:13px}.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.footer-links{display:flex;flex-direction:column;gap:5px}.copyright{text-align:center;border-top:1px solid #ffffff25;padding-top:12px;font-size:12px;margin-top:15px}#cartItems>div{padding:10px 0;border-bottom:1px solid #ddd}.small{font-size:12px;color:var(--muted)}@media(max-width:760px){.navbar{align-items:flex-start;flex-direction:column}nav{gap:10px}.hero-inner,.order-layout{grid-template-columns:1fr}.hero{padding:32px 0}.hero-art{font-size:45px;padding:15px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-card img{height:130px}.trust-grid,.footer-grid{grid-template-columns:1fr}}@media(max-width:380px){.category-grid{gap:8px}.category-card{padding:10px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
 </style>
 </head>
 <body>
 <div class="topbar">Welcome to Smart Dost Store Online — Shop smart, live better!</div>
-<header><div class="container navbar"><a class="brand" href="#home">🛍️ Smart Dost Store</a>
-<nav>
-  <a href="#home">Home</a>
-  <a href="#account">Account</a>
-  <a href="#categories">Categories</a>
-  <a href="#products">Products</a>
-  <a href="#wishlist">💖 Wishlist (<span id="wishlistCount">0</span>)</a>
-  <a href="#cart">🛒 Cart</a>
-  <a href="#order">Place an Order</a>
-  <a href="#myOrders">My Orders</a>
-</nav>
-</div></header>
-
+<header><div class="container navbar"><a class="brand" href="#home">🛍️ Smart Dost Store</a><nav>
+<a href="#home">Home</a><a href="#account">Account</a><a href="#categories">Categories</a><a href="#products">Products</a><a href="#wishlist">💖 Wishlist (<span id="wishlistCount">0</span>)</a><a href="#cart">🛒 Cart (<span id="cartCount">0</span>)</a><a href="#order">Place Order</a><a href="#myOrders">My Orders</a>
+</nav></div></header>
 <section id="account" style="padding:25px 0;background:#e9f8f7"><div class="container"><div class="account-box">
 <h2 style="color:#102d46;margin-top:0">Customer Account</h2><p>Create an account or log in with your email and password.</p>
-<form id="signupForm"><label for="signupEmail">Email Address</label><input class="account-input" id="signupEmail" type="email" required autocomplete="email" style="display:block;margin:6px 0 14px"><label for="signupPassword">Password (at least 6 characters)</label><input class="account-input" id="signupPassword" type="password" required minlength="6" autocomplete="new-password" style="display:block;margin:6px 0 14px"><button class="btn" type="submit">Create Account</button></form>
-<hr style="margin:20px 0">
-<form id="loginForm"><label for="loginEmail">Email Address</label><input class="account-input" id="loginEmail" type="email" required autocomplete="email" style="display:block;margin:6px 0 14px"><label for="loginPassword">Password</label><input class="account-input" id="loginPassword" type="password" required autocomplete="current-password" style="display:block;margin:6px 0 14px"><button class="btn" type="submit">Log In</button></form>
+<form id="signupForm"><label for="signupEmail">Email Address</label><input class="account-input" id="signupEmail" type="email" required autocomplete="email"><label for="signupPassword">Password (at least 6 characters)</label><input class="account-input" id="signupPassword" type="password" required minlength="6" autocomplete="new-password"><button class="btn" type="submit">Create Account</button></form><hr style="margin:18px 0">
+<form id="loginForm"><label for="loginEmail">Email Address</label><input class="account-input" id="loginEmail" type="email" required autocomplete="email"><label for="loginPassword">Password</label><input class="account-input" id="loginPassword" type="password" required autocomplete="current-password"><button class="btn" type="submit">Log In</button></form>
 <button id="logoutButton" class="btn hidden" type="button">Log Out</button><p id="accountMessage" role="status" aria-live="polite"></p>
 </div></div></section>
-
 <main>
 <section class="hero" id="home"><div class="container hero-inner"><div><p>YOUR EVERYDAY SHOPPING PARTNER</p><h1>Good Products.<br>Smart Choices.</h1><p>Mobile accessories, watches, school books, clothing, bags and useful home products — browse and send an order request.</p><a class="btn" href="#categories" style="background:#f3bd4e;color:#102d46">Explore Categories →</a></div><div class="hero-art">🛍️<strong>Shopping Made Simple</strong><small>Browse • Choose • Order</small></div></div></section>
-<section id="categories"><div class="container"><div class="section-head"><h2>Shop by Category</h2><p>Choose a category to see its products.</p></div><div class="search-wrap"><input id="categorySearch" type="search" placeholder="Search categories..." aria-label="Search categories"></div><div class="category-grid" id="categoryGrid">
+<section id="categories"><div class="container"><div class="section-head"><h2>Shop by Category</h2><p>Choose a category to see its products.</p></div><input id="categorySearch" class="search" type="search" placeholder="Search categories..." aria-label="Search categories"><div class="category-grid" id="categoryGrid">
 <article class="category-card" data-search="mobile accessories covers chargers glass earbuds headphones cables"><div class="category-icon">📱</div><h3>Mobile Accessories</h3><p>Covers, screen protectors, chargers, earbuds, headphones and cables.</p><button class="text-btn choose-category" data-category="Mobile Accessories">View products →</button></article>
-<article class="category-card" data-search="watches watch wrist smart digital analog"><div class="category-icon">⌚</div><h3>Watches</h3><p>50 different watch styles, with sample prices up to Rs. 5,000.</p><button class="text-btn choose-category" data-category="Watches">View products →</button></article>
+<article class="category-card" data-search="watches watch wrist smart digital analog"><div class="category-icon">⌚</div><h3>Watches</h3><p>50 different watch styles. Sample prices up to Rs. 5,000.</p><button class="text-btn choose-category" data-category="Watches">View products →</button></article>
 <article class="category-card" data-search="home essentials household kitchen"><div class="category-icon">🏠</div><h3>Home Essentials</h3><p>Useful products for everyday home needs.</p><button class="text-btn choose-category" data-category="Home Essentials">View products →</button></article>
-<article class="category-card" data-search="bags accessories school backpack travel purse"><div class="category-icon">🎒</div><h3>Bags &amp; Accessories</h3><p>School bags, travel bags and everyday accessories.</p><button class="text-btn choose-category" data-category="Bags & Accessories">View products →</button></article>
+<article class="category-card" data-search="bags accessories school backpack travel"><div class="category-icon">🎒</div><h3>Bags &amp; Accessories</h3><p>School bags, travel bags and everyday accessories.</p><button class="text-btn choose-category" data-category="Bags & Accessories">View products →</button></article>
 <article class="category-card" data-search="clothing clothes fashion shirts trousers"><div class="category-icon">👕</div><h3>Clothing</h3><p>Clothes and fashion items.</p><button class="text-btn choose-category" data-category="Clothing">View products →</button></article>
 <article class="category-card" data-search="books stationery school sindh textbook board stb copies notebooks"><div class="category-icon">📚</div><h3>Books &amp; Stationery</h3><p>STB class books, copies, notebooks and stationery.</p><button class="text-btn choose-category" data-category="Books & Stationery">View products →</button></article>
 <article class="category-card" data-search="other products general"><div class="category-icon">✨</div><h3>Other Products</h3><p>Other useful items.</p><button class="text-btn choose-category" data-category="Other Products">View products →</button></article>
-</div><p id="emptyMessage" class="empty-message">No matching categories found.</p></div></section>
-<section id="cart" style="padding:30px 0;background:#fff">
-  <div class="container">
-    <h2>🛒 Shopping Cart</h2>
-    <p id="cartMessage">Your cart is empty.</p>
-    <div id="cartItems"></div>
-    <h3 id="cartTotal">Total: Rs. 0</h3>
-    <button type="button" class="btn" id="clearCart">
-      Clear Cart
-    </button>
-    <button type="button" class="btn" id="cartCheckout">
-      Proceed to Order
-    </button>
-  </div>
-</section>
-
-<section id="wishlist" class="product-section">
-  <div class="container">
-    <div class="section-head">
-      <h2>💖 My Wishlist</h2>
-      <p>Your favourite products, saved for later.</p>
-    </div>
-    <div id="wishlistGrid" class="product-grid"></div>
-    <p id="wishlistEmpty" class="empty-message">
-      Your wishlist is empty. Tap ❤️ on a product to save it here.
-    </p>
-  </div>
-</section>
-
-<section id="products" class="product-section"><div class="container"><div class="section-head"><h2 id="productHeading">All Products</h2><p>Choose a product and tap Order Now.</p></div><div class="search-wrap"><input id="productSearch" type="search" placeholder="Search products..." aria-label="Search products"></div><div id="productGrid" class="product-grid"></div><p id="productEmpty" class="empty-message">No products found in this category.</p><p class="price-note">Prices and photos are examples only, not confirmed stock or final selling prices. Confirm model, actual price and delivery charges before paying.</p></div></section>
-
-<section id="order" class="order-section"><div class="container order-layout"><div class="order-info"><h2>Place Your Order</h2><p>Fill in your contact and delivery details. We will confirm the requested product, final price and availability.</p><p><strong>Important:</strong> Wait for confirmation before making payment. Never share your PIN or OTP.</p><div class="notice"><strong>JazzCash Payment</strong><p>Account Name: Abdul Jabar</p><p>JazzCash Number: 03232154855</p><p>Please confirm your order and final amount before paying.</p></div></div>
-<form class="order-form" id="orderForm" action="https://formspree.io/f/xaeqrpkq" method="POST">
-<h3>Order Request Form</h3><p class="form-intro">Fields marked * are required. You must be logged in to submit an order.</p><input type="hidden" name="_subject" value="New order - Smart Dost Store Online"><input type="hidden" id="customerEmailField" name="Customer Account Email" value="">
+</div><p id="categoryEmpty" class="empty">No matching categories found.</p></div></section>
+<section id="cart" style="padding:28px 0;background:#fff"><div class="container"><h2>🛒 Shopping Cart</h2><p id="cartMessage">Your cart is empty.</p><div id="cartItems"></div><h3 id="cartTotal">Total: Rs. 0</h3><button type="button" class="btn" id="clearCart">Clear Cart</button> <button type="button" class="btn" id="cartCheckout">Proceed to Order</button></div></section>
+<section id="wishlist" class="product-section"><div class="container"><div class="section-head"><h2>💖 My Wishlist</h2><p>Your favourite products, saved for later.</p></div><div id="wishlistGrid" class="product-grid"></div><p id="wishlistEmpty" class="empty">Your wishlist is empty. Tap the wishlist button on a product to save it.</p></div></section>
+<section id="products" class="product-section"><div class="container"><div class="section-head"><h2 id="productHeading">All Products</h2><p>Choose a product and tap Order Now.</p></div><input id="productSearch" class="search" type="search" placeholder="Search products..." aria-label="Search products"><div id="productGrid" class="product-grid"></div><p id="productEmpty" class="empty">No products found.</p><p class="small">Prices, photos and stock are examples only. Confirm the actual model, price and delivery charges before paying.</p></div></section>
+<section id="order" class="order-section"><div class="container order-layout"><div class="order-info"><h2>Place Your Order</h2><p>We will confirm the requested product, final price and availability.</p><p><strong>Important:</strong> Wait for confirmation before payment. Never share your PIN or OTP.</p><div class="notice"><strong>JazzCash Payment</strong><p>Account Name: Abdul Jabar</p><p>JazzCash Number: 03232154855</p><p>Confirm your order and final amount before paying.</p></div></div>
+<form class="order-form" id="orderForm" action="https://formspree.io/f/xaeqrpkq" method="POST"><h3>Order Request Form</h3><p class="small">You must be logged in to submit an order.</p><input type="hidden" name="_subject" value="New order - Smart Dost Store Online"><input type="hidden" id="customerEmailField" name="Customer Account Email">
 <div class="form-grid">
-<div class="field"><label for="customerName">Full Name *</label><input id="customerName" type="text" name="Customer Name" placeholder="Enter your name" autocomplete="name" required></div>
+<div class="field"><label for="customerName">Full Name *</label><input id="customerName" type="text" name="Customer Name" autocomplete="name" required></div>
 <div class="field"><label for="phone">Phone Number *</label><input id="phone" type="tel" name="Phone Number" placeholder="03XXXXXXXXX" autocomplete="tel" required></div>
 <div class="field full"><label for="product">Product Category *</label><select id="product" name="Product" required><option value="">Choose a category</option><option>Mobile Accessories</option><option>Watches</option><option>Home Essentials</option><option>Bags &amp; Accessories</option><option>Clothing</option><option>Books &amp; Stationery</option><option>Other Products</option></select></div>
 <div class="field full"><label for="details">Product Details *</label><input id="details" type="text" name="Product Details" placeholder="Product name, model, size or colour" required></div>
 <div class="field"><label for="quantity">Quantity *</label><input id="quantity" type="number" name="Quantity" min="1" max="100" value="1" required></div>
-<div class="field"><label for="payment">Preferred Payment Method</label><select id="payment" name="Payment Method"><option value="Discuss before payment">Discuss before payment</option><option value="JazzCash">JazzCash (confirm first)</option><option value="Easypaisa">Easypaisa (confirm first)</option><option value="Cash on Delivery if available">Cash on Delivery (if available)</option></select></div>
-<div class="field full"><label for="address">Delivery Address *</label><textarea id="address" name="Delivery Address" placeholder="City, area and delivery address" autocomplete="street-address" required></textarea></div>
-<div class="field full"><label for="transactionRef">Transaction ID (if already paid)</label><input id="transactionRef" type="text" name="JazzCash Transaction ID" placeholder="Enter transaction ID"></div>
-<div class="field full"><p>After submitting your order, you can send the payment screenshot on WhatsApp.</p><a href="https://wa.me/923232154855?text=Assalam-o-Alaikum%2C%20Smart%20Dost%20Store%20Online%20ke%20order%20ki%20payment%20screenshot%20bhej%20raha%20hoon." target="_blank" rel="noopener" style="display:inline-block;background:#25D366;color:white;padding:12px 18px;border-radius:8px;font-weight:bold">WhatsApp Par Screenshot Bhejein</a></div>
-<div class="field full"><label for="message">Additional Message (Optional)</label><textarea id="message" name="Additional Message" placeholder="Any other details?"></textarea></div>
-</div><button class="btn submit-btn" type="submit">Submit Order Request →</button><p id="orderMessage" role="status" aria-live="polite"></p><p class="safe-note">This is an order request, not a confirmed purchase. Never enter your banking PIN, password or OTP.</p></form></div></section>
-
+<div class="field"><label for="payment">Preferred Payment Method</label><select id="payment" name="Payment Method"><option>Discuss before payment</option><option>JazzCash</option><option>Easypaisa</option><option>Cash on Delivery if available</option></select></div>
+<div class="field full"><label for="address">Delivery Address *</label><textarea id="address" name="Delivery Address" autocomplete="street-address" required></textarea></div>
+<div class="field full"><label for="transactionRef">Transaction ID (if already paid)</label><input id="transactionRef" name="JazzCash Transaction ID"></div>
+<div class="field full"><label for="message">Additional Message (Optional)</label><textarea id="message" name="Additional Message"></textarea></div>
+</div><button class="btn submit-btn" type="submit">Submit Order Request →</button><p id="orderMessage" role="status" aria-live="polite"></p><p class="small">This is an order request, not a confirmed purchase. Never enter your banking PIN, password or OTP.</p><a href="https://wa.me/923232154855?text=Assalam-o-Alaikum%2C%20I%20have%20submitted%20an%20order%20request." target="_blank" rel="noopener" class="btn" style="background:#25a95b">Contact on WhatsApp</a></form></div></section>
 <section id="myOrders"><div class="container"><div class="section-head"><h2>My Orders</h2><p>Log in to view orders submitted from your account.</p></div><div class="panel"><p id="ordersMessage">Please log in to view your orders.</p><div id="ordersList"></div></div></div></section>
-<section id="adminPanel" class="hidden"><div class="container"><div class="section-head"><h2>Admin Panel</h2><p>Manage customer order requests. Only the configured admin email should use this panel.</p></div><div class="panel"><p id="adminMessage">Admin access required.</p><div id="adminOrdersList"></div>
-<hr>
-<h2>Manage Products</h2>
-<p>Add, edit or delete products in the online store.</p>
-
-<form id="adminProductForm">
-  <input type="hidden" id="editProductId">
-
-  <div class="field">
-    <label for="adminProductName">Product Name</label>
-    <input id="adminProductName" required maxlength="120">
-  </div>
-
-  <div class="field">
-    <label for="adminProductCategory">Category</label>
-    <select id="adminProductCategory" required>
-      <option>Mobile Accessories</option>
-      <option>Watches</option>
-      <option>Home Essentials</option>
-      <option>Bags &amp; Accessories</option>
-      <option>Clothing</option>
-      <option>Books &amp; Stationery</option>
-      <option>Other Products</option>
-    </select>
-  </div>
-
-  <div class="field">
-    <label for="adminProductPrice">Price (PKR)</label>
-    <input id="adminProductPrice" type="number"
-      min="0" max="10000000" step="1" required>
-  </div>
-
-  <div class="field">
-    <label for="adminProductImage">Image URL or image filename</label>
-    <input id="adminProductImage" type="text"
-      maxlength="1000" placeholder="https://... or image.jpg">
-  </div>
-
-  <button class="btn" type="submit" id="saveProductButton">
-    Save Product
-  </button>
-  <button class="btn" type="button" id="cancelProductEdit"
-    style="background:#667788">
-    Cancel Edit
-  </button>
-</form>
-
-<p id="adminProductMessage" role="status"></p>
-
-<button class="btn" type="button" id="importSampleProducts"
-  style="background:#8a5a00">
-  Import Existing Sample Products to Firebase
-</button>
-
-<p class="safe-note">
-  Import is only for an empty products database. It will not overwrite existing Firebase products.
-</p>
-
-<div id="adminProductsList"></div>
-</div></div></section>
-
-<section id="why-us"><div class="container"><div class="section-head"><h2>Why Shop With Us?</h2><p>Simple online order requests.</p></div><div class="trust-grid"><article class="trust-card"><h3>📱 Easy Ordering</h3><p>Browse products on your mobile and submit a request.</p></article><article class="trust-card"><h3>💬 Clear Confirmation</h3><p>Confirm the final price and delivery details before paying.</p></article><article class="trust-card"><h3>📦 Availability Check</h3><p>Product availability must be checked before confirmation.</p></article></div><div class="notice"><strong>Please note:</strong> Product names, photos and prices are examples. Confirm real stock, price and delivery details before paying.</div></div></section>
+<section id="adminPanel" class="hidden"><div class="container"><div class="section-head"><h2>Admin Panel</h2><p>Manage orders and products. Admin email is configured in the code.</p></div><div class="panel"><p id="adminMessage">Admin access required.</p><div id="adminOrdersList"></div><hr><h2>Manage Products</h2>
+<form id="adminProductForm"><input type="hidden" id="editProductId"><div class="field"><label for="adminProductName">Product Name</label><input id="adminProductName" required maxlength="120"></div><div class="field"><label for="adminProductCategory">Category</label><select id="adminProductCategory" required><option>Mobile Accessories</option><option>Watches</option><option>Home Essentials</option><option>Bags &amp; Accessories</option><option>Clothing</option><option>Books &amp; Stationery</option><option>Other Products</option></select></div><div class="field"><label for="adminProductPrice">Price (PKR)</label><input id="adminProductPrice" type="number" min="0" max="10000000" step="1" required></div><div class="field"><label for="adminProductImage">Image URL or filename</label><input id="adminProductImage" maxlength="1000" placeholder="https://... or image.jpg"></div><button class="btn" type="submit" id="saveProductButton">Save Product</button> <button class="btn" type="button" id="cancelProductEdit" style="background:#667788">Cancel Edit</button></form><p id="adminProductMessage" role="status"></p><button class="btn" type="button" id="importSampleProducts" style="background:#8a5a00">Import Sample Products to Firebase</button><p class="small">Import works only if the Firebase products database is empty.</p><div id="adminProductsList"></div></div></div></section>
+<section id="why-us"><div class="container"><div class="section-head"><h2>Why Shop With Us?</h2><p>Simple online order requests.</p></div><div class="trust-grid"><article class="trust-card"><h3>📱 Easy Ordering</h3><p>Browse products on your mobile and submit a request.</p></article><article class="trust-card"><h3>💬 Clear Confirmation</h3><p>Confirm the final price and delivery details before paying.</p></article><article class="trust-card"><h3>📦 Availability Check</h3><p>Stock is checked before confirmation.</p></article></div></div></section>
 </main>
-<footer><div class="container"><div class="footer-grid"><div><h3>🛍️ Smart Dost Store Online</h3><p>Your everyday shopping partner.</p></div><div class="footer-links"><strong>Quick Links</strong><a href="#home">Home</a><a href="#cart">🛒 Shopping Cart</a> href="#order">Place an Order</a><a href="#myOrders">My Orders</a></div></div><div class="copyright">© <span id="year"></span> Smart Dost Store Online. All rights reserved.</div></div></footer>
-
-<script>
-document.getElementById("year").textContent=new Date().getFullYear();
-
-const storeProducts=[
-{n:"Tecno Spark 30 Pro Ring Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232550.jpg"},
-{n:"Tecno Camon 20 / 20 Pro Fancy Wavy Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232606.jpg"},
-{n:"Tecno Spark 30 Pro Transparent Bumper Cover",c:"Mobile Accessories",p:299,image:"IMG_20261023_232619.jpg"},
-{n:"Tecno Camon 20 / 20 Pro Woven Design Cover",c:"Mobile Accessories",p:399,image:"IMG_20261023_232634.jpg"},
-{n:"Xiaomi Redmi A5 Ring Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232700.jpg"},
-{n:"Xiaomi Redmi A5 Premium PU Leather Cover",c:"Mobile Accessories",p:645,image:"IMG_20261023_232715.jpg"},
-{n:"Redmi A5 Soft Matt Cover",c:"Mobile Accessories",p:399,image:"IMG_20261023_232532.jpg"},
-{n:"Vivo Y05 Sixonic Candy Silicone Cover",c:"Mobile Accessories",p:499,image:"IMG_20261023_232648.jpg"},
-{n:"OPPO Reno 3 Pro 4G Back Cover Soft Puffer Down Jacket",c:"Mobile Accessories",p:499,image:"IMG_20261023_232700.jpg"},
-{n:"OPPO A3X / A3 Soft Matte Back Cover with Camera Protection",c:"Mobile Accessories",p:330,image:"IMG_20261023_232715.jpg"},
-{n:"OPPO A76 / A96 / Realme 9i Embroidered Floral Cover",c:"Mobile Accessories",p:575,image:"IMG_20261024_012526.jpg"},
-{n:"OPPO A3 / A3X Soft Matte Camera Protection Cover",c:"Mobile Accessories",p:399,image:"IMG_20261024_012539.jpg"},
-{n:"Realme 6 Back Cover Shockproof Armor Case",c:"Mobile Accessories",p:499,image:"IMG_20261023_232532.jpg"},
-{n:"Realme 3 Pro Rexine Leather Back Cover",c:"Mobile Accessories",p:399,image:"IMG_20261023_232550.jpg"},
-{n:"Realme 5 / 5s / 5i / 6i Ladies Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232606.jpg"},
-{n:"Realme 5 / 5i / 5s / 6i Embroidered Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232619.jpg"},
-{n:"Realme C21Y Embroidered POLO Back Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232634.jpg"},
-{n:"Realme C71 / C75 / C75x Transparent Silicone Cover",c:"Mobile Accessories",p:199,image:"IMG_20261023_232648.jpg"},
-{n:"USB-C Charger",c:"Mobile Accessories",p:800,i:"1583394838336-acd977736f90"},{n:"Fast Charger",c:"Mobile Accessories",p:1500,i:"1583394838336-acd977736f90"},{n:"Micro USB Cable",c:"Mobile Accessories",p:200,i:"1558618666-fcd25c85cd64"},{n:"USB-C Cable",c:"Mobile Accessories",p:300,i:"1558618666-fcd25c85cd64"},{n:"Lightning Cable",c:"Mobile Accessories",p:500,i:"1558618666-fcd25c85cd64"},{n:"Braided Charging Cable",c:"Mobile Accessories",p:450,i:"1558618666-fcd25c85cd64"},{n:"Wireless Earbuds",c:"Mobile Accessories",p:1800,i:"1590658268037-6bf12165a8df"},{n:"Bluetooth Earbuds Premium",c:"Mobile Accessories",p:3500,i:"1590658268037-6bf12165a8df"},{n:"Wired Earphones",c:"Mobile Accessories",p:350,i:"1590658268037-6bf12165a8df"},{n:"Bluetooth Headphones",c:"Mobile Accessories",p:2500,i:"1505740420928-5e560c06d30e"},{n:"Over-Ear Headphones",c:"Mobile Accessories",p:4000,i:"1505740420928-5e560c06d30e"},{n:"Kids Headphones",c:"Mobile Accessories",p:1200,i:"1505740420928-5e560c06d30e"},{n:"Phone Holder",c:"Mobile Accessories",p:500,i:"1512499617640-c74ae3a79d37"},{n:"Mobile Stand",c:"Mobile Accessories",p:300,i:"1512499617640-c74ae3a79d37"},{n:"Power Bank",c:"Mobile Accessories",p:2500,i:"1609091839311-d5365f9ff1c5"},{n:"USB Adapter",c:"Mobile Accessories",p:250,i:"1583394838336-acd977736f90"},
-{n:"School Copy - Small",c:"Books & Stationery",p:60,i:"1531346878377-a5be20888e57"},{n:"School Copy - Large",c:"Books & Stationery",p:150,i:"1531346878377-a5be20888e57"},{n:"Register / Notebook",c:"Books & Stationery",p:250,i:"1531346878377-a5be20888e57"},{n:"Ballpoint Pens Pack",c:"Books & Stationery",p:200,i:"1455390582262-044cdea277a9"},{n:"Pencils and Erasers",c:"Books & Stationery",p:100,i:"1455390582262-044cdea277a9"},
-...Array.from({length:10},(_,i)=>({n:`STB Class ${i+1} Books`,c:"Books & Stationery",p:[500,600,700,800,900,1000,1000,1200,1500,1500][i],i:"1544947950-fa07a98d237f"})),
-{n:"Men's T-Shirt",c:"Clothing",p:800,i:"1521572163474-6864f9cf17ab"},{n:"Men's Casual Shirt",c:"Clothing",p:1500,i:"1596755094514-f87e34085b2c"},{n:"Kids T-Shirt",c:"Clothing",p:500,i:"1521572163474-6864f9cf17ab"},{n:"Casual Trousers",c:"Clothing",p:1800,i:"1473966968600-fa801b869a1a"},{n:"Women's Scarf",c:"Clothing",p:700,i:"1601924994987-69e26d50dc26"},
-{n:"School Backpack",c:"Bags & Accessories",p:1800,i:"1553062407-98eeb64c6a62"},{n:"Travel Bag",c:"Bags & Accessories",p:2500,i:"1565026057447-bc90a3dceb87"},{n:"Small Handbag",c:"Bags & Accessories",p:1600,i:"1584917865442-de89df76afd3"},{n:"Wallet",c:"Bags & Accessories",p:700,i:"1627123424574-724758594e93"},{n:"School Pencil Pouch",c:"Bags & Accessories",p:250,i:"1544816155-12df9643f363"},
-{n:"Lunch Box",c:"Home Essentials",p:500,i:"1498837167922-ddd27525d352"},{n:"Water Bottle",c:"Home Essentials",p:350,i:"1602143407151-7111542de6e8"},{n:"Storage Box",c:"Home Essentials",p:650,i:"1583847268964-b28dc8f51f92"},{n:"Kitchen Organizer",c:"Home Essentials",p:900,i:"1556911220-e15b29be8c8f"},{n:"Cleaning Brush",c:"Home Essentials",p:200,i:"1585421514738-01798e348b17"},
-{n:"General Household Item",c:"Other Products",p:500,i:"1600566753086-00f18fb6b3ea"},{n:"Gift Item",c:"Other Products",p:700,i:"1513201099705-a9746e1e201d"},{n:"Daily Use Accessory",c:"Other Products",p:300,i:"1523275335684-37898b6baf30"}];
-const watchNames=["Classic Analog Watch","Minimalist Watch","Leather Strap Watch","Metal Strap Watch","Black Dial Watch","Silver Dial Watch","Gold-Tone Watch","Brown Strap Watch","Sports Watch","Digital Sports Watch","LED Digital Watch","Kids Digital Watch","Kids Cartoon Watch","Women's Elegant Watch","Women's Slim Watch","Rose-Gold Watch","Mesh Strap Watch","Square Dial Watch","Round Dial Watch","Chronograph Style Watch","Fashion Watch","Casual Everyday Watch","Office Wear Watch","Classic White Dial Watch","Classic Blue Dial Watch","Classic Green Dial Watch","Black Sports Digital Watch","Water-Resistant Style Watch","Silicone Strap Watch","Stainless-Steel Style Watch","Vintage Style Watch","Fashion Square Watch","Couple Style Watch","Premium Look Watch","Everyday Metal Watch","Simple Leather Watch","Fashion Number Dial Watch","Digital Alarm Watch","Sporty Silicone Watch","Smartwatch Style Basic","Smartwatch Style Premium","Fitness Style Watch","Blue Strap Watch","Red Strap Watch","Elegant Gold Dial Watch","Silver Mesh Fashion Watch","Black Minimal Watch","Brown Classic Watch","Modern Square Smartwatch Style","Everyday Classic Watch"];
-const watchPrices=[1200,1500,2200,2500,1800,2000,2800,1700,1600,1400,1300,800,700,2200,2500,2800,3000,1800,1600,3500,1900,1100,2400,1700,2000,2300,1500,3000,1200,3200,2600,2100,4000,4500,2800,1400,1900,1300,1700,3500,4900,3000,1600,1400,3200,2700,2000,2300,4200,1800];
-watchNames.forEach((n,i)=>storeProducts.push({n,c:"Watches",p:watchPrices[i],i:"1524805444758-089113d48a6d"}));
-const productGrid=document.getElementById("productGrid"),productSearch=document.getElementById("productSearch"),productEmpty=document.getElementById("productEmpty"),productHeading=document.getElementById("productHeading"),categorySelect=document.getElementById("product"),detailsInput=document.getElementById("details");let selectedProductCategory="";
-
-const WISHLIST_KEY = "smartDostWishlistV1";
-
-function getWishlist() {
-  try {
-    const saved = JSON.parse(
-      localStorage.getItem(WISHLIST_KEY) || "[]"
-    );
-    return Array.isArray(saved) ? saved : [];
-  } catch {
-    return [];
-  }
-}
-
-let wishlist = getWishlist();
-
-function isWishlisted(product) {
-  return wishlist.some(
-    item => item.n === product.n && item.c === product.c
-  );
-}
-
-function saveWishlist() {
-  try {
-    localStorage.setItem(
-      WISHLIST_KEY,
-      JSON.stringify(wishlist)
-    );
-    return true;
-  } catch {
-    alert("Wishlist could not be saved in this browser.");
-    return false;
-  }
-}
-
-function renderWishlist() {
-  const grid = document.getElementById("wishlistGrid");
-  const empty = document.getElementById("wishlistEmpty");
-  const count = document.getElementById("wishlistCount");
-
-  const products = wishlist
-    .map(item => storeProducts.find(
-      p => p.n === item.n && p.c === item.c
-    ))
-    .filter(Boolean);
-
-  count.textContent = products.length;
-  grid.replaceChildren();
-  empty.style.display = products.length ? "none" : "block";
-
-  products.forEach(product => {
-    const card = document.createElement("article");
-    card.className = "product-card";
-
-    const img = document.createElement("img");
-    img.src = product.image ||
-      (product.i
-        ? "https://images.unsplash.com/photo-" + product.i +
-          "?auto=format&fit=crop&w=600&q=75"
-        : "");
-    img.alt = product.n;
-    img.loading = "lazy";
-
-    const info = document.createElement("div");
-    info.className = "product-info";
-
-    const title = document.createElement("h3");
-    title.textContent = product.n;
-
-    const price = document.createElement("div");
-    price.className = "product-price";
-    price.textContent = "Sample price: Rs. " +
-      product.p.toLocaleString("en-PK");
-
-    const order = document.createElement("button");
-    order.type = "button";
-    order.className = "btn order-product";
-    order.textContent = "Order Now";
-    order.dataset.name = product.n;
-    order.dataset.category = product.c;
-    order.dataset.price = product.p;
-    order.style.marginBottom = "8px";
-
-    const remove = document.createElement("button");
-    remove.type = "button";
-    remove.className = "btn remove-wishlist";
-    remove.textContent = "💔 Remove";
-    remove.dataset.name = product.n;
-    remove.dataset.category = product.c;
-    remove.style.background = "#a83246";
-    remove.style.width = "100%";
-
-    info.append(title, price, order, remove);
-    card.append(img, info);
-    grid.appendChild(card);
-  });
-}
-
-function renderStoreProducts() {
-  const q = productSearch.value.trim().toLowerCase();
-
-  const filtered = storeProducts.filter(product =>
-    (!selectedProductCategory ||
-      product.c === selectedProductCategory) &&
-    (product.n + " " + product.c).toLowerCase().includes(q)
-  );
-
-  productGrid.replaceChildren();
-
-  filtered.forEach(product => {
-    const card = document.createElement("article");
-    card.className = "product-card";
-
-    const img = document.createElement("img");
-    img.src = product.image ||
-      (product.i
-        ? "https://images.unsplash.com/photo-" + product.i +
-          "?auto=format&fit=crop&w=600&q=75"
-        : "");
-    img.alt = product.n;
-    img.loading = "lazy";
-
-    const info = document.createElement("div");
-    info.className = "product-info";
-
-    const title = document.createElement("h3");
-    title.textContent = product.n;
-
-    const price = document.createElement("div");
-    price.className = "product-price";
-    price.textContent = "Sample price: Rs. " +
-      product.p.toLocaleString("en-PK");
-
-    const fav = document.createElement("button");
-    fav.type = "button";
-    fav.className = "btn wishlist-toggle";
-    fav.dataset.name = product.n;
-    fav.dataset.category = product.c;
-    fav.textContent = isWishlisted(product)
-      ? "❤️ Saved"
-      : "♡ Add to Wishlist";
-    fav.style.width = "100%";
-    fav.style.marginBottom = "8px";
-    fav.style.background = isWishlisted(product)
-      ? "#b83250" : "#176b87";
-
-    const cartBtn = document.createElement("button");
-    cartBtn.type = "button";
-    cartBtn.className = "btn add-to-cart";
-    cartBtn.dataset.name = product.n;
-    cartBtn.dataset.category = product.c;
-    cartBtn.dataset.price = product.p;
-    cartBtn.textContent = "Add to Cart";
-    cartBtn.style.width = "100%";
-    cartBtn.style.marginBottom = "8px";
-
-    const order = document.createElement("button");
-    order.type = "button";
-    order.className = "btn order-product";
-    order.dataset.name = product.n;
-    order.dataset.category = product.c;
-    order.dataset.price = product.p;
-    order.textContent = "Order Now";
-    order.style.width = "100%";
-
-    info.append(title, price, fav, cartBtn, order);
-    card.append(img, info);
-    productGrid.appendChild(card);
-  });
-
-  productEmpty.style.display = filtered.length ? "none" : "block";
-  productHeading.textContent = selectedProductCategory || "All Products";
-  renderWishlist();
-}
-
-document.addEventListener("click", function(event) {
-  const fav = event.target.closest(".wishlist-toggle");
-  const remove = event.target.closest(".remove-wishlist");
-  const button = fav || remove;
-
-  if (!button) return;
-
-  const name = button.dataset.name;
-  const category = button.dataset.category;
-
-  if (fav && isWishlisted({ n: name, c: category })) {
-    wishlist = wishlist.filter(
-      item => !(item.n === name && item.c === category)
-    );
-  } else if (fav) {
-    wishlist.push({ n: name, c: category });
-  } else {
-    wishlist = wishlist.filter(
-      item => !(item.n === name && item.c === category)
-    );
-  }
-
-  if (!saveWishlist()) return;
-
-  renderStoreProducts();
-});
-
-function showCategory(c){selectedProductCategory=c;productSearch.value="";renderStoreProducts();document.getElementById("products").scrollIntoView({behavior:"smooth"})}
-renderStoreProducts();productSearch.addEventListener("input",renderStoreProducts);document.querySelectorAll(".choose-category").forEach(b=>b.addEventListener("click",()=>showCategory(b.dataset.category)));
-
-const cart = [];
-
-function renderCart() {
-  const itemsBox = document.getElementById("cartItems");
-  const message = document.getElementById("cartMessage");
-  const totalBox = document.getElementById("cartTotal");
-
-  if (!itemsBox || !message || !totalBox) return;
-
-  itemsBox.innerHTML = "";
-  let total = 0;
-
-  if (cart.length === 0) {
-    message.textContent = "Your cart is empty.";
-  } else {
-    message.textContent = "Products in your cart:";
-
-    cart.forEach((item, index) => {
-      const subtotal = item.price * item.quantity;
-      total += subtotal;
-
-      const row = document.createElement("div");
-      row.style.cssText =
-        "padding:12px 0;border-bottom:1px solid #ddd";
-
-      const name = document.createElement("p");
-      name.textContent = item.name;
-
-      const price = document.createElement("p");
-      price.textContent =
-        "Rs. " + item.price + " × " + item.quantity +
-        " = Rs. " + subtotal;
-
-      const minus = document.createElement("button");
-      minus.type = "button";
-      minus.textContent = "−";
-      minus.className = "btn";
-      minus.onclick = () => {
-        item.quantity--;
-        if (item.quantity <= 0) cart.splice(index, 1);
-        renderCart();
-      };
-
-      const plus = document.createElement("button");
-      plus.type = "button";
-      plus.textContent = "+";
-      plus.className = "btn";
-      plus.onclick = () => {
-        if (item.quantity < 100) item.quantity++;
-        renderCart();
-      };
-
-      row.append(name, price, minus, plus);
-      itemsBox.appendChild(row);
-    });
-  }
-
-  totalBox.textContent = "Total: Rs. " + total;
-}
-
-document.addEventListener("click", function (event) {
-  const button = event.target.closest(".add-to-cart");
-  if (!button) return;
-
-  const name = button.dataset.name;
-  const category = button.dataset.category;
-  const price = Number(button.dataset.price);
-
-  if (!name || !Number.isFinite(price) || price < 0) {
-    alert("Product details are invalid.");
-    return;
-  }
-
-  const existing = cart.find(item => item.name === name);
-
-  if (existing) {
-    if (existing.quantity < 100) existing.quantity++;
-  } else {
-    cart.push({
-      name,
-      category,
-      price,
-      quantity: 1
-    });
-  }
-
-  renderCart();
-  document.getElementById("cart").scrollIntoView({
-    behavior: "smooth"
-  });
-});
-
-document.getElementById("clearCart").addEventListener("click", () => {
-  cart.length = 0;
-  renderCart();
-});
-
-document.getElementById("cartCheckout").addEventListener("click", () => {
-  if (cart.length === 0) {
-    alert("Please add a product to your cart first.");
-    return;
-  }
-
-  const details = cart.map(item =>
-    item.name + " | Qty: " + item.quantity +
-    " | Unit price: Rs. " + item.price +
-    " | Subtotal: Rs. " + (item.price * item.quantity)
-  ).join("\n");
-
-  const totalQuantity = cart.reduce(
-    (sum, item) => sum + item.quantity, 0
-  );
-
-  const categories = [...new Set(cart.map(item => item.category))];
-
-  document.getElementById("details").value =
-    details + "\nCart total: Rs. " +
-    cart.reduce((sum, item) =>
-      sum + item.price * item.quantity, 0
-    );
-
-  document.getElementById("quantity").value = totalQuantity;
-
-  document.getElementById("product").value =
-    categories.length === 1 ? categories[0] : "Other Products";
-
-  document.getElementById("order").scrollIntoView({
-    behavior: "smooth"
-  });
-});
-
-renderCart();
-
-document.addEventListener("click", function(e) {
-  const b = e.target.closest(".order-product");
-  if (!b) return;
-
-  categorySelect.value = b.dataset.category;
-  detailsInput.value =
-    b.dataset.name + " - Sample price Rs. " + b.dataset.price;
-
-  document.getElementById("order").scrollIntoView({
-    behavior: "smooth"
-  });
-
-  setTimeout(() => detailsInput.focus(), 500);
-});
-document.getElementById("categorySearch").addEventListener("input",function(){const q=this.value.trim().toLowerCase();let count=0;document.querySelectorAll(".category-card").forEach(c=>{const ok=(c.innerText+" "+c.dataset.search).toLowerCase().includes(q);c.style.display=ok?"":"none";if(ok)count++});document.getElementById("emptyMessage").style.display=count?"none":"block"});
-</script>
-
+<footer><div class="container"><div class="footer-grid"><div><h3>🛍️ Smart Dost Store Online</h3><p>Your everyday shopping partner.</p></div><div class="footer-links"><strong>Quick Links</strong><a href="#home">Home</a><a href="#cart">🛒 Shopping Cart</a><a href="#order">Place an Order</a><a href="#myOrders">My Orders</a></div></div><div class="copyright">© <span id="year"></span> Smart Dost Store Online. All rights reserved.</div></div></footer>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-import { getDatabase, ref, push, set, onValue, update } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
-const firebaseConfig={apiKey:"AIzaSyDkvePLdT859PrwRS7yb-YJfByAhafRBhM",authDomain:"smart-dost-store-online.firebaseapp.com",projectId:"smart-dost-store-online",storageBucket:"smart-dost-store-online.firebasestorage.app",messagingSenderId:"147065420247",appId:"1:147065420247:web:b467192de4f2cdb440b392",measurementId:"G-ZWDV59J62W",databaseURL:"https://smart-dost-store-online-default-rtdb.asia-southeast1.firebasedatabase.app"};
-const app=initializeApp(firebaseConfig)
-let firebaseProducts = {};
-let firebaseProductsEmpty = null;
-let productsUnsubscribe = null;
+import { getDatabase, ref, push, set, onValue, update, remove } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
-const adminProductForm = $("adminProductForm");
-const adminProductsList = $("adminProductsList");
-const adminProductMessage = $("adminProductMessage");
-const importProductsButton = $("importSampleProducts");
-
-function drawAdminProducts(products) {
-  adminProductsList.replaceChildren();
-
-  const entries = Object.entries(products || {});
-
-  if (!entries.length) {
-    adminProductsList.textContent =
-      "No Firebase products yet. Import the sample products or add a new product.";
-    return;
-  }
-
-  entries.forEach(([id, product]) => {
-    const card = document.createElement("article");
-    card.className = "order-history-item";
-
-    const title = document.createElement("h3");
-    title.textContent = product.n || "Unnamed product";
-
-    const info = document.createElement("p");
-    info.textContent =
-      (product.c || "No category") +
-      " | Rs. " + Number(product.p || 0).toLocaleString("en-PK");
-
-    const edit = document.createElement("button");
-    edit.type = "button";
-    edit.className = "btn";
-    edit.textContent = "Edit";
-    edit.style.marginRight = "8px";
-
-    edit.addEventListener("click", () => {
-      $("editProductId").value = id;
-      $("adminProductName").value = product.n || "";
-      $("adminProductCategory").value = product.c || "Other Products";
-      $("adminProductPrice").value = Number(product.p || 0);
-      $("adminProductImage").value = product.image || "";
-      $("saveProductButton").textContent = "Update Product";
-      adminProductMessage.textContent = "Editing: " + (product.n || "");
-      adminProductForm.scrollIntoView({ behavior: "smooth" });
-    });
-
-    const del = document.createElement("button");
-    del.type = "button";
-    del.className = "btn";
-    del.textContent = "Delete";
-    del.style.background = "#a83246";
-
-    del.addEventListener("click", async () => {
-      if (!auth.currentUser ||
-          String(auth.currentUser.email || "").toLowerCase() !== ADMIN_EMAIL) {
-        adminProductMessage.textContent = "Admin login required.";
-        return;
-      }
-
-      if (!confirm("Delete this product: " + (product.n || "Unnamed") + "?")) {
-        return;
-      }
-
-      del.disabled = true;
-      try {
-        await remove(ref(db, "products/" + id));
-        adminProductMessage.textContent = "Product deleted.";
-      } catch (e) {
-        adminProductMessage.textContent =
-          "Delete failed: " + errText(e);
-      } finally {
-        del.disabled = false;
-      }
-    });
-
-    card.append(title, info, edit, del);
-    adminProductsList.appendChild(card);
-  });
-}
-
-function resetProductForm() {
-  adminProductForm.reset();
-  $("editProductId").value = "";
-  $("saveProductButton").textContent = "Save Product";
-}
-
-$("cancelProductEdit").addEventListener("click", resetProductForm);
-
-adminProductForm.addEventListener("submit", async event => {
-  event.preventDefault();
-
-  const user = auth.currentUser;
-  if (!user ||
-      String(user.email || "").toLowerCase() !== ADMIN_EMAIL) {
-    adminProductMessage.textContent = "Only the authorized admin can save products.";
-    return;
-  }
-
-  const name = $("adminProductName").value.trim();
-  const category = $("adminProductCategory").value;
-  const price = Number($("adminProductPrice").value);
-  const image = $("adminProductImage").value.trim();
-  const id = $("editProductId").value;
-
-  if (!name || !Number.isFinite(price) ||
-      price < 0 || price > 10000000) {
-    adminProductMessage.textContent = "Enter a valid name and price.";
-    return;
-  }
-
-  const productData = { n: name, c: category, p: price, image };
-
-  const button = $("saveProductButton");
-  button.disabled = true;
-  adminProductMessage.textContent = "Saving product...";
-
-  try {
-    if (id) {
-      await update(ref(db, "products/" + id), productData);
-      adminProductMessage.textContent = "Product updated successfully.";
-    } else {
-      const newProduct = push(ref(db, "products"));
-      await set(newProduct, productData);
-      adminProductMessage.textContent = "Product added successfully.";
-    }
-
-    resetProductForm();
-  } catch (e) {
-    adminProductMessage.textContent =
-      "Save failed: " + errText(e) +
-      ". Check Firebase Rules and admin login.";
-  } finally {
-    button.disabled = false;
-  }
-});
-
-importProductsButton.addEventListener("click", async () => {
-  const user = auth.currentUser;
-
-  if (!user ||
-      String(user.email || "").toLowerCase() !== ADMIN_EMAIL) {
-    adminProductMessage.textContent = "Admin login required.";
-    return;
-  }
-
-  if (firebaseProductsEmpty !== true) {
-    adminProductMessage.textContent =
-      "Import is allowed only when the Firebase products database is empty.";
-    return;
-  }
-
-  const samples = storeProducts.map(product => ({
-    n: product.n,
-    c: product.c,
-    p: Number(product.p),
-    image: product.image || "",
-    ...(product.i ? { i: product.i } : {})
-  }));
-
-  importProductsButton.disabled = true;
-  adminProductMessage.textContent =
-    "Importing " + samples.length + " sample products...";
-
-  try {
-    for (const product of samples) {
-      await set(push(ref(db, "products")), product);
-    }
-
-    adminProductMessage.textContent =
-      "Sample products imported. The store will now load products from Firebase.";
-  } catch (e) {
-    adminProductMessage.textContent =
-      "Import stopped: " + errText(e) +
-      ". Some products may already have been imported; check Firebase before retrying.";
-  } finally {
-    importProductsButton.disabled = false;
-  }
-});
-
-productsUnsubscribe = onValue(
-  ref(db, "products"),
-  snapshot => {
-    firebaseProducts = snapshot.val() || {};
-    firebaseProductsEmpty = Object.keys(firebaseProducts).length === 0;
-
-    if (!firebaseProductsEmpty) {
-      const onlineProducts = Object.entries(firebaseProducts).map(
-        ([id, product]) => ({ ...product, id })
-      );
-
-      storeProducts.splice(0, storeProducts.length, ...onlineProducts);
-      renderStoreProducts();
-    }
-
-    drawAdminProducts(firebaseProducts);
-  },
-  error => {
-    adminProductMessage.textContent =
-      "Could not load Firebase products: " + errText(error);
-  }
-);
-,auth=getAuth(app),db=getDatabase(app),$=id=>document.getElementById(id);
-window.firebaseTest = "loaded";
-alert("Firebase script loaded successfully");
+const firebaseConfig = {
+ apiKey:"AIzaSyDkvePLdT859PrwRS7yb-YJfByAhafRBhM",
+ authDomain:"smart-dost-store-online.firebaseapp.com",
+ projectId:"smart-dost-store-online",
+ storageBucket:"smart-dost-store-online.firebasestorage.app",
+ messagingSenderId:"147065420247",
+ appId:"1:147065420247:web:b467192de4f2cdb440b392",
+ measurementId:"G-ZWDV59J62W",
+ databaseURL:"https://smart-dost-store-online-default-rtdb.asia-southeast1.firebasedatabase.app"
+};
 const ADMIN_EMAIL="jabbardaharki21@gmail.com";
-const accountMessage=$("accountMessage"),logoutButton=$("logoutButton"),ordersList=$("ordersList"),ordersMessage=$("ordersMessage"),orderForm=$("orderForm"),orderMessage=$("orderMessage"),adminPanel=$("adminPanel"),adminMessage=$("adminMessage"),adminOrdersList=$("adminOrdersList");let ordersUnsubscribe=null,adminUnsubscribe=null;
-function errText(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-email":"Please enter a valid email address.","auth/weak-password":"Password must be at least 6 characters.","auth/invalid-credential":"Email or password is incorrect.","auth/network-request-failed":"Network error. Check your internet."};return m[e.code]||e.message||"Something went wrong."}
-$("signupForm").addEventListener("submit",async e=>{alert("Create Account button is working");
-e.preventDefault();accountMessage.textContent="Creating account...";try{await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);accountMessage.textContent="Account created and logged in.";$("signupForm").reset()}catch(x){accountMessage.textContent=errText(x)}});
-$("loginForm").addEventListener("submit",async e=>{e.preventDefault();accountMessage.textContent="Logging in...";try{await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);accountMessage.textContent="Login successful!";$("loginForm").reset()}catch(x){accountMessage.textContent=errText(x)}});
-logoutButton.addEventListener("click",async()=>{try{await signOut(auth);accountMessage.textContent="You have logged out."}catch(x){accountMessage.textContent=errText(x)}});
+const app=initializeApp(firebaseConfig), auth=getAuth(app), db=getDatabase(app);
+const $=id=>document.getElementById(id);
+$("year").textContent=new Date().getFullYear();
 
-function drawAdminOrders(allOrders) {
-  adminOrdersList.replaceChildren();
-  let count = 0;
-
-  Object.entries(allOrders || {}).forEach(([uid, userOrders]) => {
-    Object.entries(userOrders || {}).reverse().forEach(([id, o]) => {
-      count++;
-
-      const card = document.createElement("article");
-      card.className = "order-history-item";
-
-      const title = document.createElement("h3");
-      title.textContent = o.productDetails || o.product || "Order";
-
-      const info = document.createElement("p");
-      info.textContent =
-        "Customer: " + (o.customerName || "") +
-        " | Email: " + (o.customerEmail || "") +
-        " | Phone: " + (o.phone || "");
-
-      const details = document.createElement("p");
-      details.textContent =
-        "Qty: " + (o.quantity || 1) +
-        " | Payment: " + (o.paymentMethod || "") +
-        " | Date: " +
-        (o.createdAt
-          ? new Date(o.createdAt).toLocaleString()
-          : "Not available");
-
-      const address = document.createElement("p");
-      address.textContent =
-        "Address: " + (o.deliveryAddress || "");
-
-      const status = document.createElement("p");
-      status.className = "status";
-      status.textContent =
-        "Current Status: " + (o.status || "Pending");
-
-      const label = document.createElement("label");
-      label.textContent = "Change Order Status:";
-      label.style.fontWeight = "bold";
-
-      const select = document.createElement("select");
-      select.style.cssText =
-        "padding:10px;border:1px solid #ccd6df;" +
-        "border-radius:8px;margin:8px 0;width:100%;";
-
-      ["Pending", "Approved", "Shipped", "Delivered"].forEach(value => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = value;
-        select.appendChild(option);
-      });
-
-      select.value = ["Pending", "Approved", "Shipped", "Delivered"]
-        .includes(o.status) ? o.status : "Pending";
-
-      const saveButton = document.createElement("button");
-      saveButton.type = "button";
-      saveButton.className = "btn";
-      saveButton.textContent = "Update Status";
-      saveButton.style.marginTop = "8px";
-
-      saveButton.addEventListener("click", async () => {
-        const nextStatus = select.value;
-
-        saveButton.disabled = true;
-        adminMessage.textContent = "Updating order status...";
-
-        try {
-          await update(ref(db, "orders/" + uid + "/" + id), {
-            status: nextStatus
-          });
-
-          status.textContent = "Current Status: " + nextStatus;
-          adminMessage.textContent =
-            "Order status updated to " + nextStatus + ".";
-        } catch (e) {
-          adminMessage.textContent =
-            "Update failed: " + errText(e) +
-            ". Check Firebase Database Rules and admin login.";
-        } finally {
-          saveButton.disabled = false;
-        }
-      });
-
-      card.append(
-        title,
-        info,
-        details,
-        address,
-        status,
-        label,
-        select,
-        saveButton
-      );
-
-      adminOrdersList.appendChild(card);
-    });
-  });
-
-  if (count === 0) {
-    adminMessage.textContent = "No orders found.";
-  } else {
-    adminMessage.textContent = "Orders loaded: " + count;
-  }
+const categories=["Mobile Accessories","Watches","Home Essentials","Bags & Accessories","Clothing","Books & Stationery","Other Products"];
+const localProducts=[
+["Tecno Spark 30 Pro Ring Cover","Mobile Accessories",575,"IMG_20261023_232550.jpg"],
+["Tecno Camon 20 / 20 Pro Fancy Wavy Cover","Mobile Accessories",575,"IMG_20261023_232606.jpg"],
+["Tecno Spark 30 Pro Transparent Bumper Cover","Mobile Accessories",299,"IMG_20261023_232619.jpg"],
+["Tecno Camon 20 / 20 Pro Woven Design Cover","Mobile Accessories",399,"IMG_20261023_232634.jpg"],
+["Xiaomi Redmi A5 Ring Cover","Mobile Accessories",575,"IMG_20261023_232700.jpg"],
+["Xiaomi Redmi A5 Premium PU Leather Cover","Mobile Accessories",645,"IMG_20261023_232715.jpg"],
+["Redmi A5 Soft Matt Cover","Mobile Accessories",399,"IMG_20261023_232532.jpg"],
+["Vivo Y05 Silicone Cover","Mobile Accessories",499,"IMG_20261023_232648.jpg"],
+["OPPO A3X Soft Matte Cover","Mobile Accessories",330,"IMG_20261023_232715.jpg"],
+["USB-C Charger","Mobile Accessories",800,"1583394838336-acd977736f90"],
+["Fast Charger","Mobile Accessories",1500,"1583394838336-acd977736f90"],
+["Micro USB Cable","Mobile Accessories",200,"1558618666-fcd25c85cd64"],
+["USB-C Cable","Mobile Accessories",300,"1558618666-fcd25c85cd64"],
+["Lightning Cable","Mobile Accessories",500,"1558618666-fcd25c85cd64"],
+["Wireless Earbuds","Mobile Accessories",1800,"1590658268037-6bf12165a8df"],
+["Bluetooth Headphones","Mobile Accessories",2500,"1505740420928-5e560c06d30e"],
+["Power Bank","Mobile Accessories",2500,"1609091839311-d5365f9ff1c5"],
+["School Copy - Small","Books & Stationery",60,"1531346878377-a5be20888e57"],
+["School Copy - Large","Books & Stationery",150,"1531346878377-a5be20888e57"],
+["Register / Notebook","Books & Stationery",250,"1531346878377-a5be20888e57"],
+["Ballpoint Pens Pack","Books & Stationery",200,"1455390582262-044cdea277a9"],
+["Pencils and Erasers","Books & Stationery",100,"1455390582262-044cdea277a9"],
+["Men's T-Shirt","Clothing",800,"1521572163474-6864f9cf17ab"],
+["Men's Casual Shirt","Clothing",1500,"1596755094514-f87e34085b2c"],
+["Kids T-Shirt","Clothing",500,"1521572163474-6864f9cf17ab"],
+["Casual Trousers","Clothing",1800,"1473966968600-fa801b869a1a"],
+["Women's Scarf","Clothing",700,"1601924994987-69e26d50dc26"],
+["School Backpack","Bags & Accessories",1800,"1553062407-98eeb64c6a62"],
+["Travel Bag","Bags & Accessories",2500,"1565026057447-bc90a3dceb87"],
+["Small Handbag","Bags & Accessories",1600,"1584917865442-de89df76afd3"],
+["Wallet","Bags & Accessories",700,"1627123424574-724758594e93"],
+["School Pencil Pouch","Bags & Accessories",250,"1544816155-12df9643f363"],
+["Lunch Box","Home Essentials",500,"1498837167922-ddd27525d352"],
+["Water Bottle","Home Essentials",350,"1602143407151-7111542de6e8"],
+["Storage Box","Home Essentials",650,"1583847268964-b28dc8f51f92"],
+["Kitchen Organizer","Home Essentials",900,"1556911220-e15b29be8c8f"],
+["Cleaning Brush","Home Essentials",200,"1585421514738-01798e348b17"],
+["General Household Item","Other Products",500,"1600566753086-00f18fb6b3ea"],
+["Gift Item","Other Products",700,"1513201099705-a9746e1e201d"],
+["Daily Use Accessory","Other Products",300,"1523275335684-37898b6baf30"]
+].map(([n,c,p,img])=>({n,c,p,image:img.startsWith("IMG_")?img:"",i:img.startsWith("IMG_")?"":img}));
+for(let i=1;i<=10;i++)localProducts.push({n:`STB Class ${i} Books`,c:"Books & Stationery",p:[500,600,700,800,900,1000,1000,1200,1500,1500][i-1],i:"1544947950-fa07a98d237f"});
+const watchNames=["Classic Analog Watch","Minimalist Watch","Leather Strap Watch","Metal Strap Watch","Black Dial Watch","Silver Dial Watch","Gold-Tone Watch","Brown Strap Watch","Sports Watch","Digital Sports Watch","LED Digital Watch","Kids Digital Watch","Kids Cartoon Watch","Women's Elegant Watch","Women's Slim Watch","Rose-Gold Watch","Mesh Strap Watch","Square Dial Watch","Round Dial Watch","Chronograph Style Watch","Fashion Watch","Casual Everyday Watch","Office Wear Watch","Classic White Dial Watch","Classic Blue Dial Watch","Classic Green Dial Watch","Black Sports Digital Watch","Water-Resistant Style Watch","Silicone Strap Watch","Stainless-Steel Style Watch","Vintage Style Watch","Fashion Square Watch","Couple Style Watch","Premium Look Watch","Everyday Metal Watch","Simple Leather Watch","Fashion Number Dial Watch","Digital Alarm Watch","Sporty Silicone Watch","Smartwatch Style Basic","Smartwatch Style Premium","Fitness Style Watch","Blue Strap Watch","Red Strap Watch","Elegant Gold Dial Watch","Silver Mesh Fashion Watch","Black Minimal Watch","Brown Classic Watch","Modern Square Smartwatch Style","Everyday Classic Watch"];
+const watchPrices=[1200,1500,2200,2500,1800,2000,2800,1700,1600,1400,1300,800,700,2200,2500,2800,3000,1800,1600,3500,1900,1100,2400,1700,2000,2300,1500,3000,1200,3200,2600,2100,4000,4500,2800,1400,1900,1300,1700,3500,4900,3000,1600,1400,3200,2700,2000,2300,4200,1800];
+watchNames.forEach((n,i)=>localProducts.push({n,c:"Watches",p:watchPrices[i],i:"1524805444758-089113d48a6d"}));
+let products=[...localProducts], productsEmpty=true, currentCategory="", currentUser=null, ordersStop=null, adminOrdersStop=null, productsStop=null;
+const productGrid=$("productGrid"), productSearch=$("productSearch"), productHeading=$("productHeading"), productEmpty=$("productEmpty"), categorySelect=$("product"), detailsInput=$("details");
+const imgURL=p=>p.image||(p.i?"https://images.unsplash.com/photo-"+p.i+"?auto=format&fit=crop&w=600&q=75":"");
+function getWishlist(){try{const x=JSON.parse(localStorage.getItem("smartDostWishlistV1")||"[]");return Array.isArray(x)?x:[]}catch{return []}}
+let wishlist=getWishlist(), cart=[];
+function saveWishlist(){try{localStorage.setItem("smartDostWishlistV1",JSON.stringify(wishlist));return true}catch{return false}}
+function productCard(p,mode="product"){
+ const card=document.createElement("article");card.className="product-card";
+ const img=document.createElement("img");img.src=imgURL(p);img.alt=p.n;img.loading="lazy";img.onerror=()=>{img.removeAttribute("src");img.style.background="linear-gradient(135deg,#d8f3ff,#fff0cc)"};card.append(img);
+ const info=document.createElement("div");info.className="product-info";
+ const title=document.createElement("h3");title.textContent=p.n;
+ const price=document.createElement("div");price.className="price";price.textContent="Sample price: Rs. "+Number(p.p||0).toLocaleString("en-PK");
+ info.append(title,price);
+ if(mode==="product"){
+  const fav=document.createElement("button");fav.className="btn";fav.style.background=wishlist.some(x=>x.n===p.n&&x.c===p.c)?"#b83250":"#176b87";fav.textContent=wishlist.some(x=>x.n===p.n&&x.c===p.c)?"❤️ Saved":"♡ Add to Wishlist";fav.onclick=()=>{const yes=wishlist.some(x=>x.n===p.n&&x.c===p.c);wishlist=yes?wishlist.filter(x=>!(x.n===p.n&&x.c===p.c)):[...wishlist,{n:p.n,c:p.c}];saveWishlist();renderProducts();renderWishlist()};info.append(fav);
+  const add=document.createElement("button");add.className="btn";add.textContent="Add to Cart";add.onclick=()=>addCart(p);info.append(add);
+ }
+ const order=document.createElement("button");order.className="btn";order.textContent="Order Now";order.onclick=()=>{categorySelect.value=p.c;detailsInput.value=p.n+" - Sample price Rs. "+p.p;$("order").scrollIntoView({behavior:"smooth"})};info.append(order);
+ if(mode==="wishlist"){const rm=document.createElement("button");rm.className="btn";rm.style.background="#a83246";rm.textContent="Remove";rm.onclick=()=>{wishlist=wishlist.filter(x=>!(x.n===p.n&&x.c===p.c));saveWishlist();renderProducts();renderWishlist()};info.append(rm)}
+ card.append(info);return card;
 }
-
-onAuthStateChanged(auth,user=>{logoutButton.classList.toggle("hidden",!user);$("signupForm").classList.toggle("hidden",!!user);$("loginForm").classList.toggle("hidden",!!user);const isAdmin=!!user&&String(user.email||"").toLowerCase()===ADMIN_EMAIL;adminPanel.classList.toggle("hidden",!isAdmin);
-if(adminUnsubscribe){adminUnsubscribe();adminUnsubscribe=null}if(isAdmin){adminMessage.textContent="Loading all orders...";adminUnsubscribe=onValue(ref(db,"orders"),snap=>drawAdminOrders(snap.val()),e=>{adminMessage.textContent="Could not load orders: "+errText(e)+". Firebase Rules need admin read access."})}
-if(user){accountMessage.textContent="Login successful! Welcome "+(user.email||"customer");
-accountMessage.textContent="Login successful! Welcome "+(user.email||"customer");$("customerEmailField").value=user.email||"";ordersMessage.textContent="Loading your orders...";if(ordersUnsubscribe){ordersUnsubscribe();ordersUnsubscribe=null}
-ordersUnsubscribe=onValue(ref(db,"orders/"+user.uid),snap=>{ordersList.replaceChildren();if(!snap.exists()){ordersMessage.textContent="You have not placed any orders yet.";return}ordersMessage.textContent="Your order history:";Object.entries(snap.val()).reverse().forEach(([id,o])=>{const card=document.createElement("article");card.className="order-history-item";const title=document.createElement("h3");title.textContent=o.productDetails||o.product||"Order";const status=document.createElement("p");status.className="status";status.textContent="Status: "+(o.status||"Pending");const info=document.createElement("p");info.textContent="Quantity: "+o.quantity+" | Payment: "+o.paymentMethod+" | Date: "+(o.createdAt?new Date(o.createdAt).toLocaleString():"Not available");const addr=document.createElement("p");addr.textContent="Delivery address: "+(o.deliveryAddress||"");card.append(title,status,info,addr);ordersList.append(card)})},x=>{ordersMessage.textContent="Could not load orders: "+errText(x)});
-}else{$("customerEmailField").value="";accountMessage.textContent="Create an account or log in to place an order.";ordersMessage.textContent="Please log in to view your orders.";ordersList.replaceChildren();if(ordersUnsubscribe){ordersUnsubscribe();ordersUnsubscribe=null}}});
-orderForm.addEventListener("submit",async e=>{e.preventDefault();orderMessage.textContent="";const user=auth.currentUser;if(!user){orderMessage.textContent="Please create an account or log in before submitting an order.";document.getElementById("account").scrollIntoView({behavior:"smooth"});return}
-const v=id=>$(id).value.trim(),quantity=Number(v("quantity"));if(!Number.isInteger(quantity)||quantity<1||quantity>100){orderMessage.textContent="Quantity must be between 1 and 100.";return}
-const data={customerEmail:user.email||"",status:"Pending",createdAt:Date.now(),customerName:v("customerName"),phone:v("phone"),product:v("product"),productDetails:v("details"),quantity,paymentMethod:v("payment"),deliveryAddress:v("address"),transactionRef:v("transactionRef"),additionalMessage:v("message")};
-const btn=orderForm.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent="Submitting...";
-try{const newOrder=push(ref(db,"orders/"+user.uid));await set(newOrder,data);orderMessage.textContent="Order saved. Sending email notification...";
-try{const r=await fetch(orderForm.action,{method:"POST",body:new FormData(orderForm),headers:{Accept:"application/json"}});orderMessage.textContent=r.ok?"Order saved successfully. Email notification request sent.":"Order saved, but Formspree email failed. Check Formspree settings."}catch(_){orderMessage.textContent="Order saved, but email notification failed. Check internet and Formspree settings."}
-orderForm.reset();$("customerEmailField").value=user.email||"";$("quantity").value="1";document.getElementById("myOrders").scrollIntoView({behavior:"smooth"});
-}catch(x){orderMessage.textContent="Order could not be saved: "+errText(x)+". Check Firebase Database Rules."}finally{btn.disabled=false;btn.textContent="Submit Order Request →"}});
+function renderProducts(){const q=productSearch.value.trim().toLowerCase();const list=products.filter(p=>(!currentCategory||p.c===currentCategory)&&(p.n+" "+p.c).toLowerCase().includes(q));productGrid.replaceChildren();list.forEach(p=>productGrid.append(productCard(p)));productEmpty.style.display=list.length?"none":"block";productHeading.textContent=currentCategory||"All Products";$("wishlistCount").textContent=wishlist.length;$("cartCount").textContent=cart.reduce((n,x)=>n+x.quantity,0)}
+function renderWishlist(){const grid=$("wishlistGrid");grid.replaceChildren();const list=wishlist.map(w=>products.find(p=>p.n===w.n&&p.c===w.c)).filter(Boolean);$("wishlistEmpty").style.display=list.length?"none":"block";$("wishlistCount").textContent=list.length;list.forEach(p=>grid.append(productCard(p,"wishlist")))}
+function addCart(p){const found=cart.find(x=>x.name===p.n&&x.category===p.c);if(found){if(found.quantity<100)found.quantity++}else cart.push({name:p.n,category:p.c,price:Number(p.p||0),quantity:1});renderCart()}
+function renderCart(){const box=$("cartItems");box.replaceChildren();let total=0;cart.forEach((x,i)=>{const row=document.createElement("div"),name=document.createElement("p"),amount=document.createElement("p"),minus=document.createElement("button"),plus=document.createElement("button"),del=document.createElement("button");name.textContent=x.name;amount.textContent=`Rs. ${x.price} × ${x.quantity} = Rs. ${x.price*x.quantity}`;minus.className=plus.className=del.className="btn";minus.textContent="−";plus.textContent="+";del.textContent="Remove";minus.onclick=()=>{x.quantity--;if(x.quantity<=0)cart.splice(i,1);renderCart()};plus.onclick=()=>{if(x.quantity<100)x.quantity++;renderCart()};del.onclick=()=>{cart.splice(i,1);renderCart()};row.append(name,amount,minus,document.createTextNode(" "),plus,document.createTextNode(" "),del);box.append(row);total+=x.price*x.quantity});$("cartMessage").textContent=cart.length?"Products in your cart:":"Your cart is empty.";$("cartTotal").textContent="Total: Rs. "+total;$("cartCount").textContent=cart.reduce((n,x)=>n+x.quantity,0)}
+function showCategory(c){currentCategory=c;productSearch.value="";renderProducts();$("products").scrollIntoView({behavior:"smooth"})}
+renderProducts();renderWishlist();renderCart();
+productSearch.addEventListener("input",renderProducts);
+document.querySelectorAll(".choose-category").forEach(b=>b.addEventListener("click",()=>showCategory(b.dataset.category)));
+$("categorySearch").addEventListener("input",function(){const q=this.value.toLowerCase().trim();let n=0;document.querySelectorAll(".category-card").forEach(c=>{const ok=(c.innerText+" "+c.dataset.search).toLowerCase().includes(q);c.style.display=ok?"":"none";if(ok)n++});$("categoryEmpty").style.display=n?"none":"block"});
+$("clearCart").onclick=()=>{cart.length=0;renderCart()};
+$("cartCheckout").onclick=()=>{if(!cart.length){alert("Please add a product to your cart first.");return}const details=cart.map(x=>`${x.name} | Qty: ${x.quantity} | Unit price: Rs. ${x.price} | Subtotal: Rs. ${x.price*x.quantity}`).join("\n");$("details").value=details+"\nCart total: Rs. "+cart.reduce((s,x)=>s+x.price*x.quantity,0);$("quantity").value=cart.reduce((s,x)=>s+x.quantity,0);const cs=[...new Set(cart.map(x=>x.category))];$("product").value=cs.length===1?cs[0]:"Other Products";$("order").scrollIntoView({behavior:"smooth"})};
+function errText(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-email":"Please enter a valid email address.","auth/weak-password":"Password must be at least 6 characters.","auth/invalid-credential":"Email or password is incorrect.","auth/network-request-failed":"Network error. Check your internet."};return m[e.code]||e.message||"Something went wrong."}
+$("signupForm").addEventListener("submit",async e=>{e.preventDefault();$("accountMessage").textContent="Creating account...";try{await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);$("accountMessage").textContent="Account created successfully.";$("signupForm").reset()}catch(x){$("accountMessage").textContent=errText(x)}});
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();$("accountMessage").textContent="Logging in...";try{await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);$("accountMessage").textContent="Login successful.";$("loginForm").reset()}catch(x){$("accountMessage").textContent=errText(x)}});
+$("logoutButton").onclick=async()=>{try{await signOut(auth);$("accountMessage").textContent="You have logged out."}catch(e){$("accountMessage").textContent=errText(e)}};
+function drawOrders(all){const box=$("adminOrdersList");box.replaceChildren();let count=0;Object.entries(all||{}).forEach(([uid,items])=>Object.entries(items||{}).reverse().forEach(([id,o])=>{count++;const card=document.createElement("article");card.className="order-history-item";const h=document.createElement("h3");h.textContent=o.productDetails||o.product||"Order";const info=document.createElement("p");info.textContent=`Customer: ${o.customerName||""} | Email: ${o.customerEmail||""} | Phone: ${o.phone||""}`;const details=document.createElement("p");details.textContent=`Qty: ${o.quantity||1} | Payment: ${o.paymentMethod||""} | Date: ${o.createdAt?new Date(o.createdAt).toLocaleString():"N/A"}`;const address=document.createElement("p");address.textContent="Address: "+(o.deliveryAddress||"");const status=document.createElement("p");status.className="status";status.textContent="Status: "+(o.status||"Pending");const sel=document.createElement("select");["Pending","Approved","Shipped","Delivered"].forEach(s=>{const op=document.createElement("option");op.value=s;op.textContent=s;sel.append(op)});sel.value=["Pending","Approved","Shipped","Delivered"].includes(o.status)?o.status:"Pending";const btn=document.createElement("button");btn.className="btn";btn.textContent="Update Status";btn.onclick=async()=>{btn.disabled=true;try{await update(ref(db,`orders/${uid}/${id}`),{status:sel.value});status.textContent="Status: "+sel.value;$("adminMessage").textContent="Order status updated."}catch(e){$("adminMessage").textContent="Update failed: "+errText(e)}finally{btn.disabled=false}};card.append(h,info,details,address,status,sel,btn);box.append(card)}));if(!count)$("adminMessage").textContent="No orders found.";else $("adminMessage").textContent="Orders loaded: "+count}
+function drawAdminProducts(data){const box=$("adminProductsList");box.replaceChildren();const entries=Object.entries(data||{});if(!entries.length){box.textContent="No Firebase products yet. Import sample products or add a product.";return}entries.forEach(([id,p])=>{const card=document.createElement("article");card.className="order-history-item";const h=document.createElement("h3");h.textContent=p.n||"Unnamed product";const info=document.createElement("p");info.textContent=`${p.c||"No category"} | Rs. ${Number(p.p||0).toLocaleString("en-PK")}`;const edit=document.createElement("button");edit.className="btn";edit.textContent="Edit";edit.onclick=()=>{$("editProductId").value=id;$("adminProductName").value=p.n||"";$("adminProductCategory").value=p.c||"Other Products";$("adminProductPrice").value=Number(p.p||0);$("adminProductImage").value=p.image||"";$("saveProductButton").textContent="Update Product";$("adminProductForm").scrollIntoView({behavior:"smooth"})};const del=document.createElement("button");del.className="btn";del.style.background="#a83246";del.textContent="Delete";del.onclick=async()=>{if(!confirm("Delete "+(p.n||"this product")+"?"))return;try{await remove(ref(db,"products/"+id));$("adminProductMessage").textContent="Product deleted."}catch(e){$("adminProductMessage").textContent="Delete failed: "+errText(e)}};card.append(h,info,edit,document.createTextNode(" "),del);box.append(card)})}
+$("cancelProductEdit").onclick=()=>{$("adminProductForm").reset();$("editProductId").value="";$("saveProductButton").textContent="Save Product"};
+$("adminProductForm").addEventListener("submit",async e=>{e.preventDefault();if(!currentUser||String(currentUser.email||"").toLowerCase()!==ADMIN_EMAIL){$("adminProductMessage").textContent="Only the admin can manage products.";return}const p={n:$("adminProductName").value.trim(),c:$("adminProductCategory").value,p:Number($("adminProductPrice").value),image:$("adminProductImage").value.trim()};if(!p.n||!Number.isFinite(p.p)||p.p<0){$("adminProductMessage").textContent="Enter a valid name and price.";return}const id=$("editProductId").value,btn=$("saveProductButton");btn.disabled=true;try{if(id)await update(ref(db,"products/"+id),p);else await set(push(ref(db,"products")),p);$("adminProductMessage").textContent=id?"Product updated.":"Product added.";$("cancelProductEdit").click()}catch(e){$("adminProductMessage").textContent="Save failed: "+errText(e)}finally{btn.disabled=false}});
+$("importSampleProducts").onclick=async()=>{if(!currentUser||String(currentUser.email||"").toLowerCase()!==ADMIN_EMAIL){$("adminProductMessage").textContent="Admin login required.";return}if(!productsEmpty){$("adminProductMessage").textContent="Import is allowed only if Firebase products is empty.";return}const b=$("importSampleProducts");b.disabled=true;try{for(const p of localProducts)await set(push(ref(db,"products")),{...p});$("adminProductMessage").textContent="Sample products imported. Refresh if needed."}catch(e){$("adminProductMessage").textContent="Import stopped: "+errText(e)+". Check Firebase before retrying."}finally{b.disabled=false}};
+onAuthStateChanged(auth,user=>{currentUser=user;const logged=!!user,isAdmin=logged&&String(user.email||"").toLowerCase()===ADMIN_EMAIL;$("logoutButton").classList.toggle("hidden",!logged);$("signupForm").classList.toggle("hidden",logged);$("loginForm").classList.toggle("hidden",logged);$("adminPanel").classList.toggle("hidden",!isAdmin);$("customerEmailField").value=user?.email||"";if(ordersStop){ordersStop();ordersStop=null}if(adminOrdersStop){adminOrdersStop();adminOrdersStop=null}
+if(logged){$("accountMessage").textContent="Logged in as "+user.email;$("ordersMessage").textContent="Loading your orders...";ordersStop=onValue(ref(db,"orders/"+user.uid),snap=>{const box=$("ordersList");box.replaceChildren();if(!snap.exists()){$("ordersMessage").textContent="You have not placed any orders yet.";return}$("ordersMessage").textContent="Your order history:";Object.entries(snap.val()).reverse().forEach(([id,o])=>{const c=document.createElement("article");c.className="order-history-item";const h=document.createElement("h3");h.textContent=o.productDetails||o.product||"Order";const s=document.createElement("p");s.className="status";s.textContent="Status: "+(o.status||"Pending");const p=document.createElement("p");p.textContent=`Qty: ${o.quantity||1} | Payment: ${o.paymentMethod||""} | ${o.createdAt?new Date(o.createdAt).toLocaleString():""}`;const a=document.createElement("p");a.textContent="Delivery address: "+(o.deliveryAddress||"");c.append(h,s,p,a);box.append(c)})},e=>{$("ordersMessage").textContent="Could not load orders: "+errText(e)});if(isAdmin){$("adminMessage").textContent="Loading orders...";adminOrdersStop=onValue(ref(db,"orders"),s=>drawOrders(s.val()),e=>{$("adminMessage").textContent="Could not load orders: "+errText(e)})}}
+else{$("accountMessage").textContent="Create an account or log in to place an order.";$("ordersMessage").textContent="Please log in to view your orders.";$("ordersList").replaceChildren()}
+});
+productsStop=onValue(ref(db,"products"),snap=>{const data=snap.val()||{};productsEmpty=Object.keys(data).length===0;if(!productsEmpty){products=Object.entries(data).map(([id,p])=>({...p,id}));renderProducts();renderWishlist()}else{products=[...localProducts];renderProducts();renderWishlist()}drawAdminProducts(data)},e=>{$("adminProductMessage").textContent="Could not load Firebase products: "+errText(e);products=[...localProducts];renderProducts();renderWishlist()});
+$("orderForm").addEventListener("submit",async e=>{e.preventDefault();$("orderMessage").textContent="";const user=auth.currentUser;if(!user){$("orderMessage").textContent="Please log in before submitting an order."; $("account").scrollIntoView({behavior:"smooth"});return}const v=id=>$(id).value.trim(),quantity=Number(v("quantity"));if(!Number.isInteger(quantity)||quantity<1||quantity>100){$("orderMessage").textContent="Quantity must be between 1 and 100.";return}const data={customerEmail:user.email||"",status:"Pending",createdAt:Date.now(),customerName:v("customerName"),phone:v("phone"),product:v("product"),productDetails:v("details"),quantity,paymentMethod:v("payment"),deliveryAddress:v("address"),transactionRef:v("transactionRef"),additionalMessage:v("message")};const btn=$("orderForm").querySelector('[type="submit"]');btn.disabled=true;btn.textContent="Submitting...";try{const newOrder=push(ref(db,"orders/"+user.uid));await set(newOrder,data);$("orderMessage").textContent="Order saved. Sending email notification...";try{const response=await fetch($("orderForm").action,{method:"POST",body:new FormData($("orderForm")),headers:{Accept:"application/json"}});$("orderMessage").textContent=response.ok?"Order saved and email notification request sent.":"Order saved, but email notification failed. Check Formspree settings."}catch{$("orderMessage").textContent="Order saved, but email notification failed. Check internet/Formspree."}$("orderForm").reset();$("customerEmailField").value=user.email||"";$("quantity").value="1";$("myOrders").scrollIntoView({behavior:"smooth"})}catch(e){$("orderMessage").textContent="Order could not be saved: "+errText(e)+". Check Firebase Database Rules."}finally{btn.disabled=false;btn.textContent="Submit Order Request →"}});
 </script>
 </body>
 </html>
