@@ -289,7 +289,115 @@ $("signupForm").addEventListener("submit",async e=>{alert("Create Account button
 e.preventDefault();accountMessage.textContent="Creating account...";try{await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);accountMessage.textContent="Account created and logged in.";$("signupForm").reset()}catch(x){accountMessage.textContent=errText(x)}});
 $("loginForm").addEventListener("submit",async e=>{e.preventDefault();accountMessage.textContent="Logging in...";try{await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);accountMessage.textContent="Login successful!";$("loginForm").reset()}catch(x){accountMessage.textContent=errText(x)}});
 logoutButton.addEventListener("click",async()=>{try{await signOut(auth);accountMessage.textContent="You have logged out."}catch(x){accountMessage.textContent=errText(x)}});
-function drawAdminOrders(allOrders){adminOrdersList.replaceChildren();let count=0;Object.entries(allOrders||{}).forEach(([uid,userOrders])=>Object.entries(userOrders||{}).reverse().forEach(([id,o])=>{count++;const card=document.createElement("article");card.className="order-history-item";const title=document.createElement("h3");title.textContent=o.productDetails||o.product||"Order";const info=document.createElement("p");info.textContent="Customer: "+(o.customerName||"")+" | Email: "+(o.customerEmail||"")+" | Phone: "+(o.phone||"");const details=document.createElement("p");details.textContent="Qty: "+(o.quantity||1)+" | Payment: "+(o.paymentMethod||"")+" | Date: "+(o.createdAt?new Date(o.createdAt).toLocaleString():"Not available");const address=document.createElement("p");address.textContent="Address: "+(o.deliveryAddress||"");const status=document.createElement("p");status.className="status";status.textContent="Status: "+(o.status||"Pending");card.append(title,info,details,address,status);if((o.status||"Pending")!=="Approved"&&(o.status||"Pending")!=="Rejected"){["Approved","Rejected"].forEach(next=>{const b=document.createElement("button");b.type="button";b.className="btn";b.style.marginRight="8px";b.textContent=next;b.addEventListener("click",async()=>{b.disabled=true;adminMessage.textContent="Updating order...";try{await update(ref(db,"orders/"+uid+"/"+id),{status:next});adminMessage.textContent="Order status updated to "+next+"."}catch(e){adminMessage.textContent="Update failed: "+errText(e)+". Firebase Rules may need admin permission."}finally{b.disabled=false}});card.append(b)})}adminOrdersList.append(card)}));if(!count)adminMessage.textContent="No orders found.";else adminMessage.textContent="Orders loaded: "+count});
+
+function drawAdminOrders(allOrders) {
+  adminOrdersList.replaceChildren();
+  let count = 0;
+
+  Object.entries(allOrders || {}).forEach(([uid, userOrders]) => {
+    Object.entries(userOrders || {}).reverse().forEach(([id, o]) => {
+      count++;
+
+      const card = document.createElement("article");
+      card.className = "order-history-item";
+
+      const title = document.createElement("h3");
+      title.textContent = o.productDetails || o.product || "Order";
+
+      const info = document.createElement("p");
+      info.textContent =
+        "Customer: " + (o.customerName || "") +
+        " | Email: " + (o.customerEmail || "") +
+        " | Phone: " + (o.phone || "");
+
+      const details = document.createElement("p");
+      details.textContent =
+        "Qty: " + (o.quantity || 1) +
+        " | Payment: " + (o.paymentMethod || "") +
+        " | Date: " +
+        (o.createdAt
+          ? new Date(o.createdAt).toLocaleString()
+          : "Not available");
+
+      const address = document.createElement("p");
+      address.textContent =
+        "Address: " + (o.deliveryAddress || "");
+
+      const status = document.createElement("p");
+      status.className = "status";
+      status.textContent =
+        "Current Status: " + (o.status || "Pending");
+
+      const label = document.createElement("label");
+      label.textContent = "Change Order Status:";
+      label.style.fontWeight = "bold";
+
+      const select = document.createElement("select");
+      select.style.cssText =
+        "padding:10px;border:1px solid #ccd6df;" +
+        "border-radius:8px;margin:8px 0;width:100%;";
+
+      ["Pending", "Approved", "Shipped", "Delivered"].forEach(value => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
+
+      select.value = ["Pending", "Approved", "Shipped", "Delivered"]
+        .includes(o.status) ? o.status : "Pending";
+
+      const saveButton = document.createElement("button");
+      saveButton.type = "button";
+      saveButton.className = "btn";
+      saveButton.textContent = "Update Status";
+      saveButton.style.marginTop = "8px";
+
+      saveButton.addEventListener("click", async () => {
+        const nextStatus = select.value;
+
+        saveButton.disabled = true;
+        adminMessage.textContent = "Updating order status...";
+
+        try {
+          await update(ref(db, "orders/" + uid + "/" + id), {
+            status: nextStatus
+          });
+
+          status.textContent = "Current Status: " + nextStatus;
+          adminMessage.textContent =
+            "Order status updated to " + nextStatus + ".";
+        } catch (e) {
+          adminMessage.textContent =
+            "Update failed: " + errText(e) +
+            ". Check Firebase Database Rules and admin login.";
+        } finally {
+          saveButton.disabled = false;
+        }
+      });
+
+      card.append(
+        title,
+        info,
+        details,
+        address,
+        status,
+        label,
+        select,
+        saveButton
+      );
+
+      adminOrdersList.appendChild(card);
+    });
+  });
+
+  if (count === 0) {
+    adminMessage.textContent = "No orders found.";
+  } else {
+    adminMessage.textContent = "Orders loaded: " + count;
+  }
+}
+
 onAuthStateChanged(auth,user=>{logoutButton.classList.toggle("hidden",!user);$("signupForm").classList.toggle("hidden",!!user);$("loginForm").classList.toggle("hidden",!!user);const isAdmin=!!user&&String(user.email||"").toLowerCase()===ADMIN_EMAIL;adminPanel.classList.toggle("hidden",!isAdmin);
 if(adminUnsubscribe){adminUnsubscribe();adminUnsubscribe=null}if(isAdmin){adminMessage.textContent="Loading all orders...";adminUnsubscribe=onValue(ref(db,"orders"),snap=>drawAdminOrders(snap.val()),e=>{adminMessage.textContent="Could not load orders: "+errText(e)+". Firebase Rules need admin read access."})}
 if(user){accountMessage.textContent="Login successful! Welcome "+(user.email||"customer");
