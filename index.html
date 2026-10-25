@@ -65,6 +65,17 @@
 
 <script>
 document.getElementById("year").textContent=new Date().getFullYear();
+document.getElementById("signupForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  document.getElementById("accountMessage").textContent =
+    "Firebase login script load nahi hua. Page refresh karein aur internet check karein.";
+});
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  document.getElementById("accountMessage").textContent =
+    "Firebase login script load nahi hua. Page refresh karein aur internet check karein.";
+});
 const storeProducts=[
 {n:"Tecno Spark 30 Pro Ring Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232550.jpg"},
 {n:"Tecno Camon 20 / 20 Pro Fancy Wavy Cover",c:"Mobile Accessories",p:575,image:"IMG_20261023_232606.jpg"},
