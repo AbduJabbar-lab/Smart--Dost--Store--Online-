@@ -61,7 +61,7 @@
 
 <section id="why-us"><div class="container"><div class="section-head"><h2>Why Shop With Us?</h2><p>Simple online order requests.</p></div><div class="trust-grid"><article class="trust-card"><h3>📱 Easy Ordering</h3><p>Browse products on your mobile and submit a request.</p></article><article class="trust-card"><h3>💬 Clear Confirmation</h3><p>Confirm the final price and delivery details before paying.</p></article><article class="trust-card"><h3>📦 Availability Check</h3><p>Product availability must be checked before confirmation.</p></article></div><div class="notice"><strong>Please note:</strong> Product names, photos and prices are examples. Confirm real stock, price and delivery details before paying.</div></div></section>
 </main>
-<footer><div class="container"><div class="footer-grid"><div><h3>🛍️ Smart Dost Store Online</h3><p>Your everyday shopping partner.</p></div><div class="footer-links"><strong>Quick Links</strong><a href="#home">Home</a><a href="#categories">Categories</a><a href="#products">Products</a><a href="#order">Place an Order</a><a href="#myOrders">My Orders</a></div></div><div class="copyright">© <span id="year"></span> Smart Dost Store Online. All rights reserved.</div></div></footer>
+<footer><div class="container"><div class="footer-grid"><div><h3>🛍️ Smart Dost Store Online</h3><p>Your everyday shopping partner.</p></div><div class="footer-links"><strong>Quick Links</strong><a href="#home">Home</a><a href="#cart">🛒 Shopping Cart</a> href="#order">Place an Order</a><a href="#myOrders">My Orders</a></div></div><div class="copyright">© <span id="year"></span> Smart Dost Store Online. All rights reserved.</div></div></footer>
 
 <script>
 document.getElementById("year").textContent=new Date().getFullYear();
@@ -96,10 +96,154 @@ const watchNames=["Classic Analog Watch","Minimalist Watch","Leather Strap Watch
 const watchPrices=[1200,1500,2200,2500,1800,2000,2800,1700,1600,1400,1300,800,700,2200,2500,2800,3000,1800,1600,3500,1900,1100,2400,1700,2000,2300,1500,3000,1200,3200,2600,2100,4000,4500,2800,1400,1900,1300,1700,3500,4900,3000,1600,1400,3200,2700,2000,2300,4200,1800];
 watchNames.forEach((n,i)=>storeProducts.push({n,c:"Watches",p:watchPrices[i],i:"1524805444758-089113d48a6d"}));
 const productGrid=document.getElementById("productGrid"),productSearch=document.getElementById("productSearch"),productEmpty=document.getElementById("productEmpty"),productHeading=document.getElementById("productHeading"),categorySelect=document.getElementById("product"),detailsInput=document.getElementById("details");let selectedProductCategory="";
-function renderStoreProducts(){const q=productSearch.value.trim().toLowerCase();const filtered=storeProducts.filter(x=>(!selectedProductCategory||x.c===selectedProductCategory)&&(x.n+" "+x.c).toLowerCase().includes(q));productGrid.innerHTML=filtered.map(x=>`<article class="product-card"><img src="${x.image|| (x.i?'https://images.unsplash.com/photo-'+x.i+'?auto=format&fit=crop&w=600&q=75':'IMG_20261023_232532.jpg')}" alt="${x.n.replace(/"/g,'&quot;')}" loading="lazy" onerror="this.onerror=null;this.src='IMG_20261023_232532.jpg'"><div class="product-info"><h3>${x.n}</h3><div class="product-price">Sample price: Rs. ${x.p.toLocaleString("en-PK")}</div><button type="button" class="btn order-product" data-name="${x.n.replace(/"/g,'&quot;')}" data-category="${x.c}" data-price="${x.p}">Order Now</button></div></article>`).join("");productEmpty.style.display=filtered.length?"none":"block";productHeading.textContent=selectedProductCategory||"All Products"}
+function renderStoreProducts(){const q=productSearch.value.trim().toLowerCase();const filtered=storeProducts.filter(x=>(!selectedProductCategory||x.c===selectedProductCategory)&&(x.n+" "+x.c).toLowerCase().includes(q));productGrid.innerHTML=filtered.map(x=>`<article class="product-card"><img src="${x.image|| (x.i?'https://images.unsplash.com/photo-'+x.i+'?auto=format&fit=crop&w=600&q=75':'IMG_20261023_232532.jpg')}" alt="${x.n.replace(/"/g,'&quot;')}" loading="lazy" onerror="this.onerror=null;this.src='IMG_20261023_232532.jpg'"><div class="product-info"><h3>${x.n}</h3><div class="product-price">Sample price: Rs. ${x.p.toLocaleString("en-PK")}</div><button type="button" class="btn add-to-cart"
+  data-name="${x.n.replace(/"/g,'&quot;')}"
+  data-category="${x.c}"
+  data-price="${x.p}">
+  Add to Cart
+</button>
+<button type="button" class="btn order-product"
+  data-name="${x.n.replace(/"/g,'&quot;')}"
+  data-category="${x.c}"
+  data-price="${x.p}">
+  Order Now
+</button></div></article>`).join("");productEmpty.style.display=filtered.length?"none":"block";productHeading.textContent=selectedProductCategory||"All Products"}
 function showCategory(c){selectedProductCategory=c;productSearch.value="";renderStoreProducts();document.getElementById("products").scrollIntoView({behavior:"smooth"})}
 renderStoreProducts();productSearch.addEventListener("input",renderStoreProducts);document.querySelectorAll(".choose-category").forEach(b=>b.addEventListener("click",()=>showCategory(b.dataset.category)));
-productGrid.addEventListener("click",e=>{const b=e.target.closest(".order-product");if(!b)return;categorySelect.value=b.dataset.category;detailsInput.value=b.dataset.name+" - Sample price Rs. "+b.dataset.price;document.getElementById("order").scrollIntoView({behavior:"smooth"});setTimeout(()=>detailsInput.focus(),500)});
+productGrid.addEventListener("click"
+const cart = [];
+
+function renderCart() {
+  const itemsBox = document.getElementById("cartItems");
+  const message = document.getElementById("cartMessage");
+  const totalBox = document.getElementById("cartTotal");
+
+  if (!itemsBox || !message || !totalBox) return;
+
+  itemsBox.innerHTML = "";
+  let total = 0;
+
+  if (cart.length === 0) {
+    message.textContent = "Your cart is empty.";
+  } else {
+    message.textContent = "Products in your cart:";
+
+    cart.forEach((item, index) => {
+      const subtotal = item.price * item.quantity;
+      total += subtotal;
+
+      const row = document.createElement("div");
+      row.style.cssText =
+        "padding:12px 0;border-bottom:1px solid #ddd";
+
+      const name = document.createElement("p");
+      name.textContent = item.name;
+
+      const price = document.createElement("p");
+      price.textContent =
+        "Rs. " + item.price + " × " + item.quantity +
+        " = Rs. " + subtotal;
+
+      const minus = document.createElement("button");
+      minus.type = "button";
+      minus.textContent = "−";
+      minus.className = "btn";
+      minus.onclick = () => {
+        item.quantity--;
+        if (item.quantity <= 0) cart.splice(index, 1);
+        renderCart();
+      };
+
+      const plus = document.createElement("button");
+      plus.type = "button";
+      plus.textContent = "+";
+      plus.className = "btn";
+      plus.onclick = () => {
+        if (item.quantity < 100) item.quantity++;
+        renderCart();
+      };
+
+      row.append(name, price, minus, plus);
+      itemsBox.appendChild(row);
+    });
+  }
+
+  totalBox.textContent = "Total: Rs. " + total;
+}
+
+document.addEventListener("click", function (event) {
+  const button = event.target.closest(".add-to-cart");
+  if (!button) return;
+
+  const name = button.dataset.name;
+  const category = button.dataset.category;
+  const price = Number(button.dataset.price);
+
+  if (!name || !Number.isFinite(price) || price < 0) {
+    alert("Product details are invalid.");
+    return;
+  }
+
+  const existing = cart.find(item => item.name === name);
+
+  if (existing) {
+    if (existing.quantity < 100) existing.quantity++;
+  } else {
+    cart.push({
+      name,
+      category,
+      price,
+      quantity: 1
+    });
+  }
+
+  renderCart();
+  document.getElementById("cart").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+document.getElementById("clearCart").addEventListener("click", () => {
+  cart.length = 0;
+  renderCart();
+});
+
+document.getElementById("cartCheckout").addEventListener("click", () => {
+  if (cart.length === 0) {
+    alert("Please add a product to your cart first.");
+    return;
+  }
+
+  const details = cart.map(item =>
+    item.name + " | Qty: " + item.quantity +
+    " | Unit price: Rs. " + item.price +
+    " | Subtotal: Rs. " + (item.price * item.quantity)
+  ).join("\n");
+
+  const totalQuantity = cart.reduce(
+    (sum, item) => sum + item.quantity, 0
+  );
+
+  const categories = [...new Set(cart.map(item => item.category))];
+
+  document.getElementById("details").value =
+    details + "\nCart total: Rs. " +
+    cart.reduce((sum, item) =>
+      sum + item.price * item.quantity, 0
+    );
+
+  document.getElementById("quantity").value = totalQuantity;
+
+  document.getElementById("product").value =
+    categories.length === 1 ? categories[0] : "Other Products";
+
+  document.getElementById("order").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+renderCart();
+,e=>{const b=e.target.closest(".order-product");if(!b)return;categorySelect.value=b.dataset.category;detailsInput.value=b.dataset.name+" - Sample price Rs. "+b.dataset.price;document.getElementById("order").scrollIntoView({behavior:"smooth"});setTimeout(()=>detailsInput.focus(),500)});
 document.getElementById("categorySearch").addEventListener("input",function(){const q=this.value.trim().toLowerCase();let count=0;document.querySelectorAll(".category-card").forEach(c=>{const ok=(c.innerText+" "+c.dataset.search).toLowerCase().includes(q);c.style.display=ok?"":"none";if(ok)count++});document.getElementById("emptyMessage").style.display=count?"none":"block"});
 </script>
 
