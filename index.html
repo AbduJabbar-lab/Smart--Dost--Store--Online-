@@ -110,7 +110,7 @@ function renderStoreProducts(){const q=productSearch.value.trim().toLowerCase();
 </button></div></article>`).join("");productEmpty.style.display=filtered.length?"none":"block";productHeading.textContent=selectedProductCategory||"All Products"}
 function showCategory(c){selectedProductCategory=c;productSearch.value="";renderStoreProducts();document.getElementById("products").scrollIntoView({behavior:"smooth"})}
 renderStoreProducts();productSearch.addEventListener("input",renderStoreProducts);document.querySelectorAll(".choose-category").forEach(b=>b.addEventListener("click",()=>showCategory(b.dataset.category)));
-productGrid.addEventListener("click"
+
 const cart = [];
 
 function renderCart() {
@@ -243,7 +243,21 @@ document.getElementById("cartCheckout").addEventListener("click", () => {
 });
 
 renderCart();
-,e=>{const b=e.target.closest(".order-product");if(!b)return;categorySelect.value=b.dataset.category;detailsInput.value=b.dataset.name+" - Sample price Rs. "+b.dataset.price;document.getElementById("order").scrollIntoView({behavior:"smooth"});setTimeout(()=>detailsInput.focus(),500)});
+
+document.addEventListener("click", function(e) {
+  const b = e.target.closest(".order-product");
+  if (!b) return;
+
+  categorySelect.value = b.dataset.category;
+  detailsInput.value =
+    b.dataset.name + " - Sample price Rs. " + b.dataset.price;
+
+  document.getElementById("order").scrollIntoView({
+    behavior: "smooth"
+  });
+
+  setTimeout(() => detailsInput.focus(), 500);
+});
 document.getElementById("categorySearch").addEventListener("input",function(){const q=this.value.trim().toLowerCase();let count=0;document.querySelectorAll(".category-card").forEach(c=>{const ok=(c.innerText+" "+c.dataset.search).toLowerCase().includes(q);c.style.display=ok?"":"none";if(ok)count++});document.getElementById("emptyMessage").style.display=count?"none":"block"});
 </script>
 
