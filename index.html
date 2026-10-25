@@ -125,18 +125,208 @@ const watchNames=["Classic Analog Watch","Minimalist Watch","Leather Strap Watch
 const watchPrices=[1200,1500,2200,2500,1800,2000,2800,1700,1600,1400,1300,800,700,2200,2500,2800,3000,1800,1600,3500,1900,1100,2400,1700,2000,2300,1500,3000,1200,3200,2600,2100,4000,4500,2800,1400,1900,1300,1700,3500,4900,3000,1600,1400,3200,2700,2000,2300,4200,1800];
 watchNames.forEach((n,i)=>storeProducts.push({n,c:"Watches",p:watchPrices[i],i:"1524805444758-089113d48a6d"}));
 const productGrid=document.getElementById("productGrid"),productSearch=document.getElementById("productSearch"),productEmpty=document.getElementById("productEmpty"),productHeading=document.getElementById("productHeading"),categorySelect=document.getElementById("product"),detailsInput=document.getElementById("details");let selectedProductCategory="";
-function renderStoreProducts(){const q=productSearch.value.trim().toLowerCase();const filtered=storeProducts.filter(x=>(!selectedProductCategory||x.c===selectedProductCategory)&&(x.n+" "+x.c).toLowerCase().includes(q));productGrid.innerHTML=filtered.map(x=>`<article class="product-card"><img src="${x.image|| (x.i?'https://images.unsplash.com/photo-'+x.i+'?auto=format&fit=crop&w=600&q=75':'IMG_20261023_232532.jpg')}" alt="${x.n.replace(/"/g,'&quot;')}" loading="lazy" onerror="this.onerror=null;this.src='IMG_20261023_232532.jpg'"><div class="product-info"><h3>${x.n}</h3><div class="product-price">Sample price: Rs. ${x.p.toLocaleString("en-PK")}</div><button type="button" class="btn add-to-cart"
-  data-name="${x.n.replace(/"/g,'&quot;')}"
-  data-category="${x.c}"
-  data-price="${x.p}">
-  Add to Cart
-</button>
-<button type="button" class="btn order-product"
-  data-name="${x.n.replace(/"/g,'&quot;')}"
-  data-category="${x.c}"
-  data-price="${x.p}">
-  Order Now
-</button></div></article>`).join("");productEmpty.style.display=filtered.length?"none":"block";productHeading.textContent=selectedProductCategory||"All Products"}
+
+const WISHLIST_KEY = "smartDostWishlistV1";
+
+function getWishlist() {
+  try {
+    const saved = JSON.parse(
+      localStorage.getItem(WISHLIST_KEY) || "[]"
+    );
+    return Array.isArray(saved) ? saved : [];
+  } catch {
+    return [];
+  }
+}
+
+let wishlist = getWishlist();
+
+function isWishlisted(product) {
+  return wishlist.some(
+    item => item.n === product.n && item.c === product.c
+  );
+}
+
+function saveWishlist() {
+  try {
+    localStorage.setItem(
+      WISHLIST_KEY,
+      JSON.stringify(wishlist)
+    );
+    return true;
+  } catch {
+    alert("Wishlist could not be saved in this browser.");
+    return false;
+  }
+}
+
+function renderWishlist() {
+  const grid = document.getElementById("wishlistGrid");
+  const empty = document.getElementById("wishlistEmpty");
+  const count = document.getElementById("wishlistCount");
+
+  const products = wishlist
+    .map(item => storeProducts.find(
+      p => p.n === item.n && p.c === item.c
+    ))
+    .filter(Boolean);
+
+  count.textContent = products.length;
+  grid.replaceChildren();
+  empty.style.display = products.length ? "none" : "block";
+
+  products.forEach(product => {
+    const card = document.createElement("article");
+    card.className = "product-card";
+
+    const img = document.createElement("img");
+    img.src = product.image ||
+      (product.i
+        ? "https://images.unsplash.com/photo-" + product.i +
+          "?auto=format&fit=crop&w=600&q=75"
+        : "");
+    img.alt = product.n;
+    img.loading = "lazy";
+
+    const info = document.createElement("div");
+    info.className = "product-info";
+
+    const title = document.createElement("h3");
+    title.textContent = product.n;
+
+    const price = document.createElement("div");
+    price.className = "product-price";
+    price.textContent = "Sample price: Rs. " +
+      product.p.toLocaleString("en-PK");
+
+    const order = document.createElement("button");
+    order.type = "button";
+    order.className = "btn order-product";
+    order.textContent = "Order Now";
+    order.dataset.name = product.n;
+    order.dataset.category = product.c;
+    order.dataset.price = product.p;
+    order.style.marginBottom = "8px";
+
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "btn remove-wishlist";
+    remove.textContent = "💔 Remove";
+    remove.dataset.name = product.n;
+    remove.dataset.category = product.c;
+    remove.style.background = "#a83246";
+    remove.style.width = "100%";
+
+    info.append(title, price, order, remove);
+    card.append(img, info);
+    grid.appendChild(card);
+  });
+}
+
+function renderStoreProducts() {
+  const q = productSearch.value.trim().toLowerCase();
+
+  const filtered = storeProducts.filter(product =>
+    (!selectedProductCategory ||
+      product.c === selectedProductCategory) &&
+    (product.n + " " + product.c).toLowerCase().includes(q)
+  );
+
+  productGrid.replaceChildren();
+
+  filtered.forEach(product => {
+    const card = document.createElement("article");
+    card.className = "product-card";
+
+    const img = document.createElement("img");
+    img.src = product.image ||
+      (product.i
+        ? "https://images.unsplash.com/photo-" + product.i +
+          "?auto=format&fit=crop&w=600&q=75"
+        : "");
+    img.alt = product.n;
+    img.loading = "lazy";
+
+    const info = document.createElement("div");
+    info.className = "product-info";
+
+    const title = document.createElement("h3");
+    title.textContent = product.n;
+
+    const price = document.createElement("div");
+    price.className = "product-price";
+    price.textContent = "Sample price: Rs. " +
+      product.p.toLocaleString("en-PK");
+
+    const fav = document.createElement("button");
+    fav.type = "button";
+    fav.className = "btn wishlist-toggle";
+    fav.dataset.name = product.n;
+    fav.dataset.category = product.c;
+    fav.textContent = isWishlisted(product)
+      ? "❤️ Saved"
+      : "♡ Add to Wishlist";
+    fav.style.width = "100%";
+    fav.style.marginBottom = "8px";
+    fav.style.background = isWishlisted(product)
+      ? "#b83250" : "#176b87";
+
+    const cartBtn = document.createElement("button");
+    cartBtn.type = "button";
+    cartBtn.className = "btn add-to-cart";
+    cartBtn.dataset.name = product.n;
+    cartBtn.dataset.category = product.c;
+    cartBtn.dataset.price = product.p;
+    cartBtn.textContent = "Add to Cart";
+    cartBtn.style.width = "100%";
+    cartBtn.style.marginBottom = "8px";
+
+    const order = document.createElement("button");
+    order.type = "button";
+    order.className = "btn order-product";
+    order.dataset.name = product.n;
+    order.dataset.category = product.c;
+    order.dataset.price = product.p;
+    order.textContent = "Order Now";
+    order.style.width = "100%";
+
+    info.append(title, price, fav, cartBtn, order);
+    card.append(img, info);
+    productGrid.appendChild(card);
+  });
+
+  productEmpty.style.display = filtered.length ? "none" : "block";
+  productHeading.textContent = selectedProductCategory || "All Products";
+  renderWishlist();
+}
+
+document.addEventListener("click", function(event) {
+  const fav = event.target.closest(".wishlist-toggle");
+  const remove = event.target.closest(".remove-wishlist");
+  const button = fav || remove;
+
+  if (!button) return;
+
+  const name = button.dataset.name;
+  const category = button.dataset.category;
+
+  if (fav && isWishlisted({ n: name, c: category })) {
+    wishlist = wishlist.filter(
+      item => !(item.n === name && item.c === category)
+    );
+  } else if (fav) {
+    wishlist.push({ n: name, c: category });
+  } else {
+    wishlist = wishlist.filter(
+      item => !(item.n === name && item.c === category)
+    );
+  }
+
+  if (!saveWishlist()) return;
+
+  renderStoreProducts();
+});
+
 function showCategory(c){selectedProductCategory=c;productSearch.value="";renderStoreProducts();document.getElementById("products").scrollIntoView({behavior:"smooth"})}
 renderStoreProducts();productSearch.addEventListener("input",renderStoreProducts);document.querySelectorAll(".choose-category").forEach(b=>b.addEventListener("click",()=>showCategory(b.dataset.category)));
 
