@@ -280,7 +280,24 @@ let wishlist=getWishlist(), cart=[];
 function saveWishlist(){try{localStorage.setItem("smartDostWishlistV1",JSON.stringify(wishlist));return true}catch{return false}}
 function productCard(p,mode="product"){
  const card=document.createElement("article");card.className="product-card";
- const img=document.createElement("img");img.src=imgURL(p);img.alt=p.n;img.loading="lazy";img.onerror=()=>{img.removeAttribute("src");img.style.background="linear-gradient(135deg,#d8f3ff,#fff0cc)"};card.append(img);
+ 
+const img=document.createElement("img");
+img.src=imgURL(p);
+img.alt=p.n+" — tap to view colour previews";
+img.loading="lazy";
+img.style.cursor="pointer";
+img.title="Tap to view colour previews";
+
+img.onclick=()=>openColourGallery(p);
+
+img.onerror=()=>{
+  img.removeAttribute("src");
+  img.style.background=
+    "linear-gradient(135deg,#d8f3ff,#fff0cc)";
+};
+
+card.append(img);
+
  const info=document.createElement("div");info.className="product-info";
  const title=document.createElement("h3");title.textContent=p.n;
  const price=document.createElement("div");price.className="price";price.textContent="Sample price: Rs. "+Number(p.p||0).toLocaleString("en-PK");
