@@ -419,7 +419,38 @@ $("product").addEventListener("change", updateDeliverySummary);
 
 updateDeliverySummary();
 
-$("orderForm").addEventListener("submit",async e=>{e.preventDefault();$("orderMessage").textContent="";const user=auth.currentUser;if(!user){$("orderMessage").textContent="Please log in before submitting an order."; $("account").scrollIntoView({behavior:"smooth"});return}const v=id=>$(id).value.trim(),quantity=Number(v("quantity"));if(!Number.isInteger(quantity)||quantity<1||quantity>100){$("orderMessage").textContent="Quantity must be between 1 and 100.";return}const data={customerEmail:user.email||"",status:"Pending",createdAt:Date.now(),customerName:v("customerName"),phone:v("phone"),product:v("product"),productDetails:v("details"),quantity,paymentMethod:v("payment"),deliveryAddress:v("address"),transactionRef:v("transactionRef"),additionalMessage:v("message")};const btn=$("orderForm").querySelector('[type="submit"]');btn.disabled=true;btn.textContent="Submitting...";try{const newOrder=push(ref(db,"orders/"+user.uid));await set(newOrder,data);$("orderMessage").textContent="Order saved. Sending email notification...";try{const response=await fetch($("orderForm").action,{method:"POST",body:new FormData($("orderForm")),headers:{Accept:"application/json"}});$("orderMessage").textContent=response.ok?"Order saved and email notification request sent.":"Order saved, but email notification failed. Check Formspree settings."}catch{$("orderMessage").textContent="Order saved, but email notification failed. Check internet/Formspree."}$("orderForm").reset();$("customerEmailField").value=user.email||"";$("quantity").value="1";$("myOrders").scrollIntoView({behavior:"smooth"})}catch(e){$("orderMessage").textContent="Order could not be saved: "+errText(e)+". Check Firebase Database Rules."}finally{btn.disabled=false;btn.textContent="Submit Order Request →"}});
+$("orderForm").addEventListener("submit",async e=>{e.preventDefault();$("orderMessage").textContent="";const user=auth.currentUser;if(!user){$("orderMessage").textContent="Please log in before submitting an order."; $("account").scrollIntoView({behavior:"smooth"});return}const v=id=>$(id).value.trim(),quantity=Number(v("quantity"));if(!Number.isInteger(quantity)||quantity<1||quantity>100){$("orderMessage").textContent="Quantity must be between 1 and 100.";return}
+const deliveryCharges = getDeliveryFee();
+const productSubtotal = getProductSubtotal();
+
+if (productSubtotal === null) {
+  $("orderMessage").textContent =
+    "Please select a product through Order Now or Cart so the total can be calculated.";
+  return;
+}
+
+const orderTotal = productSubtotal + deliveryCharges;
+const fullDetails =
+  v("details") +
+  "\nProduct Subtotal: Rs. " + productSubtotal +
+  "\nDelivery Charges: Rs. " + deliveryCharges +
+  "\nGrand Total: Rs. " + orderTotal;
+
+const data = {
+  customerEmail: user.email || "",
+  status: "Pending",
+  createdAt: Date.now(),
+  customerName: v("customerName"),
+  phone: v("phone"),
+  product: v("product"),
+  productDetails: fullDetails,
+  quantity,
+  paymentMethod: v("payment"),
+  deliveryAddress: v("address"),
+  transactionRef: v("transactionRef"),
+  additionalMessage: v("message")
+};
+const btn=$("orderForm").querySelector('[type="submit"]');btn.disabled=true;btn.textContent="Submitting...";try{const newOrder=push(ref(db,"orders/"+user.uid));await set(newOrder,data);$("orderMessage").textContent="Order saved. Sending email notification...";try{const response=await fetch($("orderForm").action,{method:"POST",body:new FormData($("orderForm")),headers:{Accept:"application/json"}});$("orderMessage").textContent=response.ok?"Order saved and email notification request sent.":"Order saved, but email notification failed. Check Formspree settings."}catch{$("orderMessage").textContent="Order saved, but email notification failed. Check internet/Formspree."}$("orderForm").reset();$("customerEmailField").value=user.email||"";$("quantity").value="1";$("myOrders").scrollIntoView({behavior:"smooth"})}catch(e){$("orderMessage").textContent="Order could not be saved: "+errText(e)+". Check Firebase Database Rules."}finally{btn.disabled=false;btn.textContent="Submit Order Request →"}});
 </script>
 </body>
 </html>
