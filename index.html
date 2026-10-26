@@ -450,7 +450,14 @@ const data = {
   transactionRef: v("transactionRef"),
   additionalMessage: v("message")
 };
-const btn=$("orderForm").querySelector('[type="submit"]');btn.disabled=true;btn.textContent="Submitting...";try{const newOrder=push(ref(db,"orders/"+user.uid));await set(newOrder,data);$("orderMessage").textContent="Order saved. Sending email notification...";try{const response=await fetch($("orderForm").action,{method:"POST",body:new FormData($("orderForm")),headers:{Accept:"application/json"}});$("orderMessage").textContent=response.ok?"Order saved and email notification request sent.":"Order saved, but email notification failed. Check Formspree settings."}catch{$("orderMessage").textContent="Order saved, but email notification failed. Check internet/Formspree."}$("orderForm").reset();$("customerEmailField").value=user.email||"";$("quantity").value="1";$("myOrders").scrollIntoView({behavior:"smooth"})}catch(e){$("orderMessage").textContent="Order could not be saved: "+errText(e)+". Check Firebase Database Rules."}finally{btn.disabled=false;btn.textContent="Submit Order Request →"}});
+const btn=$("orderForm").querySelector('[type="submit"]');btn.disabled=true;btn.textContent="Submitting...";try{const newOrder=push(ref(db,"orders/"+user.uid));await set(newOrder,data);$("orderMessage").textContent="Order saved. Sending email notification...";try{
+$("details").value = fullDetails;
+const response = await fetch($("orderForm").action, {
+  method: "POST",
+  body: new FormData($("orderForm")),
+  headers: { Accept: "application/json" }
+});
+$("orderMessage").textContent=response.ok?"Order saved and email notification request sent.":"Order saved, but email notification failed. Check Formspree settings."}catch{$("orderMessage").textContent="Order saved, but email notification failed. Check internet/Formspree."}$("orderForm").reset();$("customerEmailField").value=user.email||"";$("quantity").value="1";$("myOrders").scrollIntoView({behavior:"smooth"})}catch(e){$("orderMessage").textContent="Order could not be saved: "+errText(e)+". Check Firebase Database Rules."}finally{btn.disabled=false;btn.textContent="Submit Order Request →"}});
 </script>
 </body>
 </html>
