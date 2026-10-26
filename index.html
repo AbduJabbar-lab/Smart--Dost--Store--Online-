@@ -360,33 +360,43 @@ function getProductSubtotal() {
   return null;
 }
 
+
 function updateDeliverySummary() {
   const fee = getDeliveryFee();
   const subtotal = getProductSubtotal();
   const total = subtotal === null ? null : subtotal + fee;
+  const box = $("deliverySummary");
 
-  $("deliverySummary").innerHTML = "";
+  box.replaceChildren();
 
   const title = document.createElement("h3");
-  title.textContent = "Order Price Summary";
+  title.textContent = "🧾 Order Price Summary";
+  box.append(title);
 
   const delivery = document.createElement("p");
-  delivery.textContent = "Delivery Charges: Rs. " + fee;
-
-  $("deliverySummary").append(title);
+  delivery.textContent = "Delivery Charges: Rs. " + fee.toLocaleString("en-PK");
+  box.append(delivery);
 
   if (subtotal !== null) {
     const productPrice = document.createElement("p");
-    productPrice.textContent = "Product Subtotal: Rs. " + subtotal;
+    productPrice.textContent =
+      "Product Subtotal: Rs. " + subtotal.toLocaleString("en-PK");
+
     const grandTotal = document.createElement("p");
-    grandTotal.textContent = "Grand Total: Rs. " + total;
-    grandTotal.style.fontWeight = "bold";
-    $("deliverySummary").append(productPrice, delivery, grandTotal);
+    grandTotal.textContent =
+      "Grand Total: Rs. " + total.toLocaleString("en-PK");
+    grandTotal.style.cssText =
+      "font-size:20px;font-weight:bold;color:#176b45";
+
+    box.append(productPrice, grandTotal);
   } else {
-    delivery.textContent +=
-      " — Product subtotal calculate karne ke liye product Cart ya Order Now se select karein.";
-    $("deliverySummary").append(delivery);
+    const message = document.createElement("p");
+    message.textContent =
+      "Product ki price dekhne ke liye Order Now ya Cart se product select karein.";
+    box.append(message);
   }
+}
+
 }
 
 function errText(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-email":"Please enter a valid email address.","auth/weak-password":"Password must be at least 6 characters.","auth/invalid-credential":"Email or password is incorrect.","auth/network-request-failed":"Network error. Check your internet."};return m[e.code]||e.message||"Something went wrong."}
