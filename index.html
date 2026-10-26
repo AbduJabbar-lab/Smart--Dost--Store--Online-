@@ -73,8 +73,10 @@ const firebaseConfig = {
 const ADMIN_EMAIL="jabbardaharki21@gmail.com";
 const app=initializeApp(firebaseConfig), auth=getAuth(app), db=getDatabase(app);
 // Configure these two values in Cloudinary before uploading Gallery photos.
+
 const CLOUDINARY_CLOUD_NAME="qjblv5y8";
-const CLOUDINARY_UPLOAD_PRESET="smartdost_products";
+const CLOUDINARY_UPLOAD_PRESET="Smartdost-products";
+
 const $=id=>document.getElementById(id);
 $("year").textContent=new Date().getFullYear();
 
