@@ -141,6 +141,16 @@ watchNames.forEach((n,i)=>localProducts.push({n,c:"Watches",p:watchPrices[i],i:"
 let products=[...localProducts], productsEmpty=true, currentCategory="", currentUser=null, ordersStop=null, adminOrdersStop=null, productsStop=null;
 const productGrid=$("productGrid"), productSearch=$("productSearch"), productHeading=$("productHeading"), productEmpty=$("productEmpty"), categorySelect=$("product"), detailsInput=$("details");
 const imgURL=p=>p.image||(p.i?"https://images.unsplash.com/photo-"+p.i+"?auto=format&fit=crop&w=600&q=75":"");
+
+function makeColourVariants(url) {
+  return [
+    { name: "Original", filter: "none" },
+    { name: "Blue", filter: "hue-rotate(170deg) saturate(1.2)" },
+    { name: "Red", filter: "hue-rotate(300deg) saturate(1.4)" },
+    { name: "Green", filter: "hue-rotate(90deg) saturate(1.2)" }
+  ].map(v => ({ ...v, url }));
+}
+
 function getWishlist(){try{const x=JSON.parse(localStorage.getItem("smartDostWishlistV1")||"[]");return Array.isArray(x)?x:[]}catch{return []}}
 let wishlist=getWishlist(), cart=[];
 function saveWishlist(){try{localStorage.setItem("smartDostWishlistV1",JSON.stringify(wishlist));return true}catch{return false}}
