@@ -321,6 +321,74 @@ document.querySelectorAll(".choose-category").forEach(b=>b.addEventListener("cli
 $("categorySearch").addEventListener("input",function(){const q=this.value.toLowerCase().trim();let n=0;document.querySelectorAll(".category-card").forEach(c=>{const ok=(c.innerText+" "+c.dataset.search).toLowerCase().includes(q);c.style.display=ok?"":"none";if(ok)n++});$("categoryEmpty").style.display=n?"none":"block"});
 $("clearCart").onclick=()=>{cart.length=0;renderCart()};
 $("cartCheckout").onclick=()=>{if(!cart.length){alert("Please add a product to your cart first.");return}const details=cart.map(x=>`${x.name} | Qty: ${x.quantity} | Unit price: Rs. ${x.price} | Subtotal: Rs. ${x.price*x.quantity}`).join("\n");$("details").value=details+"\nCart total: Rs. "+cart.reduce((s,x)=>s+x.price*x.quantity,0);$("quantity").value=cart.reduce((s,x)=>s+x.quantity,0);const cs=[...new Set(cart.map(x=>x.category))];$("product").value=cs.length===1?cs[0]:"Other Products";$("order").scrollIntoView({behavior:"smooth"})};
+
+function getDeliveryFee() {
+  const address = $("address").value.trim().toLowerCase();
+
+  if (/\bdaharki\b/.test(address)) return 113;
+  if (/\bubauro\b/.test(address)) return 150;
+  if (/\bmirpur[\s-]+mathelo\b/.test(address)) return 200;
+
+  return 250;
+}
+
+function getProductSubtotal() {
+  const details = $("details").value;
+  const quantity = Math.max(1, Number($("quantity").value) || 1);
+
+  const cartTotal = details.match(/Cart total:\s*Rs\.?\s*([\d,]+)/i);
+  if (cartTotal) return Number(cartTotal[1].replace(/,/g, ""));
+
+  const subtotals = [...details.matchAll(/Subtotal:\s*Rs\.?\s*([\d,]+)/gi)];
+  if (subtotals.length) {
+    return subtotals.reduce(
+      (sum, match) => sum + Number(match[1].replace(/,/g, "")), 0
+    );
+  }
+
+  const samplePrice = details.match(/Sample price\s*:?\s*Rs\.?\s*([\d,]+)/i);
+  if (samplePrice) {
+    return Number(samplePrice[1].replace(/,/g, "")) * quantity;
+  }
+
+  const product = products.find(p =>
+    details.toLowerCase().includes(String(p.n).toLowerCase())
+  );
+
+  if (product) return Number(product.p || 0) * quantity;
+
+  return null;
+}
+
+function updateDeliverySummary() {
+  const fee = getDeliveryFee();
+  const subtotal = getProductSubtotal();
+  const total = subtotal === null ? null : subtotal + fee;
+
+  $("deliverySummary").innerHTML = "";
+
+  const title = document.createElement("h3");
+  title.textContent = "Order Price Summary";
+
+  const delivery = document.createElement("p");
+  delivery.textContent = "Delivery Charges: Rs. " + fee;
+
+  $("deliverySummary").append(title);
+
+  if (subtotal !== null) {
+    const productPrice = document.createElement("p");
+    productPrice.textContent = "Product Subtotal: Rs. " + subtotal;
+    const grandTotal = document.createElement("p");
+    grandTotal.textContent = "Grand Total: Rs. " + total;
+    grandTotal.style.fontWeight = "bold";
+    $("deliverySummary").append(productPrice, delivery, grandTotal);
+  } else {
+    delivery.textContent +=
+      " — Product subtotal calculate karne ke liye product Cart ya Order Now se select karein.";
+    $("deliverySummary").append(delivery);
+  }
+}
+
 function errText(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-email":"Please enter a valid email address.","auth/weak-password":"Password must be at least 6 characters.","auth/invalid-credential":"Email or password is incorrect.","auth/network-request-failed":"Network error. Check your internet."};return m[e.code]||e.message||"Something went wrong."}
 $("signupForm").addEventListener("submit",async e=>{e.preventDefault();$("accountMessage").textContent="Creating account...";try{await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);$("accountMessage").textContent="Account created successfully.";$("signupForm").reset()}catch(x){$("accountMessage").textContent=errText(x)}});
 $("loginForm").addEventListener("submit",async e=>{e.preventDefault();$("accountMessage").textContent="Logging in...";try{await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);$("accountMessage").textContent="Login successful.";$("loginForm").reset()}catch(x){$("accountMessage").textContent=errText(x)}});
@@ -336,6 +404,21 @@ if(logged){$("accountMessage").textContent="Logged in as "+user.email;$("ordersM
 else{$("accountMessage").textContent="Create an account or log in to place an order.";$("ordersMessage").textContent="Please log in to view your orders.";$("ordersList").replaceChildren()}
 });
 productsStop=onValue(ref(db,"products"),snap=>{const data=snap.val()||{};productsEmpty=Object.keys(data).length===0;if(!productsEmpty){products=Object.entries(data).map(([id,p])=>({...p,id}));renderProducts();renderWishlist()}else{products=[...localProducts];renderProducts();renderWishlist()}drawAdminProducts(data)},e=>{$("adminProductMessage").textContent="Could not load Firebase products: "+errText(e);products=[...localProducts];renderProducts();renderWishlist()});
+
+const deliverySummary = document.createElement("div");
+deliverySummary.id = "deliverySummary";
+deliverySummary.style.cssText =
+  "margin:12px 0;padding:14px;border:1px solid #176b87;border-radius:10px;background:#f0f8ff;color:#123b5d";
+
+$("address").insertAdjacentElement("afterend", deliverySummary);
+
+$("address").addEventListener("input", updateDeliverySummary);
+$("details").addEventListener("input", updateDeliverySummary);
+$("quantity").addEventListener("input", updateDeliverySummary);
+$("product").addEventListener("change", updateDeliverySummary);
+
+updateDeliverySummary();
+
 $("orderForm").addEventListener("submit",async e=>{e.preventDefault();$("orderMessage").textContent="";const user=auth.currentUser;if(!user){$("orderMessage").textContent="Please log in before submitting an order."; $("account").scrollIntoView({behavior:"smooth"});return}const v=id=>$(id).value.trim(),quantity=Number(v("quantity"));if(!Number.isInteger(quantity)||quantity<1||quantity>100){$("orderMessage").textContent="Quantity must be between 1 and 100.";return}const data={customerEmail:user.email||"",status:"Pending",createdAt:Date.now(),customerName:v("customerName"),phone:v("phone"),product:v("product"),productDetails:v("details"),quantity,paymentMethod:v("payment"),deliveryAddress:v("address"),transactionRef:v("transactionRef"),additionalMessage:v("message")};const btn=$("orderForm").querySelector('[type="submit"]');btn.disabled=true;btn.textContent="Submitting...";try{const newOrder=push(ref(db,"orders/"+user.uid));await set(newOrder,data);$("orderMessage").textContent="Order saved. Sending email notification...";try{const response=await fetch($("orderForm").action,{method:"POST",body:new FormData($("orderForm")),headers:{Accept:"application/json"}});$("orderMessage").textContent=response.ok?"Order saved and email notification request sent.":"Order saved, but email notification failed. Check Formspree settings."}catch{$("orderMessage").textContent="Order saved, but email notification failed. Check internet/Formspree."}$("orderForm").reset();$("customerEmailField").value=user.email||"";$("quantity").value="1";$("myOrders").scrollIntoView({behavior:"smooth"})}catch(e){$("orderMessage").textContent="Order could not be saved: "+errText(e)+". Check Firebase Database Rules."}finally{btn.disabled=false;btn.textContent="Submit Order Request →"}});
 </script>
 </body>
