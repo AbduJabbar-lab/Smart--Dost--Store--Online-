@@ -361,11 +361,13 @@ function getProductSubtotal() {
 }
 
 
+
 function updateDeliverySummary() {
   const fee = getDeliveryFee();
   const subtotal = getProductSubtotal();
-  const total = subtotal === null ? null : subtotal + fee;
   const box = $("deliverySummary");
+
+  if (!box) return;
 
   box.replaceChildren();
 
@@ -373,29 +375,40 @@ function updateDeliverySummary() {
   title.textContent = "🧾 Order Price Summary";
   box.append(title);
 
-  const delivery = document.createElement("p");
-  delivery.textContent = "Delivery Charges: Rs. " + fee.toLocaleString("en-PK");
-  box.append(delivery);
-
-  if (subtotal !== null) {
-    const productPrice = document.createElement("p");
-    productPrice.textContent =
-      "Product Subtotal: Rs. " + subtotal.toLocaleString("en-PK");
-
-    const grandTotal = document.createElement("p");
-    grandTotal.textContent =
-      "Grand Total: Rs. " + total.toLocaleString("en-PK");
-    grandTotal.style.cssText =
-      "font-size:20px;font-weight:bold;color:#176b45";
-
-    box.append(productPrice, grandTotal);
-  } else {
+  if (subtotal === null) {
     const message = document.createElement("p");
     message.textContent =
-      "Product ki price dekhne ke liye Order Now ya Cart se product select karein.";
+      "Please select a product using Order Now or add products through Cart.";
     box.append(message);
+
+    const delivery = document.createElement("p");
+    delivery.textContent =
+      "Estimated Delivery Charges: Rs. " +
+      fee.toLocaleString("en-PK");
+    box.append(delivery);
+    return;
   }
+
+  const delivery = document.createElement("p");
+  delivery.textContent =
+    "Delivery Charges: Rs. " + fee.toLocaleString("en-PK");
+
+  const productPrice = document.createElement("p");
+  productPrice.textContent =
+    "Product Subtotal: Rs. " +
+    subtotal.toLocaleString("en-PK");
+
+  const grandTotal = document.createElement("p");
+  grandTotal.textContent =
+    "Grand Total: Rs. " +
+    (subtotal + fee).toLocaleString("en-PK");
+
+  grandTotal.style.cssText =
+    "font-size:21px;font-weight:bold;color:#176b45";
+
+  box.append(productPrice, delivery, grandTotal);
 }
+
 
 
 function errText(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-email":"Please enter a valid email address.","auth/weak-password":"Password must be at least 6 characters.","auth/invalid-credential":"Email or password is incorrect.","auth/network-request-failed":"Network error. Check your internet."};return m[e.code]||e.message||"Something went wrong."}
@@ -466,7 +479,13 @@ const response = await fetch($("orderForm").action, {
   body: new FormData($("orderForm")),
   headers: { Accept: "application/json" }
 });
-$("orderMessage").textContent=response.ok?"Order saved and email notification request sent.":"Order saved, but email notification failed. Check Formspree settings."}catch{$("orderMessage").textContent="Order saved, but email notification failed. Check internet/Formspree."}$("orderForm").reset();$("customerEmailField").value=user.email||"";$("quantity").value="1";$("myOrders").scrollIntoView({behavior:"smooth"})}catch(e){$("orderMessage").textContent="Order could not be saved: "+errText(e)+". Check Firebase Database Rules."}finally{btn.disabled=false;btn.textContent="Submit Order Request →"}});
+$("orderMessage").textContent=response.ok?"Order saved and email notification request sent.":"Order saved, but email notification failed. Check Formspree settings."}catch{$("orderMessage").textContent="Order saved, but email notification failed. Check internet/Formspree."}
+$("orderForm").reset();
+$("customerEmailField").value = user.email || "";
+$("quantity").value = "1";
+updateDeliverySummary();
+$("myOrders").scrollIntoView({behavior:"smooth"});
+}catch(e){$("orderMessage").textContent="Order could not be saved: "+errText(e)+". Check Firebase Database Rules."}finally{btn.disabled=false;btn.textContent="Submit Order Request →"}});
 </script>
 </body>
 </html>
