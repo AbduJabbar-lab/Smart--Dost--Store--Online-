@@ -6,6 +6,68 @@
 <meta name="theme-color" content="#102d46">
 <meta name="description" content="Smart Dost Store Online - mobile accessories, watches, books, clothing and everyday products.">
 <title>Smart Dost Store Online</title>
+/* Smart Dost Order Tracking */
+.tracking-box{
+  margin-top:14px;
+  padding:14px;
+  background:#fff;
+  border:1px solid #dce6ee;
+  border-radius:12px;
+}
+.tracking-title{
+  margin:0 0 14px;
+  color:#102d46;
+  font-size:16px;
+}
+.tracking-steps{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:6px;
+}
+.tracking-step{
+  text-align:center;
+  font-size:11px;
+  color:#788795;
+  overflow-wrap:anywhere;
+}
+.tracking-dot{
+  width:27px;
+  height:27px;
+  margin:0 auto 7px;
+  border:2px solid #cbd5df;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#fff;
+  font-weight:bold;
+}
+.tracking-step.done .tracking-dot{
+  background:#176b87;
+  border-color:#176b87;
+  color:#fff;
+}
+.tracking-step.current{
+  color:#102d46;
+  font-weight:bold;
+}
+.tracking-step.current .tracking-dot{
+  outline:3px solid #f3bd4e;
+  outline-offset:2px;
+}
+.tracking-current{
+  margin:12px 0 0;
+  padding:9px;
+  background:#edf8fb;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:bold;
+  overflow-wrap:anywhere;
+}
+@media(max-width:380px){
+  .tracking-steps{gap:2px}
+  .tracking-step{font-size:10px}
+  .tracking-dot{width:24px;height:24px}
+}
 <style>
 :root{--navy:#102d46;--blue:#176b87;--gold:#f3bd4e;--text:#243447;--muted:#667788;--border:#e2e8ef}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:16px/1.55 Arial,Helvetica,sans-serif;color:var(--text);background:#f7f9fc}a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1120px,92%);margin:auto}.topbar{background:#0b2033;color:#fff;text-align:center;padding:8px;font-size:13px}header{position:sticky;top:0;z-index:10;background:#fff;box-shadow:0 3px 15px #0001}.navbar{min-height:65px;display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px 0}.brand{font-weight:800;color:var(--navy);font-size:20px}nav{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:14px}.btn{border:0;border-radius:9px;background:var(--blue);color:#fff;padding:10px 14px;font-weight:bold}.btn:hover{background:var(--navy)}.btn:disabled{opacity:.6;cursor:wait}section{padding:38px 0}.hero{background:linear-gradient(125deg,#102d46,#176b87);color:#fff;padding:50px 0}.hero-inner{display:grid;grid-template-columns:1.3fr .7fr;gap:25px;align-items:center}.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.15;margin:12px 0}.hero-art{text-align:center;padding:25px;border-radius:20px;background:#ffffff18;font-size:65px}.hero-art strong{display:block;font-size:20px}.section-head{margin-bottom:18px}.section-head h2{margin:0;color:var(--navy);font-size:28px}.section-head p,.muted{color:var(--muted);margin:5px 0}.search{width:100%;padding:12px;border:1px solid var(--border);border-radius:9px;margin:12px 0 20px;background:white}.category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.category-card,.panel,.account-box,.order-form,.trust-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px}.category-icon{display:grid;place-items:center;height:80px;font-size:42px;background:linear-gradient(135deg,#d8f3ff,#d9fbe5,#fff0cc);border-radius:10px;margin-bottom:10px}.category-card h3{margin:0;color:var(--navy)}.category-card p{font-size:13px;color:var(--muted)}.text-btn{border:0;background:none;color:var(--blue);font-weight:bold;padding:0}.product-section{background:#f0f6fa}.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.product-card{background:#fff;border:1px solid var(--border);border-radius:13px;overflow:hidden;min-width:0}
@@ -421,6 +483,63 @@ function drawAdminProducts(data){const box=$("adminProductsList");box.replaceChi
 $("cancelProductEdit").onclick=()=>{$("adminProductForm").reset();$("editProductId").value="";$("saveProductButton").textContent="Save Product";$("adminProductPreview").classList.add("hidden");$("adminProductPreview").removeAttribute("src");$("adminProductMessage").textContent=""};
 $("adminProductForm").addEventListener("submit",async e=>{e.preventDefault();if(!currentUser||String(currentUser.email||"").toLowerCase()!==ADMIN_EMAIL){$("adminProductMessage").textContent="Only the admin can manage products.";return}const p={n:$("adminProductName").value.trim(),c:$("adminProductCategory").value,p:Number($("adminProductPrice").value),image:$("adminProductImage").value.trim()};if(!p.n||!Number.isFinite(p.p)||p.p<0){$("adminProductMessage").textContent="Enter a valid name and price.";return}const file=$("adminProductFile").files[0],id=$("editProductId").value,btn=$("saveProductButton");if(file&&(!file.type.startsWith("image/")||file.size>5*1024*1024)){$("adminProductMessage").textContent="Choose an image under 5 MB.";return}btn.disabled=true;btn.textContent="Saving...";try{if(file){if(CLOUDINARY_CLOUD_NAME.startsWith("YOUR_")||CLOUDINARY_UPLOAD_PRESET.startsWith("YOUR_")){throw new Error("Cloudinary setup missing. Add your Cloud Name and unsigned Upload Preset in the code, or paste an existing image URL.")}$("adminProductMessage").textContent="Uploading picture...";const formData=new FormData();formData.append("file",file);formData.append("upload_preset",CLOUDINARY_UPLOAD_PRESET);const response=await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,{method:"POST",body:formData});const result=await response.json();if(!response.ok||!result.secure_url)throw new Error(result.error?.message||"Image upload failed. Check Cloudinary setup.");p.image=result.secure_url}if(id)await update(ref(db,"products/"+id),p);else await set(push(ref(db,"products")),p);$("adminProductMessage").textContent=id?"Product updated.":"Product added.";$("cancelProductEdit").click()}catch(e){$("adminProductMessage").textContent="Save failed: "+errText(e)}finally{btn.disabled=false;btn.textContent=$("editProductId").value?"Update Product":"Save Product"}});
 $("importSampleProducts").onclick=async()=>{if(!currentUser||String(currentUser.email||"").toLowerCase()!==ADMIN_EMAIL){$("adminProductMessage").textContent="Admin login required.";return}if(!productsEmpty){$("adminProductMessage").textContent="Import is allowed only if Firebase products is empty.";return}const b=$("importSampleProducts");b.disabled=true;try{for(const p of localProducts)await set(push(ref(db,"products")),{...p});$("adminProductMessage").textContent="Sample products imported. Refresh if needed."}catch(e){$("adminProductMessage").textContent="Import stopped: "+errText(e)+". Check Firebase before retrying."}finally{b.disabled=false}};
+// Smart Dost Store: Order Tracking Timeline
+function buildTracking(status){
+  const stages=[
+    {status:"Pending",label:"Order Received"},
+    {status:"Approved",label:"Confirmed"},
+    {status:"Shipped",label:"Shipped"},
+    {status:"Delivered",label:"Delivered"}
+  ];
+
+  const currentIndex=stages.findIndex(
+    stage=>stage.status===status
+  );
+
+  const box=document.createElement("div");
+  box.className="tracking-box";
+
+  const title=document.createElement("h4");
+  title.className="tracking-title";
+  title.textContent="📦 Order Tracking";
+  box.append(title);
+
+  const steps=document.createElement("div");
+  steps.className="tracking-steps";
+
+  stages.forEach((stage,index)=>{
+    const item=document.createElement("div");
+    item.className="tracking-step";
+
+    if(currentIndex>=index){
+      item.classList.add("done");
+    }
+    if(currentIndex===index){
+      item.classList.add("current");
+    }
+
+    const dot=document.createElement("div");
+    dot.className="tracking-dot";
+    dot.textContent=currentIndex>=index?"✓":String(index+1);
+
+    const label=document.createElement("div");
+    label.textContent=stage.label;
+
+    item.append(dot,label);
+    steps.append(item);
+  });
+
+  const current=document.createElement("p");
+  current.className="tracking-current";
+
+  const currentStage=stages[currentIndex];
+  current.textContent=currentStage
+    ? "Current Status: "+currentStage.label
+    : "Current Status: "+(status||"Pending");
+
+  box.append(steps,current);
+  return box;
+}
 onAuthStateChanged(auth,user=>{currentUser=user;const logged=!!user,isAdmin=logged&&String(user.email||"").toLowerCase()===ADMIN_EMAIL;$("logoutButton").classList.toggle("hidden",!logged);$("signupForm").classList.toggle("hidden",logged);$("loginForm").classList.toggle("hidden",logged);$("adminPanel").classList.toggle("hidden",!isAdmin);$("customerEmailField").value=user?.email||"";if(ordersStop){ordersStop();ordersStop=null}if(adminOrdersStop){adminOrdersStop();adminOrdersStop=null}
 if(logged){$("accountMessage").textContent="Logged in as "+user.email;$("ordersMessage").textContent="Loading your orders...";ordersStop=onValue(ref(db,"orders/"+user.uid),snap=>{const box=$("ordersList");box.replaceChildren();if(!snap.exists()){$("ordersMessage").textContent="You have not placed any orders yet.";return}$("ordersMessage").textContent="Your order history:";Object.entries(snap.val()).reverse().forEach(([id,o])=>{const c=document.createElement("article");c.className="order-history-item";const h=document.createElement("h3");h.textContent=o.productDetails||o.product||"Order";const s=document.createElement("p");s.className="status";s.textContent="Status: "+(o.status||"Pending");const p=document.createElement("p");p.textContent=`Qty: ${o.quantity||1} | Payment: ${o.paymentMethod||""} | ${o.createdAt?new Date(o.createdAt).toLocaleString():""}`;const a=document.createElement("p");a.textContent="Delivery address: "+(o.deliveryAddress||"");c.append(h,s,p,a);box.append(c)})},e=>{$("ordersMessage").textContent="Could not load orders: "+errText(e)});if(isAdmin){$("adminMessage").textContent="Loading orders...";adminOrdersStop=onValue(ref(db,"orders"),s=>drawOrders(s.val()),e=>{$("adminMessage").textContent="Could not load orders: "+errText(e)})}}
 else{$("accountMessage").textContent="Create an account or log in to place an order.";$("ordersMessage").textContent="Please log in to view your orders.";$("ordersList").replaceChildren()}
