@@ -174,7 +174,7 @@ function productCard(p,mode="product"){
   const fav=document.createElement("button");fav.className="btn";fav.style.background=wishlist.some(x=>x.n===p.n&&x.c===p.c)?"#b83250":"#176b87";fav.textContent=wishlist.some(x=>x.n===p.n&&x.c===p.c)?"❤️ Saved":"♡ Add to Wishlist";fav.onclick=()=>{const yes=wishlist.some(x=>x.n===p.n&&x.c===p.c);wishlist=yes?wishlist.filter(x=>!(x.n===p.n&&x.c===p.c)):[...wishlist,{n:p.n,c:p.c}];saveWishlist();renderProducts();renderWishlist()};info.append(fav);
   const add=document.createElement("button");add.className="btn";add.textContent="Add to Cart";add.onclick=()=>addCart({...p,p:Math.round(Number(p.p||0)*0.90)});info.append(add);
  }
- const order=document.createElement("button");order.className="btn";order.textContent="Order Now";order.onclick=()=>{categorySelect.value=p.c;detailsInput.value=p.n+" - Original price Rs. "+p.p+" - 10% OFF - Discounted price Rs. "+Math.round(Number(p.p||0)*0.90);updateOrderPreview();$("order").scrollIntoView({behavior:"smooth"})};info.append(order);
+ const order=document.createElement("button");order.className="btn";order.textContent="Order Now";order.onclick=()=>{categorySelect.value=p.c;detailsInput.value=p.n+" - Original price Rs. "+p.p+" - 10% OFF - Discounted price Rs. "+Math.round(Number(p.p||0)*0.90);updateOrderPreview();$("orderPriceSummary").style.display="block";$("order").scrollIntoView({behavior:"smooth"})};info.append(order);
  if(mode==="wishlist"){const rm=document.createElement("button");rm.className="btn";rm.style.background="#a83246";rm.textContent="Remove";rm.onclick=()=>{wishlist=wishlist.filter(x=>!(x.n===p.n&&x.c===p.c));saveWishlist();renderProducts();renderWishlist()};info.append(rm)}
  card.append(info);return card;
 }
@@ -192,29 +192,30 @@ function areaDeliveryCharge(area=$("deliveryArea")?.value||""){
 }
 function updateOrderPreview(){
  const details=String($("details")?.value||"");
- const quantity=Math.max(1,Number($("quantity")?.value)||1);
+ const quantity=Math.max(1,Math.min(100,Number($("quantity")?.value)||1));
  let subtotal=0,discount=0;
  if(cart.length){subtotal=cartSubtotal();discount=couponDiscount(subtotal)}
  else{
   const discounted=details.match(/Discounted price\s*Rs\.?\s*([\d,]+)/i);
   const original=details.match(/Original price\s*Rs\.?\s*([\d,]+)/i);
-  const generic=details.match(/price\s*Rs\.?\s*([\d,]+)/i);
+  const generic=details.match(/(?:price|Rs\.?)\s*([\d,]+)/i);
   if(discounted){
-   const discountedPrice=Number(discounted[1].replace(/,/g,""));
-   const originalPrice=original?Number(original[1].replace(/,/g,"")):discountedPrice;
+   const salePrice=Number(discounted[1].replace(/,/g,""));
+   const originalPrice=original?Number(original[1].replace(/,/g,"")):Math.round(salePrice/0.9);
    subtotal=originalPrice*quantity;
-   discount=Math.max(0,(originalPrice-discountedPrice)*quantity);
-  } else if(generic) subtotal=Number(generic[1].replace(/,/g,""))*quantity;
+   discount=Math.max(0,(originalPrice-salePrice)*quantity);
+  }else if(generic){subtotal=Number(generic[1].replace(/,/g,""))*quantity;}
  }
  const area=String($("deliveryArea")?.value||"").trim();
  const fee=area?areaDeliveryCharge(area):0;
- const discountedTotal=Math.max(0,subtotal-discount);
- const total=discountedTotal+fee;
- const show=(id,value)=>{const el=$(id);if(el){el.textContent="Rs. "+Number(value).toLocaleString("en-US");el.style.display="inline-block";el.style.visibility="visible";}};
+ const total=Math.max(0,subtotal-discount)+fee;
+ const show=(id,value)=>{const el=$(id);if(el){el.textContent="Rs. "+Math.round(Number(value)||0).toLocaleString("en-US");el.style.display="inline-block";el.style.visibility="visible";}};
  show("previewDelivery",fee);show("previewSubtotal",subtotal);show("previewDiscount",discount);show("previewTotal",total);
- const summary=$("orderPriceSummary");if(summary){summary.style.display="block";summary.style.visibility="visible";}
- const hint=summary?.querySelector(".small"); if(hint) hint.textContent=!details.trim()&&!cart.length?"Tap Order Now on a product or add products to your cart. Enter your city/area to calculate the total.":(!area?"Enter your city/area to calculate delivery charges.":(subtotal<=0?"Choose a product using Order Now or add it to your cart.":"Total includes product price, discount and delivery charges."));
+ const summary=$("orderPriceSummary");if(summary){summary.style.display="block";summary.style.visibility="visible";summary.hidden=false;}
+ const hint=summary?.querySelector(".small");
+ if(hint)hint.textContent=!details.trim()&&!cart.length?"Tap Order Now on a product (no Add to Cart required), then enter your city/area.":(!area?"Enter your city/area to calculate delivery charges and final total.":(subtotal<=0?"Tap Order Now on a product so its price can be calculated.":"Check the price, discount, delivery and total below before submitting your order."));
 }
+
 function deliveryCharge(){return cart.length?areaDeliveryCharge():areaDeliveryCharge()}
 function couponDiscount(subtotal=cartSubtotal()){return appliedCoupon&&COUPONS[appliedCoupon]?Math.round(subtotal*COUPONS[appliedCoupon]/100):0}
 function syncCouponForm(){const subtotal=cartSubtotal(),discount=couponDiscount(subtotal),fee=deliveryCharge(),finalTotal=Math.max(0,subtotal-discount)+fee;$("couponFormCode").value=appliedCoupon;$("couponFormDiscount").value=String(discount);$("couponFormSubtotal").value=String(subtotal);$("couponFormFinalTotal").value=String(finalTotal);$("deliveryChargeField").value=String(fee);$("deliveryAreaField").value=$("deliveryArea")?.value.trim()||""}
