@@ -214,11 +214,7 @@ function updateOrderPreview(){
  show("previewDelivery",fee);show("previewSubtotal",subtotal);show("previewDiscount",discount);show("previewTotal",total);
  const summary=$("orderPriceSummary");if(summary){summary.style.display="block";summary.style.visibility="visible";}
  const hint=summary?.querySelector(".small"); if(hint) hint.textContent=!details.trim()&&!cart.length?"Tap Order Now on a product or add products to your cart. Enter your city/area to calculate the total.":(!area?"Enter your city/area to calculate delivery charges.":(subtotal<=0?"Choose a product using Order Now or add it to your cart.":"Total includes product price, discount and delivery charges."));
-const finalTotal =
-  Math.max(0, subtotal - discount) + fee;
-
-$("previewTotal").textContent =
-  "Rs. " + Math.round(finalTotal).toLocaleString("en-PK");
+$("previewTotal").textContent = money(total);
 }
 function deliveryCharge(){return cart.length?areaDeliveryCharge():areaDeliveryCharge()}
 function couponDiscount(subtotal=cartSubtotal()){return appliedCoupon&&COUPONS[appliedCoupon]?Math.round(subtotal*COUPONS[appliedCoupon]/100):0}
