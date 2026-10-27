@@ -541,7 +541,27 @@ function buildTracking(status){
   return box;
 }
 onAuthStateChanged(auth,user=>{currentUser=user;const logged=!!user,isAdmin=logged&&String(user.email||"").toLowerCase()===ADMIN_EMAIL;$("logoutButton").classList.toggle("hidden",!logged);$("signupForm").classList.toggle("hidden",logged);$("loginForm").classList.toggle("hidden",logged);$("adminPanel").classList.toggle("hidden",!isAdmin);$("customerEmailField").value=user?.email||"";if(ordersStop){ordersStop();ordersStop=null}if(adminOrdersStop){adminOrdersStop();adminOrdersStop=null}
-if(logged){$("accountMessage").textContent="Logged in as "+user.email;$("ordersMessage").textContent="Loading your orders...";ordersStop=onValue(ref(db,"orders/"+user.uid),snap=>{const box=$("ordersList");box.replaceChildren();if(!snap.exists()){$("ordersMessage").textContent="You have not placed any orders yet.";return}$("ordersMessage").textContent="Your order history:";Object.entries(snap.val()).reverse().forEach(([id,o])=>{const c=document.createElement("article");c.className="order-history-item";const h=document.createElement("h3");h.textContent=o.productDetails||o.product||"Order";const s=document.createElement("p");s.className="status";s.textContent="Status: "+(o.status||"Pending");const p=document.createElement("p");p.textContent=`Qty: ${o.quantity||1} | Payment: ${o.paymentMethod||""} | ${o.createdAt?new Date(o.createdAt).toLocaleString():""}`;const a=document.createElement("p");a.textContent="Delivery address: "+(o.deliveryAddress||"");c.append(h,s,p,a);box.append(c)})},e=>{$("ordersMessage").textContent="Could not load orders: "+errText(e)});if(isAdmin){$("adminMessage").textContent="Loading orders...";adminOrdersStop=onValue(ref(db,"orders"),s=>drawOrders(s.val()),e=>{$("adminMessage").textContent="Could not load orders: "+errText(e)})}}
+if(logged){$("accountMessage").textContent="Logged in as "+user.email;$("ordersMessage").textContent="Loading your orders...";ordersStop=onValue(ref(db,"orders/"+user.uid),snap=>{const box=$("ordersList");box.replaceChildren();if(!snap.exists()){$("ordersMessage").textContent="You have not placed any orders yet.";return}$("ordersMessage").textContent="Your order history:";Object.entries(snap.val()).reverse().forEach(([id,o])=>{const const h=document.createElement("h3");
+h.textContent=o.productDetails||o.product||"Order";
+
+const orderId=document.createElement("p");
+orderId.className="small";
+orderId.textContent="Order ID: "+id.slice(-6).toUpperCase();
+
+const s=document.createElement("p");
+s.className="status";
+s.textContent="Status: "+(o.status||"Pending");
+
+const p=document.createElement("p");
+p.textContent=`Qty: ${o.quantity||1} | Payment: ${o.paymentMethod||""} | ${o.createdAt?new Date(o.createdAt).toLocaleString():""}`;
+
+const a=document.createElement("p");
+a.textContent="Delivery address: "+(o.deliveryAddress||"");
+
+const tracking=buildTracking(o.status||"Pending");
+
+c.append(h,orderId,s,p,a,tracking);
+box.append(c);})},e=>{$("ordersMessage").textContent="Could not load orders: "+errText(e)});if(isAdmin){$("adminMessage").textContent="Loading orders...";adminOrdersStop=onValue(ref(db,"orders"),s=>drawOrders(s.val()),e=>{$("adminMessage").textContent="Could not load orders: "+errText(e)})}}
 else{$("accountMessage").textContent="Create an account or log in to place an order.";$("ordersMessage").textContent="Please log in to view your orders.";$("ordersList").replaceChildren()}
 });
 productsStop=onValue(ref(db,"products"),snap=>{const data=snap.val()||{};productsEmpty=Object.keys(data).length===0;if(!productsEmpty){products=Object.entries(data).map(([id,p])=>({...p,id}));renderProducts();renderWishlist()}else{products=[...localProducts];renderProducts();renderWishlist()}drawAdminProducts(data)},e=>{$("adminProductMessage").textContent="Could not load Firebase products: "+errText(e);products=[...localProducts];renderProducts();renderWishlist()});
