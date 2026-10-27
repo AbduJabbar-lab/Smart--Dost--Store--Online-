@@ -397,7 +397,6 @@ function updateDeliverySummary() {
   }
 }
 
-}
 
 function errText(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-email":"Please enter a valid email address.","auth/weak-password":"Password must be at least 6 characters.","auth/invalid-credential":"Email or password is incorrect.","auth/network-request-failed":"Network error. Check your internet."};return m[e.code]||e.message||"Something went wrong."}
 $("signupForm").addEventListener("submit",async e=>{e.preventDefault();$("accountMessage").textContent="Creating account...";try{await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);$("accountMessage").textContent="Account created successfully.";$("signupForm").reset()}catch(x){$("accountMessage").textContent=errText(x)}});
