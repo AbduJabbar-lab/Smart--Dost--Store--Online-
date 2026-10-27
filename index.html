@@ -312,7 +312,9 @@ $("orderForm").addEventListener("submit",async e=>{e.preventDefault();$("orderMe
   function apply(lang){
     const d=langs[lang]||langs.en; document.documentElement.lang=lang;
     const exact={Home:d.home,'Place an Order':d.order,'My Orders':d.myOrders,'Admin Panel':d.admin,'🛒 Shopping Cart': '🛒 '+d.cart};
-    document.querySelectorAll('a,button,h1,h2,h3').forEach(el=>{if(el.querySelector("#previewTotal")) return;const original=el.dataset.langOriginal||el.textContent.trim(); if(!el.dataset.langOriginal)el.dataset.langOriginal=original; if(lang==='en')el.textContent=el.dataset.langOriginal; else if(exact[el.dataset.langOriginal])el.textContent=exact[el.dataset.langOriginal];});
+  document.querySelectorAll('a,button,h1,h2,h3').forEach(el=>{
+if(el.querySelector("#previewTotal")) return;
+const original=el.dataset.langOriginal||el.textContent.trim(); if(!el.dataset.langOriginal)el.dataset.langOriginal=original; if(lang==='en')el.textContent=el.dataset.langOriginal; else if(exact[el.dataset.langOriginal])el.textContent=exact[el.dataset.langOriginal];});
     const search=document.querySelector('input[type="search"]'); if(search){if(!search.dataset.langPlaceholder)search.dataset.langPlaceholder=search.placeholder;search.placeholder=lang==='en'?search.dataset.langPlaceholder:d.search;}
   }
   select.value=localStorage.getItem('smartDostLanguage')||'en'; apply(select.value);
