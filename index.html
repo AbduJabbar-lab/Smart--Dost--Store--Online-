@@ -51,12 +51,30 @@
 <article class="category-card" data-search="other products general"><div class="category-icon">✨</div><h3>Other Products</h3><p>Other useful items.</p><button class="text-btn choose-category" data-category="Other Products">View products →</button></article>
 </div><p id="categoryEmpty" class="empty">No matching categories found.</p></div></section>
 <section id="cart" style="padding:28px 0;background:#fff"><div class="container"><h2>🛒 Shopping Cart</h2><p id="cartMessage">Your cart is empty.</p><div id="cartItems"></div><h3 id="cartTotal">Subtotal: Rs. 0</h3><p id="cartDeliveryCharge">Delivery Charges: Rs. 0</p>
-<div class="coupon-box">
-<label for="couponCode">🎟️ Discount Coupon</label>
-<div class="coupon-row"><input id="couponCode" type="text" placeholder="Enter coupon code" autocomplete="off" aria-label="Discount coupon code"><button type="button" class="btn" id="applyCoupon">Apply Coupon</button><button type="button" class="btn hidden" id="removeCoupon" style="background:#667788">Remove</button></div>
-<p id="couponMessage" class="coupon-summary" role="status" aria-live="polite">Try WELCOME10 for 10% off.</p>
-<p id="couponDiscount" class="coupon-summary">Discount: Rs. 0</p><h3 id="couponFinalTotal">Final Total: Rs. 0</h3>
-<p class="small">One coupon per order. Discount applies to products only. Delivery charges are added after discount.</p>
+
+<div class="coupon-box" id="orderPriceSummary" style="margin-top:16px;display:block;visibility:visible">
+  <h3 style="margin-top:0">Order Price Summary</h3>
+
+  <p>Delivery Charges
+    <strong id="previewDelivery" style="float:right">Rs. 0</strong>
+  </p>
+  <p>Products Subtotal
+    <strong id="previewSubtotal" style="float:right">Rs. 0</strong>
+  </p>
+  <p>Coupon Discount
+    <strong id="previewDiscount" style="float:right">Rs. 0</strong>
+  </p>
+
+  <hr>
+
+  <div style="display:flex!important;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;font-size:20px;font-weight:800;color:#102d46">
+    <span>Total to Pay</span>
+    <strong id="previewTotal" aria-live="polite" style="display:inline-block!important;visibility:visible!important;color:#087443">Rs. 0</strong>
+  </div>
+
+  <p class="small">Final total includes the product price after discount and delivery charges.</p>
+</div>
+
 </div>
 <button type="button" class="btn" id="clearCart">Clear Cart</button> <button type="button" class="btn" id="cartCheckout">Proceed to Order</button></div></section>
 <section id="wishlist" class="product-section"><div class="container"><div class="section-head"><h2>💖 My Wishlist</h2><p>Your favourite products, saved for later.</p></div><div id="wishlistGrid" class="product-grid"></div><p id="wishlistEmpty" class="empty">Your wishlist is empty. Tap the wishlist button on a product to save it.</p></div></section>
@@ -190,35 +208,62 @@ function areaDeliveryCharge(area=$("deliveryArea")?.value||""){
  if(place.includes("mirpur")||place.includes("ubauro")) return 169;
  return 250;
 }
-function updateOrderPreview(){
- const details=String($("details")?.value||"");
- const quantity=Math.max(1,Math.min(100,Number($("quantity")?.value)||1));
- let subtotal=0,discount=0;
- if(cart.length){subtotal=cartSubtotal();discount=couponDiscount(subtotal)}
- else{
-  const discounted=details.match(/Discounted price\s*Rs\.?\s*([\d,]+)/i);
-  const original=details.match(/Original price\s*Rs\.?\s*([\d,]+)/i);
-  const generic=details.match(/(?:price|Rs\.?)\s*([\d,]+)/i);
-  if(discounted){
-   const salePrice=Number(discounted[1].replace(/,/g,""));
-   const originalPrice=original?Number(original[1].replace(/,/g,"")):Math.round(salePrice/0.9);
-   subtotal=originalPrice*quantity;
-   discount=Math.max(0,(originalPrice-salePrice)*quantity);
-  }else if(generic){subtotal=Number(generic[1].replace(/,/g,""))*quantity;}
- }
- const area=String($("deliveryArea")?.value||"").trim();
- const fee=area?areaDeliveryCharge(area):0;
- // Calculate final total from the discounted product amount plus delivery.
- const discountedSubtotal=Math.max(0,subtotal-discount);
- const total=discountedSubtotal+fee;
- const show=(id,value)=>{const el=$(id);if(el){el.textContent="Rs. "+Math.round(Number(value)||0).toLocaleString("en-US");el.style.display="inline-block";el.style.visibility="visible";el.hidden=false;}};
- show("previewDelivery",fee);show("previewSubtotal",subtotal);show("previewDiscount",discount);show("previewTotal",total);
- const totalRow=$("previewTotal");if(totalRow){totalRow.setAttribute("aria-live","polite");totalRow.style.fontWeight="800";}
 
- const summary=$("orderPriceSummary");if(summary){summary.style.display="block";summary.style.visibility="visible";summary.hidden=false;}
- const hint=summary?.querySelector(".small");
- if(hint)hint.textContent=!details.trim()&&!cart.length?"Tap Order Now on a product (no Add to Cart required), then enter your city/area.":(!area?"Enter your city/area to calculate delivery charges and final total.":(subtotal<=0?"Tap Order Now on a product so its price can be calculated.":"Check the price, discount, delivery and total below before submitting your order."));
+function updateOrderPreview(){
+  const details = String($("details")?.value || "");
+  const quantity = Math.max(1, Math.min(100, Number($("quantity")?.value) || 1));
+
+  let subtotal = 0;
+  let discount = 0;
+
+  if (cart.length) {
+    subtotal = cartSubtotal();
+    discount = couponDiscount(subtotal);
+  } else {
+    const discounted = details.match(/Discounted price\s*Rs\.?\s*([\d,]+)/i);
+    const original = details.match(/Original price\s*Rs\.?\s*([\d,]+)/i);
+
+    if (discounted) {
+      const salePrice = Number(discounted[1].replace(/,/g, ""));
+      const originalPrice = original
+        ? Number(original[1].replace(/,/g, ""))
+        : salePrice;
+
+      subtotal = originalPrice * quantity;
+      discount = Math.max(0, (originalPrice - salePrice) * quantity);
+    }
+  }
+
+  const area = String($("deliveryArea")?.value || "").trim();
+  const fee = area ? areaDeliveryCharge(area) : 0;
+  const total = Math.max(0, subtotal - discount) + fee;
+
+  const money = value =>
+    "Rs. " + Math.round(Number(value) || 0).toLocaleString("en-PK");
+
+  $("previewDelivery").textContent = money(fee);
+  $("previewSubtotal").textContent = money(subtotal);
+  $("previewDiscount").textContent = money(discount);
+  $("previewTotal").textContent = money(total);
+
+  $("orderPriceSummary").style.display = "block";
+  $("orderPriceSummary").style.visibility = "visible";
+  $("orderPriceSummary").hidden = false;
+
+  $("deliveryChargeField").value = String(fee);
+  $("deliveryAreaField").value = area;
+  $("couponFormSubtotal").value = String(subtotal);
+  $("couponFormDiscount").value = String(discount);
+  $("couponFormFinalTotal").value = String(total);
+
+  const hint = $("orderPriceSummary").querySelector(".small");
+  if (hint) {
+    hint.textContent = !area
+      ? "Enter your city/area to calculate delivery charges and final total."
+      : "Check the product subtotal, discount, delivery charges and final total before submitting.";
+  }
 }
+
 
 function deliveryCharge(){return cart.length?areaDeliveryCharge():areaDeliveryCharge()}
 function couponDiscount(subtotal=cartSubtotal()){return appliedCoupon&&COUPONS[appliedCoupon]?Math.round(subtotal*COUPONS[appliedCoupon]/100):0}
