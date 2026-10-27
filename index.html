@@ -28,6 +28,45 @@
 @media(max-width:380px){.tracking-steps{gap:2px}.tracking-step{font-size:10px}.tracking-dot{width:24px;height:24px}}
 </style>
 </head>
+
+<section id="returnProductSection" class="panel" style="margin:20px 0;padding:20px;border:2px solid #d6e3ef;border-radius:14px;">
+  <h2>Return Product / پروڈکٹ واپس کریں</h2>
+  <p>اگر آپ پروڈکٹ واپس کرنا چاہتے ہیں تو نیچے فارم پُر کریں۔</p>
+
+  <form id="returnProductForm">
+    <label for="returnOrderId">Order ID / آرڈر نمبر</label>
+    <input id="returnOrderId" name="returnOrderId" type="text"
+      placeholder="Enter your order ID" required
+      style="display:block;width:100%;padding:12px;margin:8px 0 14px;">
+
+    <label for="returnProductName">Product Name / پروڈکٹ کا نام</label>
+    <input id="returnProductName" name="returnProductName" type="text"
+      placeholder="Enter product name" required
+      style="display:block;width:100%;padding:12px;margin:8px 0 14px;">
+
+    <label for="returnReason">Return Reason / واپسی کی وجہ</label>
+    <select id="returnReason" name="returnReason" required
+      style="display:block;width:100%;padding:12px;margin:8px 0 14px;">
+      <option value="">Select a reason</option>
+      <option>Product damaged</option>
+      <option>Wrong product received</option>
+      <option>Product not working</option>
+      <option>Product different from description</option>
+      <option>Missing parts or accessories</option>
+      <option>Other reason</option>
+    </select>
+
+    <label for="returnDetails">Additional Details / مزید تفصیل</label>
+    <textarea id="returnDetails" name="returnDetails"
+      placeholder="Explain the return reason"
+      rows="4" maxlength="1000" required
+      style="display:block;width:100%;padding:12px;margin:8px 0 14px;"></textarea>
+
+    <button type="submit" class="btn">Submit Return Request</button>
+    <p id="returnMessage" role="status"></p>
+  </form>
+</section>
+
 <body>
 <div class="topbar">Welcome to Smart Dost Store Online — Shop smart, live better!</div>
 <header><div class="container navbar"><a class="brand" href="#home">🛍️ Smart Dost Store</a><nav>
