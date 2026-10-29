@@ -278,15 +278,24 @@ function updateOrderPreview(){
 show("previewSubtotal", subtotal);
 show("previewDiscount", discount);
 
-const totalElement = document.getElementById("previewTotal");
-const correctTotal = Math.max(0, subtotal - discount) + fee;
+const correctTotal =
+  Math.max(0, Number(subtotal) - Number(discount)) + Number(fee);
 
-if (totalElement) {
-  totalElement.textContent =
-    "Rs. " + Math.round(correctTotal).toLocaleString("en-PK");
-  totalElement.style.display = "inline-block";
-  totalElement.style.visibility = "visible";
-}
+const formattedTotal =
+  "Rs. " + Math.round(correctTotal).toLocaleString("en-PK");
+
+document.querySelectorAll('[id="previewTotal"]').forEach(el => {
+  el.textContent = formattedTotal;
+  el.style.display = "inline-block";
+  el.style.visibility = "visible";
+});
+
+console.log("Total calculation:", {
+  subtotal,
+  discount,
+  delivery: fee,
+  total: correctTotal
+});
  const summary=$("orderPriceSummary");if(summary){summary.style.display="block";summary.style.visibility="visible";}
  const hint=summary?.querySelector(".small");
  if(hint)hint.textContent=!details.trim()&&!cart.length?"Tap Order Now on a product or add products to your cart.":!area?"Enter your city/area to calculate delivery charges.":subtotal<=0?"Choose a product using Order Now or add it to your cart.":"Total includes the product price, discount and delivery charges.";
