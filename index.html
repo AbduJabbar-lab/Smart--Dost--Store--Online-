@@ -250,55 +250,54 @@ function areaDeliveryCharge(area=$("deliveryArea")?.value||""){
 }
 function updateOrderPreview(){
  const details=String($("details")?.value||"");
- const quantity=Math.max(1,Number($("quantity")?.value)||1);
+ const quantity=Math.min(100,Math.max(1,Number($("quantity")?.value)||1));
  const area=String($("deliveryArea")?.value||"").trim();
  let subtotal=0,discount=0;
- const isCartCheckout=/Cart subtotal\s*:/i.test(details);
- const discounted=details.match(/Discounted price\s*Rs\.?\s*([\d,]+)/i);
- const original=details.match(/Original price\s*Rs\.?\s*([\d,]+)/i);
- const generic=details.match(/(?:^|\n)\s*(?:Product price|Price)\s*:?\s*Rs\.?\s*([\d,]+)/i);
+ const isCartCheckout=/Cart\s+subtotal\s*:/i.test(details);
+ const discounted=details.match(/Discounted\s+price\s*Rs\.?\s*([\d,]+)/i);
+ const original=details.match(/Original\s+price\s*Rs\.?\s*([\d,]+)/i);
+ const generic=details.match(/(?:^|\s)(?:Product\s+price|Price)\s*:?\s*Rs\.?\s*([\d,]+)/i);
+ const numberFromMatch=m=>m?Number(m[1].replace(/,/g,"")):0;
  if(isCartCheckout){
    subtotal=cartSubtotal();
    discount=couponDiscount(subtotal);
- } else if(discounted){
-   const salePrice=Number(discounted[1].replace(/,/g,""));
-   const originalPrice=original?Number(original[1].replace(/,/g,"")):salePrice;
+ }else if(discounted){
+   const salePrice=numberFromMatch(discounted);
+   const originalPrice=original?numberFromMatch(original):salePrice;
    subtotal=originalPrice*quantity;
    discount=Math.max(0,(originalPrice-salePrice)*quantity);
- } else if(generic){
-   subtotal=Number(generic[1].replace(/,/g,""))*quantity;
- } else if(cart.length){
+ }else if(generic){
+   subtotal=numberFromMatch(generic)*quantity;
+ }else if(cart.length){
    subtotal=cartSubtotal();
    discount=couponDiscount(subtotal);
  }
  const fee=area?areaDeliveryCharge(area):0;
- const total=Math.max(0,subtotal-discount)+fee;
- const show=(id,value)=>{const el=$(id);if(el){el.textContent="Rs. "+Math.round(Number(value)||0).toLocaleString("en-PK");el.style.display="inline-block";el.style.visibility="visible";}};
- show("previewDelivery", fee);
-show("previewSubtotal", subtotal);
-show("previewDiscount", discount);
-
-const correctTotal =
-  Math.max(0, Number(subtotal) - Number(discount)) + Number(fee);
-
-const formattedTotal =
-  "Rs. " + Math.round(correctTotal).toLocaleString("en-PK");
-
-document.querySelectorAll('[id="previewTotal"]').forEach(el => {
-  el.textContent = formattedTotal;
-  el.style.display = "inline-block";
-  el.style.visibility = "visible";
-});
-
-console.log("Total calculation:", {
-  subtotal,
-  discount,
-  delivery: fee,
-  total: correctTotal
-});
- const summary=$("orderPriceSummary");if(summary){summary.style.display="block";summary.style.visibility="visible";}
+ const productsTotal=Math.max(0,subtotal-discount);
+ const total=productsTotal+fee;
+ const format=value=>"Rs. "+Math.round(Number(value)||0).toLocaleString("en-PK");
+ const setText=(id,value)=>{const el=$(id);if(el){el.textContent=format(value);el.style.display="inline-block";el.style.visibility="visible";}};
+ setText("previewDelivery",fee);
+ setText("previewSubtotal",subtotal);
+ setText("previewDiscount",discount);
+ const totalEl=$("previewTotal");
+ if(totalEl){totalEl.textContent=format(total);totalEl.style.display="inline-block";totalEl.style.visibility="visible";}
+ const summary=$("orderPriceSummary");
+ if(summary){summary.style.display="block";summary.style.visibility="visible";}
  const hint=summary?.querySelector(".small");
- if(hint)hint.textContent=!details.trim()&&!cart.length?"Tap Order Now on a product or add products to your cart.":!area?"Enter your city/area to calculate delivery charges.":subtotal<=0?"Choose a product using Order Now or add it to your cart.":"Total includes the product price, discount and delivery charges.";
+ if(hint){
+   if(!details.trim()&&!cart.length) hint.textContent="Tap Order Now on a product or add products to your cart.";
+   else if(!area) hint.textContent="Enter your city/area to calculate delivery charges.";
+   else if(subtotal<=0) hint.textContent="Choose a product using Order Now or add it to your cart.";
+   else hint.textContent="Products after discount: "+format(productsTotal)+" + delivery: "+format(fee)+" = Total to pay: "+format(total)+".";
+ }
+ // Keep hidden order summary fields aligned with the displayed amount.
+ $("couponFormCode").value=appliedCoupon;
+ $("couponFormDiscount").value=String(Math.round(discount));
+ $("couponFormSubtotal").value=String(Math.round(subtotal));
+ $("couponFormFinalTotal").value=String(Math.round(total));
+ $("deliveryChargeField").value=String(Math.round(fee));
+ $("deliveryAreaField").value=area;
 }
 function deliveryCharge(){return cart.length?areaDeliveryCharge():areaDeliveryCharge()}
 function couponDiscount(subtotal=cartSubtotal()){return appliedCoupon&&COUPONS[appliedCoupon]?Math.round(subtotal*COUPONS[appliedCoupon]/100):0}
@@ -372,9 +371,9 @@ else{$("accountMessage").textContent="Create an account or log in to place an or
 });
 productsStop=onValue(ref(db,"products"),snap=>{const data=snap.val()||{};productsEmpty=Object.keys(data).length===0;if(!productsEmpty){products=Object.entries(data).map(([id,p])=>({...p,id}));renderProducts();renderWishlist()}else{products=[...localProducts];renderProducts();renderWishlist()}drawAdminProducts(data)},e=>{$("adminProductMessage").textContent="Could not load Firebase products: "+errText(e);products=[...localProducts];renderProducts();renderWishlist()});
 $("orderForm").addEventListener("submit",async e=>{e.preventDefault();$("orderMessage").textContent="";const user=auth.currentUser;if(!user){$("orderMessage").textContent="Please log in before submitting an order."; $("account").scrollIntoView({behavior:"smooth"});return}const v=id=>$(id).value.trim(),quantity=Number(v("quantity"));if(!Number.isInteger(quantity)||quantity<1||quantity>100){$("orderMessage").textContent="Quantity must be between 1 and 100.";return}const detailText=v("details");if(!v("deliveryArea")){ $("orderMessage").textContent="Please enter your city or area.";return}let subtotal=0,discount=0,fee=0,grandTotal=0;
-const isCartCheckout=/Cart subtotal\s*:/i.test(detailText);
-const discountedMatch=detailText.match(/Discounted price\s*Rs\.?\s*([\d,]+)/i);
-const originalMatch=detailText.match(/Original price\s*Rs\.?\s*([\d,]+)/i);
+const isCartCheckout=/Cart\s+subtotal\s*:/i.test(detailText);
+const discountedMatch=detailText.match(/Discounted\s+price\s*Rs\.?\s*([\d,]+)/i);
+const originalMatch=detailText.match(/Original\s+price\s*Rs\.?\s*([\d,]+)/i);
 const genericMatch=detailText.match(/(?:^|\n)\s*(?:Product price|Price)\s*:?\s*Rs\.?\s*([\d,]+)/i);
 if(isCartCheckout){subtotal=cartSubtotal();discount=couponDiscount(subtotal);}
 else if(discountedMatch){const discountedPrice=Number(discountedMatch[1].replace(/,/g,""));const originalPrice=originalMatch?Number(originalMatch[1].replace(/,/g,"")):discountedPrice;subtotal=originalPrice*quantity;discount=Math.max(0,(originalPrice-discountedPrice)*quantity);}
